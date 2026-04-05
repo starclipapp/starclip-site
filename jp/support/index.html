@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サポート - STARCLIP</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Hiragino Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0d0520;
+            color: rgba(255,255,255,0.85);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        .container { max-width: 680px; margin: 0 auto; padding: 48px 24px; }
+        h1 { font-size: 28px; margin-bottom: 8px; color: #fff; }
+        .subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 36px; }
+        h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; color: #ffd700; }
+        p { margin-bottom: 16px; font-size: 15px; }
+        a { color: #ffd700; }
+        .contact-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+        .contact-box p { margin-bottom: 8px; }
+        .back { display: inline-block; margin-top: 32px; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; }
+        .back:hover { color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>サポート</h1>
+        <p class="subtitle">STARCLIP — あの歓声を、星で記録。</p>
+
+        <h2>よくある質問</h2>
+
+        <p><strong>Q: カメラのプレビューが真っ黒です。</strong><br>
+        A: 設定 > STARCLIP > カメラ でカメラの権限が許可されているか確認してください。改善しない場合はアプリを再起動してください。</p>
+
+        <p><strong>Q: ハイライト機能の使い方は？</strong><br>
+        A: ビデオモードに切り替えて録画を開始し、記録したい瞬間に星ボタンをタップしてください。録画を停止すると、YouTubeチャプター形式のタイムスタンプが自動的にクリップボードにコピーされます。</p>
+
+        <p><strong>Q: 撮影した写真やビデオはどこに保存されますか？</strong><br>
+        A: すべての写真とビデオはデバイスの写真ライブラリに直接保存されます。設定で写真ライブラリへのアクセスが許可されていることを確認してください。</p>
+
+        <p><strong>Q: STARCLIPは個人データを収集しますか？</strong><br>
+        A: いいえ。STARCLIPはすべてデバイス上で動作し、個人データの収集・送信・保存は一切行いません。詳しくは<a href="/privacy/ja/">プライバシーポリシー</a>をご覧ください。</p>
+
+        <h2>お問い合わせ</h2>
+        <div class="contact-box">
+            <p>バグ報告・機能リクエスト・ご質問はメールでお願いします。</p>
+            <p><a id="contact-link" href="#">読み込み中...</a></p>
+            <script>
+            (function(){var u='starclipapp',d='gmail.com',e=u+'@'+d;var a=document.getElementById('contact-link');a.href='mai'+'lto:'+e;a.textContent=e;})();
+            </script>
+        </div>
+
+        <a href="/jp/" class="back">&larr; STARCLIPに戻る</a>
+    </div>
+</body>
+</html>
