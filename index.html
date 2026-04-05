@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STARCLIP — Capture the Moment. Mark What Matters.</title>
-    <meta name="description" content="Ultra-fast camera app with video highlight markers that auto-generate YouTube chapters. Ready before you are.">
+    <title>STARCLIP — Film the Game. Chapters Already Done.</title>
+    <meta name="description" content="Film your kid's soccer game, tap the star on every goal. Upload to YouTube — chapters already done. No more rewatching and manual timestamps.">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -23,280 +23,58 @@
             --text-dim: rgba(255,255,255,0.45);
         }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-deep);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* ── NAV ── */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 20px 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(5,2,8,0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        .nav-brand {
-            font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #fff;
-        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-deep); color: var(--text); overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(5,2,8,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .nav-brand { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #fff; }
         .nav-brand span { color: var(--gold); }
         .nav-links { display: flex; gap: 28px; align-items: center; }
-        .nav-links a {
-            color: var(--text-dim); text-decoration: none; font-size: 13px;
-            letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s;
-        }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: #fff; }
-        .nav-links .lang-btn {
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
-            padding: 6px 12px; font-size: 12px;
-        }
-
-        /* ── HERO ── */
-        .hero {
-            position: relative;
-            height: 100vh; min-height: 700px;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            text-align: center;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse 60% 50% at 50% 40%, rgba(100,40,200,0.15) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 30% at 30% 60%, rgba(255,215,0,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 30% at 70% 30%, rgba(0,100,255,0.06) 0%, transparent 60%);
-        }
-        .hero-glow {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 60%);
-            animation: pulse 4s ease-in-out infinite;
-        }
+        .nav-links .lang-btn { border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 12px; font-size: 12px; }
+        .hero { position: relative; height: 100vh; min-height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(100,40,200,0.15) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 30% 60%, rgba(255,215,0,0.06) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 70% 30%, rgba(0,100,255,0.06) 0%, transparent 60%); }
+        .hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 60%); animation: pulse 4s ease-in-out infinite; }
         @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
-
-        /* Star icon */
-        .hero-star {
-            position: relative; z-index: 2;
-            font-size: 72px; line-height: 1;
-            color: var(--gold);
-            filter: drop-shadow(0 0 40px rgba(255,215,0,0.4));
-            animation: float 3s ease-in-out infinite;
-            margin-bottom: 32px;
-        }
+        .hero-star { position: relative; z-index: 2; font-size: 72px; line-height: 1; color: var(--gold); filter: drop-shadow(0 0 40px rgba(255,215,0,0.4)); animation: float 3s ease-in-out infinite; margin-bottom: 32px; }
         @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        /* Sparkle particles */
-        .sparkle {
-            position: absolute; width: 4px; height: 4px;
-            background: var(--gold); border-radius: 50%;
-            animation: sparkle-float 3s ease-in-out infinite;
-        }
-        .sparkle:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 25%; right: 25%; animation-delay: 0.8s; }
-        .sparkle:nth-child(3) { top: 60%; left: 15%; animation-delay: 1.5s; }
-        .sparkle:nth-child(4) { top: 55%; right: 18%; animation-delay: 0.4s; }
-        .sparkle:nth-child(5) { top: 40%; left: 35%; animation-delay: 2s; }
-        .sparkle:nth-child(6) { top: 70%; right: 30%; animation-delay: 1.2s; }
-        @keyframes sparkle-float {
-            0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
-            50% { opacity: 1; transform: scale(1) translateY(-20px); }
-        }
-
-        .hero h1 {
-            position: relative; z-index: 2;
-            font-size: clamp(42px, 7vw, 80px);
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1.05;
-            margin-bottom: 24px;
-        }
+        .sparkle { position: absolute; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; animation: sparkle-float 3s ease-in-out infinite; }
+        .sparkle:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; } .sparkle:nth-child(2) { top: 25%; right: 25%; animation-delay: 0.8s; } .sparkle:nth-child(3) { top: 60%; left: 15%; animation-delay: 1.5s; } .sparkle:nth-child(4) { top: 55%; right: 18%; animation-delay: 0.4s; } .sparkle:nth-child(5) { top: 40%; left: 35%; animation-delay: 2s; } .sparkle:nth-child(6) { top: 70%; right: 30%; animation-delay: 1.2s; }
+        @keyframes sparkle-float { 0%, 100% { opacity: 0; transform: scale(0) translateY(0); } 50% { opacity: 1; transform: scale(1) translateY(-20px); } }
+        .hero h1 { position: relative; z-index: 2; font-size: clamp(38px, 6.5vw, 72px); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; }
         .hero h1 .accent { color: var(--gold); }
-        .hero-sub {
-            position: relative; z-index: 2;
-            font-size: clamp(16px, 2.5vw, 22px);
-            font-weight: 300;
-            color: rgba(255,255,255,0.6);
-            max-width: 540px;
-            line-height: 1.6;
-            margin-bottom: 48px;
-        }
-        .hero-cta {
-            position: relative; z-index: 2;
-            display: inline-flex; align-items: center; gap: 12px;
-            background: #fff; color: #000;
-            padding: 16px 36px;
-            border-radius: 50px;
-            font-size: 15px; font-weight: 600;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .hero-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(255,215,0,0.2);
-        }
+        .hero-sub { position: relative; z-index: 2; font-size: clamp(16px, 2.5vw, 22px); font-weight: 300; color: rgba(255,255,255,0.6); max-width: 560px; line-height: 1.6; margin-bottom: 48px; }
+        .hero-cta { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 12px; background: #fff; color: #000; padding: 16px 36px; border-radius: 50px; font-size: 15px; font-weight: 600; text-decoration: none; letter-spacing: 0.5px; transition: transform 0.3s, box-shadow 0.3s; }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,215,0,0.2); }
         .hero-cta svg { width: 20px; height: 20px; }
-        .scroll-hint {
-            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-            z-index: 2;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            color: var(--text-dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-            animation: bob 2s ease-in-out infinite;
-        }
+        .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; animation: bob 2s ease-in-out infinite; }
         @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
-
-        /* ── STATEMENT ── */
-        .statement {
-            padding: 140px 40px;
-            text-align: center;
-        }
-        .statement-text {
-            font-size: clamp(28px, 4.5vw, 52px);
-            font-weight: 700;
-            line-height: 1.3;
-            max-width: 800px;
-            margin: 0 auto;
-            letter-spacing: -1px;
-        }
+        .statement { padding: 140px 40px; text-align: center; }
+        .statement-text { font-size: clamp(24px, 4vw, 44px); font-weight: 700; line-height: 1.4; max-width: 800px; margin: 0 auto; letter-spacing: -1px; }
         .statement-text .dim { color: rgba(255,255,255,0.25); }
-
-        /* ── FEATURES ── */
-        .features {
-            padding: 80px 40px 120px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .features-label {
-            font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 60px; text-align: center;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 40px 32px;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        .feature-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255,215,0,0.2);
-        }
-        .feature-icon {
-            font-size: 36px; margin-bottom: 20px;
-            filter: grayscale(0.3);
-        }
-        .feature-card h3 {
-            font-size: 20px; font-weight: 700; margin-bottom: 12px;
-        }
-        .feature-card p {
-            font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.5);
-        }
-
-        /* ── HIGHLIGHT SECTION ── */
-        .highlight-section {
-            padding: 100px 40px;
-            text-align: center;
-            position: relative;
-        }
-        .highlight-section::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 70%);
-        }
-        .hl-badge {
-            display: inline-block;
-            background: var(--gold-dim);
-            color: var(--gold);
-            font-size: 12px; font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase;
-            padding: 8px 20px; border-radius: 50px;
-            margin-bottom: 32px;
-            position: relative; z-index: 2;
-        }
-        .highlight-section h2 {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 800;
-            margin-bottom: 20px;
-            position: relative; z-index: 2;
-        }
-        .highlight-section .desc {
-            font-size: 17px; line-height: 1.8;
-            color: rgba(255,255,255,0.5);
-            max-width: 580px; margin: 0 auto;
-            position: relative; z-index: 2;
-        }
-        .timestamp-demo {
-            position: relative; z-index: 2;
-            margin-top: 48px;
-            display: inline-block;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 28px 40px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 15px;
-            text-align: left;
-            color: rgba(255,255,255,0.7);
-            line-height: 2;
-        }
+        .highlight-section { padding: 100px 40px; text-align: center; position: relative; }
+        .highlight-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 70%); }
+        .hl-badge { display: inline-block; background: var(--gold-dim); color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 8px 20px; border-radius: 50px; margin-bottom: 32px; position: relative; z-index: 2; }
+        .highlight-section h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 20px; position: relative; z-index: 2; }
+        .highlight-section .desc { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.5); max-width: 580px; margin: 0 auto; position: relative; z-index: 2; }
+        .timestamp-demo { position: relative; z-index: 2; margin-top: 48px; display: inline-block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px 40px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 15px; text-align: left; color: rgba(255,255,255,0.7); line-height: 2; }
         .timestamp-demo .star { color: var(--gold); }
-
-        /* ── FINAL CTA ── */
-        .final-cta {
-            padding: 120px 40px;
-            text-align: center;
-        }
-        .final-cta h2 {
-            font-size: clamp(36px, 6vw, 64px);
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-        }
-        .final-cta p {
-            font-size: 18px; color: rgba(255,255,255,0.45);
-            margin-bottom: 40px;
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            padding: 48px 40px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 16px;
-            max-width: 1100px; margin: 0 auto;
-        }
+        .features { padding: 80px 40px 120px; max-width: 1100px; margin: 0 auto; }
+        .features-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 60px; text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .feature-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 40px 32px; transition: transform 0.3s, border-color 0.3s; }
+        .feature-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.2); }
+        .feature-icon { font-size: 36px; margin-bottom: 20px; filter: grayscale(0.3); }
+        .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .feature-card p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.5); }
+        .final-cta { padding: 120px 40px; text-align: center; }
+        .final-cta h2 { font-size: clamp(36px, 6vw, 64px); font-weight: 900; letter-spacing: -2px; margin-bottom: 24px; }
+        .final-cta p { font-size: 18px; color: rgba(255,255,255,0.45); margin-bottom: 40px; }
+        footer { padding: 48px 40px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; max-width: 1100px; margin: 0 auto; }
         footer .copy { font-size: 13px; color: var(--text-dim); }
         footer .footer-links { display: flex; gap: 24px; }
-        footer .footer-links a {
-            color: var(--text-dim); text-decoration: none; font-size: 13px;
-            transition: color 0.3s;
-        }
+        footer .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.3s; }
         footer .footer-links a:hover { color: #fff; }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 768px) {
-            nav { padding: 16px 20px; }
-            .nav-links { gap: 16px; }
-            .hero { min-height: 600px; padding: 0 24px; }
-            .hero-glow { width: 300px; height: 300px; }
-            .statement { padding: 80px 24px; }
-            .features { padding: 60px 20px 80px; }
-            .feature-grid { grid-template-columns: 1fr; }
-            .highlight-section { padding: 80px 24px; }
-            .timestamp-demo { padding: 20px 24px; font-size: 13px; }
-            .final-cta { padding: 80px 24px; }
-            footer { padding: 32px 20px; flex-direction: column; text-align: center; }
-        }
+        @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links { gap: 16px; } .hero { min-height: 600px; padding: 0 24px; } .hero-glow { width: 300px; height: 300px; } .statement { padding: 80px 24px; } .features { padding: 60px 20px 80px; } .feature-grid { grid-template-columns: 1fr; } .highlight-section { padding: 80px 24px; } .timestamp-demo { padding: 20px 24px; font-size: 13px; } .final-cta { padding: 80px 24px; } footer { padding: 32px 20px; flex-direction: column; text-align: center; } }
     </style>
 </head>
 <body>
@@ -304,21 +82,20 @@
 <nav>
     <div class="nav-brand"><span>&#9733;</span> STARCLIP</div>
     <div class="nav-links">
-        <a href="#highlights">Highlights</a>
+        <a href="#how">How It Works</a>
         <a href="#features">Features</a>
         <a href="/support">Support</a>
         <a href="/jp/" class="lang-btn">JP</a>
     </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
     <div class="hero-glow"></div>
     <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
     <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
     <div class="hero-star">&#9733;</div>
-    <h1>Capture the Moment.<br><span class="accent">Mark What Matters.</span></h1>
-    <p class="hero-sub">An ultra-fast camera that's ready before you are. Star-mark your best moments and auto-generate YouTube chapters.</p>
+    <h1>Film the Game.<br><span class="accent">Chapters Already Done.</span></h1>
+    <p class="hero-sub">Tap the star on every goal while filming. Upload to YouTube — chapter timestamps are already in your clipboard. No more rewatching.</p>
     <a href="#" class="hero-cta">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         Download on the App Store
@@ -329,72 +106,56 @@
     </div>
 </section>
 
-<!-- STATEMENT -->
 <section class="statement">
     <p class="statement-text">
-        The fastest camera app ever made. <span class="dim">Open. Shoot. Done.</span><br>
-        Star-mark the moments that matter. <span class="dim">Chapters, instantly.</span>
+        You film the whole game. <span class="dim">Then spend an hour finding the goals.</span><br>
+        What if the timestamps <span class="dim">were already done?</span>
     </p>
 </section>
 
-<!-- HIGHLIGHTS -->
-<section class="highlight-section" id="highlights">
-    <div class="hl-badge">&#9733; Highlight System</div>
-    <h2>Your moments.<br>Auto-chaptered.</h2>
+<section class="highlight-section" id="how">
+    <div class="hl-badge">&#9733; How It Works</div>
+    <h2>Tap the star.<br>That's it.</h2>
     <p class="desc">
-        Mark key moments during recording with a single tap.
-        When you stop, perfectly formatted YouTube chapter timestamps
-        are waiting in your clipboard. Just paste.
+        While recording, tap the star whenever something happens — a goal, a great save, a highlight play. When you stop, YouTube chapter timestamps are in your clipboard. Paste into the description. Done.
     </p>
     <div class="timestamp-demo">
-        0:00 Start<br>
-        1:24 <span class="star">&#9733;</span> Highlight<br>
-        3:47 <span class="star">&#9733;</span> Highlight<br>
-        5:12 <span class="star">&#9733;</span> Highlight
+        0:00 Kickoff<br>
+        12:34 <span class="star">&#9733;</span> Goal - Yuto<br>
+        28:51 <span class="star">&#9733;</span> Great Save<br>
+        41:07 <span class="star">&#9733;</span> Goal - Haruki
     </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features" id="features">
-    <p class="features-label">What sets STARCLIP apart</p>
+    <p class="features-label">Built for the sideline</p>
     <div class="feature-grid">
         <div class="feature-card">
             <div class="feature-icon">&#9889;</div>
             <h3>Instant Launch</h3>
-            <p>Camera is live the millisecond you tap the icon. No splash screen, no waiting. The moment is yours.</p>
+            <p>Camera is live the moment you tap the icon. Ready before kickoff, before the whistle, before the play.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">&#9733;</div>
-            <h3>Star Highlights</h3>
-            <p>Tap the star while recording to bookmark your best moments. Timestamps auto-copy as YouTube chapters when you stop.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">&#127916;</div>
-            <h3>Two Modes, One Swipe</h3>
-            <p>Photo and Video. Swipe once to switch. Every mode is one gesture away, never buried in menus.</p>
+            <h3>One-Tap Chapters</h3>
+            <p>Tap the star during recording. YouTube chapter timestamps auto-generated and copied to clipboard when you stop.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">&#128269;</div>
             <h3>Precision Zoom</h3>
-            <p>Long-press reveals a semicircle dial for smooth, precise zoom control across all your lenses.</p>
+            <p>Long-press for a smooth zoom dial. Catch the action on the far side of the pitch without losing stability.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">&#128247;</div>
             <h3>Zero Friction</h3>
-            <p>No accounts, no cloud, no bloat. Everything stays on your device. Just open, shoot, and done.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">&#127760;</div>
-            <h3>Bilingual</h3>
-            <p>Full Japanese and English localization. The app speaks your language from day one.</p>
+            <p>No accounts, no cloud, no setup. Photo and Video modes — one swipe to switch. Just open and shoot.</p>
         </div>
     </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="final-cta">
-    <h2>Ready when you are.</h2>
-    <p>Available now on the App Store.</p>
+    <h2>For every parent<br>on the sideline.</h2>
+    <p>Film it. Star it. Share it. No editing required.</p>
     <a href="#" class="hero-cta">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         Download on the App Store
