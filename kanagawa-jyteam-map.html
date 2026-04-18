@@ -60,11 +60,22 @@
 
 <script>
 // Map centered on Kanagawa/Tokyo border area
-const map = L.map('map').setView([35.47, 139.45], 10);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 18
-}).addTo(map);
+const map = L.map('map').setView([35.47, 139.50], 11);
+
+// Tile layers — user can toggle
+const tiles = {
+    'ナチュラル': L.tileLayer('https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18
+    }),
+    '明るい': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+    }),
+    'ダーク': L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18
+    })
+};
+tiles['ナチュラル'].addTo(map);
+L.control.layers(tiles, null, {position: 'topright'}).addTo(map);
 
 // Team data: [name, url, lat, lng, area, category]
 // Coordinates are approximate based on team area
