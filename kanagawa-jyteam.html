@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神奈川・東京 ジュニアユース(JY)サッカーチーム一覧 2026</title>
+    <meta name="description" content="神奈川県・東京都のジュニアユース(JY/U-15)サッカーチーム一覧。170チーム以上を地域別に検索可能。横浜・川崎・相模原・町田・八王子ほか。">
+    <meta name="keywords" content="ジュニアユース,JY,U-15,神奈川,東京,サッカー,チーム,クラブ,横浜,川崎,相模原,町田">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Noto+Sans+JP:wght@300;400;600;700;900&display=swap');
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--gold:#ffd700;--bg:#0a0a12;--card:rgba(255,255,255,0.04);--card-hover:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--text:#e8e8f0;--dim:rgba(255,255,255,0.45);--accent:#4a9eff}
+        html{scroll-behavior:smooth}
+        body{font-family:'Noto Sans JP','Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+        /* Header */
+        .header{padding:60px 24px 40px;text-align:center;background:linear-gradient(180deg,rgba(255,215,0,0.06) 0%,transparent 100%)}
+        .header h1{font-size:clamp(28px,5vw,48px);font-weight:900;margin-bottom:12px;letter-spacing:-1px}
+        .header h1 span{color:var(--gold)}
+        .header p{color:var(--dim);font-size:16px;margin-bottom:32px}
+        .stats{display:flex;justify-content:center;gap:32px;margin-bottom:32px;flex-wrap:wrap}
+        .stat{text-align:center}
+        .stat-num{font-size:36px;font-weight:900;color:var(--gold)}
+        .stat-label{font-size:12px;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
+
+        /* Search */
+        .search-wrap{max-width:600px;margin:0 auto;position:relative}
+        .search-wrap input{width:100%;padding:16px 20px 16px 48px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.06);color:#fff;font-size:16px;outline:none;transition:border-color .3s}
+        .search-wrap input:focus{border-color:var(--gold)}
+        .search-wrap input::placeholder{color:var(--dim)}
+        .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px}
+        .search-count{text-align:center;margin-top:12px;font-size:13px;color:var(--dim)}
+
+        /* Navigation tabs */
+        .tabs{display:flex;justify-content:center;gap:8px;padding:24px;flex-wrap:wrap;position:sticky;top:0;z-index:10;background:rgba(10,10,18,0.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+        .tab{padding:8px 16px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--dim);transition:all .3s;text-decoration:none}
+        .tab:hover,.tab.active{color:var(--gold);border-color:var(--gold);background:rgba(255,215,0,0.08)}
+
+        /* Sections */
+        .section{padding:40px 24px;max-width:1200px;margin:0 auto}
+        .section-title{font-size:24px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+        .section-title .emoji{font-size:28px}
+        .section-count{font-size:13px;color:var(--dim);margin-bottom:24px;padding-left:40px}
+        .section-divider{width:60px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:24px}
+
+        /* Team grid */
+        .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+        .team-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;align-items:center;gap:14px;transition:all .3s;cursor:pointer;text-decoration:none;color:var(--text)}
+        .team-card:hover{background:var(--card-hover);border-color:rgba(255,215,0,0.2);transform:translateY(-2px)}
+        .team-logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(74,158,255,0.15));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--gold);flex-shrink:0;overflow:hidden}
+        .team-logo img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+        .team-info{flex:1;min-width:0}
+        .team-name{font-size:15px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .team-link{font-size:11px;color:var(--accent);opacity:0.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px}
+        .team-card .arrow{color:var(--dim);font-size:14px;flex-shrink:0}
+
+        /* Girls section */
+        .girls .section-title{color:#ff69b4}
+        .girls .team-logo{background:linear-gradient(135deg,rgba(255,105,180,0.2),rgba(255,215,0,0.1))}
+
+        /* Hidden */
+        .hidden{display:none !important}
+
+        /* Footer */
+        .footer{text-align:center;padding:60px 24px;color:var(--dim);font-size:13px}
+        .footer a{color:var(--gold);text-decoration:none}
+
+        /* Responsive */
+        @media(max-width:600px){
+            .team-grid{grid-template-columns:1fr}
+            .stats{gap:20px}
+            .stat-num{font-size:28px}
+            .tabs{gap:4px}
+            .tab{padding:6px 12px;font-size:12px}
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>神奈川・東京<br><span>JYサッカーチーム一覧</span></h1>
+    <p>ジュニアユース(U-15)クラブチームを地域別に網羅</p>
+    <div class="stats">
+        <div class="stat"><div class="stat-num">170+</div><div class="stat-label">チーム数</div></div>
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">地域</div></div>
+        <div class="stat"><div class="stat-num">2026</div><div class="stat-label">最新版</div></div>
+    </div>
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="チーム名・地域で検索...">
+    </div>
+    <div class="search-count" id="searchCount"></div>
+</div>
+
+<nav class="tabs" id="tabs">
+    <a class="tab active" href="#" data-target="all">すべて</a>
+    <a class="tab" href="#yokohama" data-target="yokohama">横浜</a>
+    <a class="tab" href="#kawasaki" data-target="kawasaki">川崎</a>
+    <a class="tab" href="#sagamihara" data-target="sagamihara">相模原</a>
+    <a class="tab" href="#atsugi" data-target="atsugi">厚木・茅ヶ崎</a>
+    <a class="tab" href="#yamato" data-target="yamato">大和・座間</a>
+    <a class="tab" href="#yokosuka" data-target="yokosuka">横須賀・秦野</a>
+    <a class="tab" href="#shonan" data-target="shonan">湘南・小田原</a>
+    <a class="tab" href="#tokyo" data-target="tokyo">東京</a>
+    <a class="tab" href="#girls" data-target="girls">女子</a>
+</nav>
+
+<div id="content">
+
+<!-- 横浜 -->
+<div class="section region" id="yokohama" data-region="yokohama">
+    <div class="section-title"><span class="emoji">⚽</span> 横浜市</div>
+    <div class="section-count">49チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-yokohama"></div>
+</div>
+
+<!-- 川崎 -->
+<div class="section region" id="kawasaki" data-region="kawasaki">
+    <div class="section-title"><span class="emoji">⚡</span> 川崎市</div>
+    <div class="section-count">14チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-kawasaki"></div>
+</div>
+
+<!-- 相模原 -->
+<div class="section region" id="sagamihara" data-region="sagamihara">
+    <div class="section-title"><span class="emoji">🏟️</span> 相模原市</div>
+    <div class="section-count">17チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-sagamihara"></div>
+</div>
+
+<!-- 厚木・茅ヶ崎 -->
+<div class="section region" id="atsugi" data-region="atsugi">
+    <div class="section-title"><span class="emoji">🌿</span> 厚木市・茅ヶ崎市・綾瀬市</div>
+    <div class="section-count">14チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-atsugi"></div>
+</div>
+
+<!-- 大和・座間 -->
+<div class="section region" id="yamato" data-region="yamato">
+    <div class="section-title"><span class="emoji">🎯</span> 大和市・座間市・鎌倉市・逗子市</div>
+    <div class="section-count">12チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-yamato"></div>
+</div>
+
+<!-- 横須賀・秦野 -->
+<div class="section region" id="yokosuka" data-region="yokosuka">
+    <div class="section-title"><span class="emoji">⚓</span> 横須賀市・秦野市</div>
+    <div class="section-count">4チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-yokosuka"></div>
+</div>
+
+<!-- 湘南・小田原 -->
+<div class="section region" id="shonan" data-region="shonan">
+    <div class="section-title"><span class="emoji">🌊</span> 藤沢・海老名・伊勢原・平塚・小田原</div>
+    <div class="section-count">20チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-shonan"></div>
+</div>
+
+<!-- 東京 -->
+<div class="section region" id="tokyo" data-region="tokyo">
+    <div class="section-title"><span class="emoji">🗼</span> 東京都（町田・多摩・八王子）</div>
+    <div class="section-count">19チーム</div>
+    <div class="section-divider"></div>
+    <div class="team-grid" id="grid-tokyo"></div>
+</div>
+
+<!-- 女子 -->
+<div class="section region girls" id="girls" data-region="girls">
+    <div class="section-title"><span class="emoji">🌸</span> 女子ジュニアユース</div>
+    <div class="section-count">25チーム</div>
+    <div class="section-divider" style="background:#ff69b4"></div>
+    <div class="team-grid" id="grid-girls"></div>
+</div>
+
+</div>
+
+<div class="footer">
+    <p>情報出典: <a href="https://sportsbito.com/" target="_blank">sportsbito.com</a> | 掲載情報に誤りがある場合は <a href="/jp/support/">こちら</a></p>
+    <p style="margin-top:8px">&copy; 2026 starclip.app</p>
+</div>
+
+<script>
+const TEAMS = {
+yokohama: [
+["FC ASAHI","http://www.fcasahi.jp/"],["大豆戸FCJY","https://mamedofc.com/"],["FCヴィアージャ","https://www.fcviagem.com/"],["大豆戸FC WEST","https://sgrum.com/web/mfc-west/"],["FC EXITO YOKOHAMA","http://www.exito-yokohama.com/"],["FC緑","https://www.footballnavi.jp/fc_midori/"],["SCH.FC","http://www.sch-fc.com/"],["横浜FCジュニアユース","https://www.yokohamafc.com/academy/junior-youth/"],["エストレーラFCインファンティル","https://estrela-fc.com/"],["横浜FC鶴見ジュニアユース","https://yokohamafc.tsurumi1.com/"],["エスペランサSC","https://esperanza-sc.com/"],["横浜FCジュニアユース戸塚","https://www.yokohamafc.com/academy/junior-youth-totsuka/"],["FstudioいのやまJY","http://fstudio2012.com/"],["横浜Fマリノスジュニアユース","https://www.f-marinos.com/"],["アルファブライトFC","https://www.absoccer.club/"],["横浜Fマリノスジュニアユース追浜","https://f-marinos-youth.com/archives/9291"],["FC OFFSIDE","https://sites.google.com/view/fc-offside/"],["横浜栄FC","http://www.sakae-fc.com/"],["KAZU SC JY","http://www.kazusc.jp/?page_id=30"],["横浜GSFC","http://ygsfc.org/"],["かながわクラブ","http://www.kanagawaclub.com/"],["横浜ジュニオールJY","http://junior-yokohama.co.jp/top.html"],["クラブテアトロJY","https://club-teatro.com/"],["YSCC","https://yscc1986.net/"],["港北FC","https://www.footballnavi.jp/kohokufc/"],["FC LLEVA若葉台","http://www.fc-lleva.com/"],["GEO-XFC","http://geox-sports.oops.jp/"],["YTC.FC","https://ytcfc.jimdofree.com/"],["FC COJB","https://mundo-do-cojb.com/"],["イトゥアーノ横浜JY","https://stgp.jp/ituanofc/jy/"],["JFC FUTURO","https://www.jfutsalclub-futuro.com/"],["CFG-YOKOHAMA","http://www.fc-goleador.com/"],["瀬谷インターナショナル","https://www.seyainternationalfootball.info/"],["VIENTO","http://viento-viento.com/"],["FC T.BRUE","http://t-brue.com/"],["FC66","https://fc66.amebaownd.com/"],["東急レイエスFC","https://www.tokyu-sports.com/football/reyes.html"],["ロボスFC","https://www.footballnavi.jp/lobos/"],["バディージュニアユース","http://bsc-buddy.jp/"],["横浜FTAR","https://ftar-soccer.com/"],["FCパルピターレ","http://www.palpitare.com/"],["ARTH FC","https://arth.chikyu-jin.org/"],["バンデリージャ横浜","http://banderilla-yokohama.com/"],["DISPARO FC JY","https://disparo-fc.jimdofree.com/"],["BANFF横浜FC戸塚","http://www.banffyokohama.com/"],["S-tadioRiaz","https://s-tadio.com/u1815/"],["ミラオーネFC JY","http://www.miraone-fc.yokohama/"],["PANGEAFC","https://www.seyainternational2.com/"],["FC notus","https://minami-football.com/"]
+],
+kawasaki: [
+["川崎フロンターレ","https://www.frontale.co.jp/"],["CBC FC","http://cachi-bambini.co.jp/footballclub"],["S.victoire S.C","http://s-victoire2007.raindrop.jp/club/"],["AC等々力","http://www.actodoroki.net/"],["川崎アズーロ","https://www.facebook.com/"],["FC川崎CHAMP","https://kawasakichamp.wixsite.com/fc-kawasaki"],["パラムンド フッチボウ クルービ","http://paramundo.net/"],["リーベルプントFC","http://riberupunto.com/"],["和光ユナイテッド川崎FC","http://wakoloco.org/soccer/"],["FC Kanaloa JY","https://sgrum.com/web/1s_spks/"],["フガーリオ川崎","https://jugariokawasaki.com/"],["FC CLIO","https://www.fcclio.com/"],["BAUMFC","https://baumfc.com/"],["GANESHA FC","https://www.ganeshafc.com/"]
+],
+sagamihara: [
+["アトラソンFCジュニアユース","https://stgp.jp/kazoo/jy"],["むげんJY","http://npomugen.jp/"],["ヴェルディ相模原","http://verdy-sagami.com/"],["FACINATE JY","https://www.fascinate-junioryouth.com/"],["FCヴォセラーゴ津久井","https://vozelago-football.jimdofree.com/"],["JFC FUTURO SAGAMI","https://www.futurosagami.com/"],["SC相模原","https://www.scsagamihara.com/"],["相模原みどりSC","http://www.haragroup.co.jp/m_sports/"],["FC HORTENCIA","https://cozispo.com/hortencia/"],["FIFTYCLUB","http://www.fiftyclub.jp/"],["FCグラシア相模原","http://fcgracia.com/"],["ミハタSCサガミハラJY","http://www.npo-mihata.or.jp/soccer/"],["FCコラソンインファンチル","http://www.fc-coracao.com/wp/top/"],["F.C.REGALIA","https://sites.google.com/view/fc-regalia/home"],["FCヴィンクーロ","http://fc-vinculo.info/"],["PALAVRAFC","https://palavrafootball.com/"],["相模原シティユナイテッド","https://sagamihara-city-united.com/"]
+],
+atsugi: [
+["FC厚木DREAMS","https://www.fcatsugi-dreams.com/"],["カルペソール湘南","https://carpesol.jp/"],["FC厚木MELLIZO","https://fcamellizo.wixsite.com/mysite"],["FC Andro厚木","https://fcandroatsugi.wixsite.com/atsugi-soccer-andro"],["はやぶさイレブンJY","https://scd-school.com/"],["LEOVISTA ATSUGI","https://www.leovista-atsugi.jp/"],["シュートJY","https://sgrum.com/web/shoot-jy/"],["湘南リーブレエスチーロ","https://www.shonan-livre.com/"],["SUERTE FC Chigasaki","http://www.suertefc.net/"],["AFC茅ヶ崎","https://www.afc-chigasaki.com/"],["FC Luana","https://luana2022.wixsite.com/luana/about-3"],["CSC","http://chigasaki-sc.bona.jp/sc/csc/"],["CIELO.FC","https://cielo2013.com/"],["綾瀬FC","https://www.footballnavi.jp/ayase_fc/"]
+],
+yamato: [
+["大和SeeleS.V","https://geox-sports.com/jy-team/"],["ライオンズSC","https://www.lions-sc.net/"],["MGUアカデミー","https://sc.footballnavi.jp/mgfa/"],["Vidaスポーツクラブいさま","https://www.vidafan.net/"],["座間FC","http://zamafc.web.fc2.com/"],["日独フットボール・アカデミー","https://jgfa.co.jp/"],["ALL Zジュニアユース","https://allz1981.wixsite.com/allz/home"],["フットワーククラブ","https://footworkclub.com/"],["FCNomade","https://ja.fcnomade.jp/"],["鎌倉インターナショナル","https://kamakura-inter.com/"],["横須賀シーガルズ","https://www.yokosuka-seagulls.com/"],["横須賀ジュニアFC","http://yokosukajrfc.web.fc2.com/"]
+],
+yokosuka: [
+["FC AIVANCE YOKOSUKA","http://fcaivance.net/"],["FC jugar Yokosuka","https://www.fc-jugar-y.com/"],["秦野FC","http://hadano-fc.org/"],["横三FCJY","https://yokosan-fc.jimdofree.com/"]
+],
+shonan: [
+["SFAT ISEHARA JY","https://isesui.com/soccer/"],["AtraenceFC平塚","http://atraence.com/"],["SFCジュニオール","http://www.scn-net.ne.jp/~junior/"],["湘南ベルマーレU15","https://www.bellmare.co.jp/"],["湘南ベルマーレWEST","https://www.bellmare.co.jp/"],["NEXT.FC","https://nextfc.club/"],["海老名FC","http://www.ebinafc.net/"],["esporte藤沢","https://esporteclubefujiswa.amebaownd.com/"],["FC MAT","https://fcmat.jimdo.com/"],["FC湘南","http://www5e.biglobe.ne.jp/~fcshonan/"],["湘南ベルマーレEAST","https://www.bellmare.co.jp/"],["FC Fujisawa","https://fc-fujisawa.com/"],["FC ゴールデン","https://s-goldenage.jp/service/soccer"],["足柄FC","https://ashigarafc.wixsite.com/ashigara-fc"],["PSTC.LONDRINA","https://www.pstc-londrina.com/"],["AZエスペランサ","http://www.az-sc.com/"],["AUREA","https://aureaclub.jimdofree.com/"],["カラーズ","http://www.colors-sc.com/"],["FCワンセンス西湘","https://www.one-sense.jp/"],["SEISA OSA湘南FC","https://sosc.jp/soccerschool/"]
+],
+tokyo: [
+["FC町田ゼルビア","https://www.zelvia.co.jp/"],["町田JFC","https://sgrum.com/web/machidajfc-jryouth/"],["FC AVIENTO","https://aviento-fc.com/"],["コンフィアール町田","https://official.confiar-machida.com/"],["緑山SC","https://www.midoriyama-sc.com/"],["東京小山FC","https://www.footballnavi.jp/oyama-fc/"],["町田相原FCジュニアユース","https://aihara-fc.net/free/jy"],["FC多摩ジュニアユース","https://fctama1994.main.jp/"],["FC GLORIA","https://www.fc-gloria.com/"],["TTAFF","https://ttaff2018tokyo.wixsite.com/home"],["ARTE八王子FC","https://yohtairen.jp/pages/14/"],["F.C. Branco八王子","https://brancohachioji.jimdofree.com/"],["アローレ八王子 U-15","https://arawore.jp/?page_id=298"],["FC Almundo","https://www.fcalmundo.tokyo/"],["FCベルテール","https://belleterre.jimdoweb.com/"],["CHUO SPORTS ACADEMY","https://www.footballnavi.jp/chuo_fc/"],["南八王子SC","https://www.minami-h.net/"],["OSA Cadete","https://academy.olivas-sport-lab.com/"],["TCU FC","#"]
+],
+girls: [
+["ノジマステラ神奈川相模原アヴェニーレ","https://www.stellakanagawa.nojima.co.jp/"],["湘南ベルマーレガールズ","https://www.bellmare.co.jp/"],["横須賀シーガルズ女子","https://www.yokosuka-seagulls.com/"],["SEISA OSAレイア湘南FC","http://rhea.seisa-shonanoisosc.jp/"],["大和シルフィード","https://www.yamato-sylphid.com/"],["SCH.FC","http://www.sch-fc.com/"],["日体大SMG横浜","https://nssulu15.wixsite.com/bieneaoba"],["AZFCプルハ","http://www.az-sc.com/"],["クラブテアトロプルボ","https://club-teatro.com/"],["AC等々力","http://www.actodoroki.net/"],["FC厚木ガールズ","https://www.fc-atsugigirls.org/"],["PSTCロンドリーナVALE","http://www.pstc-londrina.com/"],["FC CORVO sagamihara","https://fc-corvo-sagamihara2016.jimdofree.com/"],["FC GUFO相模原","https://fc-gufo-sagamihara.jimdofree.com/"],["横浜ウィンズ","http://yoko-wins.lolipop.jp/"],["ACロッソZAMA FIORE","https://rosso-zama.com/"],["公田SCアンビシャス","http://kuden-sc.com/"],["大和ゼーレエルフィン","https://geox-sports.com/elfine-team/"],["YSCCコスモス","https://yscc1986.net/training/cosmos/"],["FCカルパ","https://fc-carpa.wixsite.com/home"],["綾瀬ガールズSC JADE","https://www.ayase-jade.com/"],["川崎フロンターレ女子","https://www.frontale.co.jp/"]
+]
+};
+
+function createCard(name, url) {
+    const initial = name.charAt(0);
+    const domain = url !== '#' ? new URL(url).hostname.replace('www.','') : '';
+    return `<a class="team-card" href="${url}" target="_blank" rel="noopener" data-name="${name}">
+        <div class="team-logo">${initial}</div>
+        <div class="team-info">
+            <div class="team-name">${name}</div>
+            <span class="team-link">${domain}</span>
+        </div>
+        <span class="arrow">›</span>
+    </a>`;
+}
+
+// Render all teams
+Object.keys(TEAMS).forEach(region => {
+    const grid = document.getElementById('grid-' + region);
+    if (grid) {
+        grid.innerHTML = TEAMS[region].map(t => createCard(t[0], t[1])).join('');
+    }
+});
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const searchCount = document.getElementById('searchCount');
+
+searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase();
+    let visible = 0, total = 0;
+    document.querySelectorAll('.team-card').forEach(card => {
+        total++;
+        const name = card.dataset.name.toLowerCase();
+        const match = !q || name.includes(q);
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+    });
+    // Show/hide sections with no visible teams
+    document.querySelectorAll('.region').forEach(sec => {
+        const cards = sec.querySelectorAll('.team-card:not(.hidden)');
+        sec.classList.toggle('hidden', cards.length === 0);
+    });
+    searchCount.textContent = q ? `${visible} / ${total} チーム表示中` : '';
+});
+
+// Tab navigation
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.dataset.target;
+        searchInput.value = '';
+        searchCount.textContent = '';
+        document.querySelectorAll('.team-card').forEach(c => c.classList.remove('hidden'));
+        if (target === 'all') {
+            document.querySelectorAll('.region').forEach(s => s.classList.remove('hidden'));
+        } else {
+            document.querySelectorAll('.region').forEach(s => {
+                s.classList.toggle('hidden', s.dataset.region !== target);
+            });
+            document.getElementById(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+    });
+});
+</script>
+
+</body>
+</html>
