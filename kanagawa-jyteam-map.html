@@ -31,11 +31,13 @@
         .team-popup a{color:#4a9eff;font-size:12px;text-decoration:none}
         .team-popup a:hover{text-decoration:underline}
         .leaflet-popup-content-wrapper{border-radius:12px}
-        /* Custom markers — 4-char 2x2 grid */
-        .custom-marker{background:#ffd700;color:#000;font-weight:800;font-size:9px;width:36px;height:36px;border-radius:6px;display:grid;grid-template-columns:1fr 1fr;align-items:center;justify-items:center;line-height:1;padding:2px;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.4);letter-spacing:0}
-        .custom-marker span{display:block;text-align:center;width:100%}
+        /* Custom markers — 2 rows of horizontal text */
+        .custom-marker{background:#ffd700;color:#000;font-weight:800;font-size:9px;min-width:32px;height:28px;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;padding:2px 4px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.35);white-space:nowrap}
         .custom-marker.girls{background:#ff69b4}
         .custom-marker.tokyo{background:#4a9eff}
+        /* Clean layer control */
+        .leaflet-control-layers{border-radius:10px!important;border:1px solid rgba(0,0,0,0.12)!important;box-shadow:0 2px 8px rgba(0,0,0,0.1)!important;font-family:'Noto Sans JP',sans-serif!important;font-size:13px!important}
+        .leaflet-control-layers-toggle{width:32px!important;height:32px!important;background-size:18px!important;border-radius:8px!important}
         .team-count{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(255,255,255,0.92);padding:8px 20px;border-radius:50px;font-size:13px;color:#555;backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,0.1);box-shadow:0 2px 8px rgba(0,0,0,0.1)}
         .team-count strong{color:#d4a017}
     </style>
@@ -62,20 +64,20 @@
 // Map centered on Kanagawa/Tokyo border area
 const map = L.map('map').setView([35.47, 139.50], 11);
 
-// Tile layers — user can toggle
+// Tile layers — user can toggle via layer control (top-right)
 const tiles = {
-    'ナチュラル': L.tileLayer('https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png', {
+    '標準': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap', maxZoom: 18
+    }),
+    'シンプル': L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18
     }),
-    '明るい': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
-    }),
-    'ダーク': L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    'ダーク': L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18
     })
 };
-tiles['ナチュラル'].addTo(map);
-L.control.layers(tiles, null, {position: 'topright'}).addTo(map);
+tiles['標準'].addTo(map);
+L.control.layers(tiles, null, {position: 'topright', collapsed: true}).addTo(map);
 
 // Team data: [name, url, lat, lng, area, category]
 // Coordinates are approximate based on team area
@@ -194,26 +196,32 @@ let markers = [];
 const markerGroup = L.layerGroup().addTo(map);
 
 function getShortName(name) {
-    // Remove common prefixes to get a meaningful 4-char abbreviation
-    let s = name.replace(/^FC\s*/i, '').replace(/^JFC\s*/i, '').replace(/ジュニアユース$/,'').replace(/\s*JY$/i,'').replace(/\s*SC$/i,'');
+    // Remove common prefixes/suffixes to get meaningful abbreviation
+    let s = name
+        .replace(/^FC\s*/i, '').replace(/^JFC\s*/i, '')
+        .replace(/ジュニアユース$/,'').replace(/\s*JY$/i,'')
+        .replace(/\s*SC$/i,'').replace(/\s*FC$/i,'')
+        .trim();
     if (s.length === 0) s = name;
-    // Take up to 4 chars
-    return s.substring(0, 4);
+    // Take up to 4 chars, split into 2 rows of 2
+    const chars = [...s];
+    const row1 = chars.slice(0, 2).join('');
+    const row2 = chars.slice(2, 4).join('');
+    return [row1, row2];
 }
 
 function createMarker(t) {
     const [name, url, lat, lng, area, cat] = t;
     const colorClass = cat === 'girls' ? 'girls' : cat === 'tokyo' ? 'tokyo' : '';
-    const short = getShortName(name);
-    // Split into 2x2 grid: top row (chars 0-1), bottom row (chars 2-3)
-    const c = [...short];
-    const top = (c[0]||'') + (c[1]||'');
-    const bot = (c[2]||'') + (c[3]||'');
+    const [row1, row2] = getShortName(name);
+    const html = row2
+        ? `<div class="custom-marker ${colorClass}">${row1}<br>${row2}</div>`
+        : `<div class="custom-marker ${colorClass}">${row1}</div>`;
     const icon = L.divIcon({
         className: '',
-        html: `<div class="custom-marker ${colorClass}"><span>${top}</span><span>${bot}</span></div>`,
-        iconSize: [36, 36],
-        iconAnchor: [18, 18]
+        html: html,
+        iconSize: [32, 28],
+        iconAnchor: [16, 14]
     });
     const marker = L.marker([lat, lng], {icon}).bindPopup(`
         <div class="team-popup">
