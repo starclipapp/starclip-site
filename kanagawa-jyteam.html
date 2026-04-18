@@ -89,9 +89,10 @@
     </div>
     <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="チーム名・地域で検索...">
+        <input type="text" id="searchInput" placeholder="チーム名・地域・区名で検索...">
     </div>
     <div class="search-count" id="searchCount"></div>
+    <div style="margin-top:16px"><a href="/kanagawa-jyteam-map.html" style="color:var(--gold);font-size:15px;font-weight:600;text-decoration:none">🗺️ 地図から探す →</a></div>
 </div>
 
 <nav class="tabs" id="tabs">
@@ -191,7 +192,7 @@
 <script>
 const TEAMS = {
 yokohama: [
-["FC ASAHI","http://www.fcasahi.jp/"],["大豆戸FCJY","https://mamedofc.com/"],["FCヴィアージャ","https://www.fcviagem.com/"],["大豆戸FC WEST","https://sgrum.com/web/mfc-west/"],["FC EXITO YOKOHAMA","http://www.exito-yokohama.com/"],["FC緑","https://www.footballnavi.jp/fc_midori/"],["SCH.FC","http://www.sch-fc.com/"],["横浜FCジュニアユース","https://www.yokohamafc.com/academy/junior-youth/"],["エストレーラFCインファンティル","https://estrela-fc.com/"],["横浜FC鶴見ジュニアユース","https://yokohamafc.tsurumi1.com/"],["エスペランサSC","https://esperanza-sc.com/"],["横浜FCジュニアユース戸塚","https://www.yokohamafc.com/academy/junior-youth-totsuka/"],["FstudioいのやまJY","http://fstudio2012.com/"],["横浜Fマリノスジュニアユース","https://www.f-marinos.com/"],["アルファブライトFC","https://www.absoccer.club/"],["横浜Fマリノスジュニアユース追浜","https://f-marinos-youth.com/archives/9291"],["FC OFFSIDE","https://sites.google.com/view/fc-offside/"],["横浜栄FC","http://www.sakae-fc.com/"],["KAZU SC JY","http://www.kazusc.jp/?page_id=30"],["横浜GSFC","http://ygsfc.org/"],["かながわクラブ","http://www.kanagawaclub.com/"],["横浜ジュニオールJY","http://junior-yokohama.co.jp/top.html"],["クラブテアトロJY","https://club-teatro.com/"],["YSCC","https://yscc1986.net/"],["港北FC","https://www.footballnavi.jp/kohokufc/"],["FC LLEVA若葉台","http://www.fc-lleva.com/"],["GEO-XFC","http://geox-sports.oops.jp/"],["YTC.FC","https://ytcfc.jimdofree.com/"],["FC COJB","https://mundo-do-cojb.com/"],["イトゥアーノ横浜JY","https://stgp.jp/ituanofc/jy/"],["JFC FUTURO","https://www.jfutsalclub-futuro.com/"],["CFG-YOKOHAMA","http://www.fc-goleador.com/"],["瀬谷インターナショナル","https://www.seyainternationalfootball.info/"],["VIENTO","http://viento-viento.com/"],["FC T.BRUE","http://t-brue.com/"],["FC66","https://fc66.amebaownd.com/"],["東急レイエスFC","https://www.tokyu-sports.com/football/reyes.html"],["ロボスFC","https://www.footballnavi.jp/lobos/"],["バディージュニアユース","http://bsc-buddy.jp/"],["横浜FTAR","https://ftar-soccer.com/"],["FCパルピターレ","http://www.palpitare.com/"],["ARTH FC","https://arth.chikyu-jin.org/"],["バンデリージャ横浜","http://banderilla-yokohama.com/"],["DISPARO FC JY","https://disparo-fc.jimdofree.com/"],["BANFF横浜FC戸塚","http://www.banffyokohama.com/"],["S-tadioRiaz","https://s-tadio.com/u1815/"],["ミラオーネFC JY","http://www.miraone-fc.yokohama/"],["PANGEAFC","https://www.seyainternational2.com/"],["FC notus","https://minami-football.com/"]
+["FC ASAHI","http://www.fcasahi.jp/","旭区"],["大豆戸FCJY","https://mamedofc.com/","港北区"],["FCヴィアージャ","https://www.fcviagem.com/","保土ケ谷区"],["大豆戸FC WEST","https://sgrum.com/web/mfc-west/","港北区"],["FC EXITO YOKOHAMA","http://www.exito-yokohama.com/","南区"],["FC緑","https://www.footballnavi.jp/fc_midori/","緑区"],["SCH.FC","http://www.sch-fc.com/","青葉区"],["横浜FCジュニアユース","https://www.yokohamafc.com/academy/junior-youth/","戸塚区"],["エストレーラFC","https://estrela-fc.com/","神奈川区"],["横浜FC鶴見JY","https://yokohamafc.tsurumi1.com/","鶴見区"],["エスペランサSC","https://esperanza-sc.com/","金沢区"],["横浜FC戸塚JY","https://www.yokohamafc.com/academy/junior-youth-totsuka/","戸塚区"],["FstudioいのやまJY","http://fstudio2012.com/","戸塚区"],["横浜Fマリノス","https://www.f-marinos.com/","都筑区"],["アルファブライトFC","https://www.absoccer.club/","青葉区"],["横浜FマリノスJY追浜","https://f-marinos-youth.com/archives/9291","金沢区"],["FC OFFSIDE","https://sites.google.com/view/fc-offside/","泉区"],["横浜栄FC","http://www.sakae-fc.com/","栄区"],["KAZU SC JY","http://www.kazusc.jp/?page_id=30","中区"],["横浜GSFC","http://ygsfc.org/","南区"],["かながわクラブ","http://www.kanagawaclub.com/","神奈川区"],["横浜ジュニオールJY","http://junior-yokohama.co.jp/top.html","西区"],["クラブテアトロJY","https://club-teatro.com/","都筑区"],["YSCC","https://yscc1986.net/","中区"],["港北FC","https://www.footballnavi.jp/kohokufc/","港北区"],["FC LLEVA若葉台","http://www.fc-lleva.com/","旭区"],["GEO-XFC","http://geox-sports.oops.jp/","旭区"],["YTC.FC","https://ytcfc.jimdofree.com/","泉区"],["FC COJB","https://mundo-do-cojb.com/","都筑区"],["イトゥアーノ横浜JY","https://stgp.jp/ituanofc/jy/","中区"],["JFC FUTURO","https://www.jfutsalclub-futuro.com/","港北区"],["CFG-YOKOHAMA","http://www.fc-goleador.com/","戸塚区"],["瀬谷インターナショナル","https://www.seyainternationalfootball.info/","瀬谷区"],["VIENTO","http://viento-viento.com/","栄区"],["FC T.BRUE","http://t-brue.com/","神奈川区"],["FC66","https://fc66.amebaownd.com/","港南区"],["東急レイエスFC","https://www.tokyu-sports.com/football/reyes.html","青葉区"],["ロボスFC","https://www.footballnavi.jp/lobos/","緑区"],["バディーJY","http://bsc-buddy.jp/","保土ケ谷区"],["横浜FTAR","https://ftar-soccer.com/","港北区"],["FCパルピターレ","http://www.palpitare.com/","港南区"],["ARTH FC","https://arth.chikyu-jin.org/","保土ケ谷区"],["バンデリージャ横浜","http://banderilla-yokohama.com/","磯子区"],["DISPARO FC JY","https://disparo-fc.jimdofree.com/","保土ケ谷区"],["BANFF横浜FC戸塚","http://www.banffyokohama.com/","戸塚区"],["S-tadioRiaz","https://s-tadio.com/u1815/","泉区"],["ミラオーネFC JY","http://www.miraone-fc.yokohama/","保土ケ谷区"],["PANGEAFC","https://www.seyainternational2.com/","瀬谷区"],["FC notus","https://minami-football.com/","南区"]
 ],
 kawasaki: [
 ["川崎フロンターレ","https://www.frontale.co.jp/"],["CBC FC","http://cachi-bambini.co.jp/footballclub"],["S.victoire S.C","http://s-victoire2007.raindrop.jp/club/"],["AC等々力","http://www.actodoroki.net/"],["川崎アズーロ","https://www.facebook.com/"],["FC川崎CHAMP","https://kawasakichamp.wixsite.com/fc-kawasaki"],["パラムンド フッチボウ クルービ","http://paramundo.net/"],["リーベルプントFC","http://riberupunto.com/"],["和光ユナイテッド川崎FC","http://wakoloco.org/soccer/"],["FC Kanaloa JY","https://sgrum.com/web/1s_spks/"],["フガーリオ川崎","https://jugariokawasaki.com/"],["FC CLIO","https://www.fcclio.com/"],["BAUMFC","https://baumfc.com/"],["GANESHA FC","https://www.ganeshafc.com/"]
@@ -219,14 +220,15 @@ girls: [
 ]
 };
 
-function createCard(name, url) {
+function createCard(name, url, ward) {
     const initial = name.charAt(0);
     const domain = url !== '#' ? new URL(url).hostname.replace('www.','') : '';
-    return `<a class="team-card" href="${url}" target="_blank" rel="noopener" data-name="${name}">
+    const wardBadge = ward ? `<span style="font-size:11px;color:var(--gold);opacity:0.7">📍${ward}</span>` : '';
+    return `<a class="team-card" href="${url}" target="_blank" rel="noopener" data-name="${name} ${ward || ''}">
         <div class="team-logo">${initial}</div>
         <div class="team-info">
             <div class="team-name">${name}</div>
-            <span class="team-link">${domain}</span>
+            <span class="team-link">${wardBadge} ${domain}</span>
         </div>
         <span class="arrow">›</span>
     </a>`;
@@ -236,7 +238,7 @@ function createCard(name, url) {
 Object.keys(TEAMS).forEach(region => {
     const grid = document.getElementById('grid-' + region);
     if (grid) {
-        grid.innerHTML = TEAMS[region].map(t => createCard(t[0], t[1])).join('');
+        grid.innerHTML = TEAMS[region].map(t => createCard(t[0], t[1], t[2])).join('');
     }
 });
 

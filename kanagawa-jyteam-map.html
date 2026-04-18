@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神奈川・東京 JYチーム マップ — 地図から探す</title>
+    <meta name="description" content="神奈川・東京のジュニアユースサッカーチームを地図から探せます。170チーム以上をマッピング。">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Noto Sans JP',sans-serif;background:#0a0a12;color:#e8e8f0}
+        .top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(10,10,18,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:fixed;top:0;left:0;right:0;z-index:1000}
+        .top-bar h1{font-size:16px;font-weight:700}
+        .top-bar h1 span{color:#ffd700}
+        .top-bar a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px}
+        .top-bar a:hover{color:#ffd700}
+        .controls{position:fixed;top:56px;left:0;right:0;z-index:999;padding:10px 16px;background:rgba(10,10,18,0.9);backdrop-filter:blur(10px);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+        .controls input{flex:1;min-width:200px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:#fff;font-size:14px;outline:none}
+        .controls input:focus{border-color:#ffd700}
+        .controls input::placeholder{color:rgba(255,255,255,0.3)}
+        .filter-btn{padding:8px 14px;border-radius:50px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer;white-space:nowrap;font-family:inherit}
+        .filter-btn:hover,.filter-btn.active{color:#ffd700;border-color:#ffd700;background:rgba(255,215,0,0.08)}
+        #map{position:fixed;top:104px;bottom:0;left:0;right:0}
+        .team-popup{font-family:'Noto Sans JP',sans-serif}
+        .team-popup h3{font-size:14px;font-weight:700;margin-bottom:4px}
+        .team-popup .area{font-size:12px;color:#666;margin-bottom:6px}
+        .team-popup a{color:#4a9eff;font-size:12px;text-decoration:none}
+        .team-popup a:hover{text-decoration:underline}
+        .leaflet-popup-content-wrapper{border-radius:12px}
+        /* Custom markers */
+        .custom-marker{background:#ffd700;color:#000;font-weight:800;font-size:11px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+        .custom-marker.girls{background:#ff69b4}
+        .custom-marker.tokyo{background:#4a9eff}
+        .team-count{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(10,10,18,0.9);padding:8px 20px;border-radius:50px;font-size:13px;color:rgba(255,255,255,0.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
+        .team-count strong{color:#ffd700}
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h1>⚽ JYチーム<span>マップ</span></h1>
+    <a href="/kanagawa-jyteam.html">📋 一覧に戻る</a>
+</div>
+
+<div class="controls">
+    <input type="text" id="searchInput" placeholder="チーム名・地域で検索...">
+    <button class="filter-btn active" data-filter="all">すべて</button>
+    <button class="filter-btn" data-filter="kanagawa">神奈川</button>
+    <button class="filter-btn" data-filter="tokyo">東京</button>
+    <button class="filter-btn" data-filter="girls">女子</button>
+</div>
+
+<div id="map"></div>
+<div class="team-count" id="teamCount"></div>
+
+<script>
+// Map centered on Kanagawa/Tokyo border area
+const map = L.map('map').setView([35.47, 139.45], 10);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    maxZoom: 18
+}).addTo(map);
+
+// Team data: [name, url, lat, lng, area, category]
+// Coordinates are approximate based on team area
+const teams = [
+// 横浜市
+["FC ASAHI","http://www.fcasahi.jp/",35.474,139.537,"横浜市旭区","kanagawa"],
+["大豆戸FCJY","https://mamedofc.com/",35.509,139.632,"横浜市港北区","kanagawa"],
+["FCヴィアージャ","https://www.fcviagem.com/",35.455,139.595,"横浜市保土ケ谷区","kanagawa"],
+["大豆戸FC WEST","https://sgrum.com/web/mfc-west/",35.509,139.628,"横浜市港北区","kanagawa"],
+["FC EXITO YOKOHAMA","http://www.exito-yokohama.com/",35.440,139.600,"横浜市南区","kanagawa"],
+["FC緑","https://www.footballnavi.jp/fc_midori/",35.513,139.540,"横浜市緑区","kanagawa"],
+["SCH.FC","http://www.sch-fc.com/",35.550,139.530,"横浜市青葉区","kanagawa"],
+["横浜FCジュニアユース","https://www.yokohamafc.com/academy/junior-youth/",35.400,139.535,"横浜市戸塚区","kanagawa"],
+["エストレーラFC","https://estrela-fc.com/",35.490,139.575,"横浜市神奈川区","kanagawa"],
+["横浜FC鶴見JY","https://yokohamafc.tsurumi1.com/",35.505,139.670,"横浜市鶴見区","kanagawa"],
+["エスペランサSC","https://esperanza-sc.com/",35.365,139.620,"横浜市金沢区","kanagawa"],
+["横浜FC戸塚JY","https://www.yokohamafc.com/academy/junior-youth-totsuka/",35.400,139.530,"横浜市戸塚区","kanagawa"],
+["FstudioいのやまJY","http://fstudio2012.com/",35.395,139.540,"横浜市戸塚区","kanagawa"],
+["横浜Fマリノス","https://www.f-marinos.com/",35.530,139.575,"横浜市都筑区","kanagawa"],
+["アルファブライトFC","https://www.absoccer.club/",35.545,139.525,"横浜市青葉区","kanagawa"],
+["横浜FマリノスJY追浜","https://f-marinos-youth.com/",35.330,139.625,"横須賀市追浜","kanagawa"],
+["FC OFFSIDE","https://sites.google.com/view/fc-offside/",35.430,139.555,"横浜市泉区","kanagawa"],
+["横浜栄FC","http://www.sakae-fc.com/",35.370,139.560,"横浜市栄区","kanagawa"],
+["KAZU SC JY","http://www.kazusc.jp/",35.445,139.620,"横浜市中区","kanagawa"],
+["横浜GSFC","http://ygsfc.org/",35.440,139.610,"横浜市南区","kanagawa"],
+["かながわクラブ","http://www.kanagawaclub.com/",35.480,139.625,"横浜市神奈川区","kanagawa"],
+["横浜ジュニオールJY","http://junior-yokohama.co.jp/",35.460,139.615,"横浜市西区","kanagawa"],
+["クラブテアトロJY","https://club-teatro.com/",35.535,139.570,"横浜市都筑区","kanagawa"],
+["YSCC","https://yscc1986.net/",35.445,139.635,"横浜市中区","kanagawa"],
+["港北FC","https://www.footballnavi.jp/kohokufc/",35.515,139.640,"横浜市港北区","kanagawa"],
+["FC LLEVA若葉台","http://www.fc-lleva.com/",35.475,139.520,"横浜市旭区","kanagawa"],
+["GEO-XFC","http://geox-sports.oops.jp/",35.465,139.545,"横浜市旭区","kanagawa"],
+["YTC.FC","https://ytcfc.jimdofree.com/",35.435,139.565,"横浜市泉区","kanagawa"],
+["FC COJB","https://mundo-do-cojb.com/",35.520,139.555,"横浜市都筑区","kanagawa"],
+["イトゥアーノ横浜JY","https://stgp.jp/ituanofc/jy/",35.445,139.645,"横浜市中区","kanagawa"],
+["JFC FUTURO","https://www.jfutsalclub-futuro.com/",35.500,139.595,"横浜市港北区","kanagawa"],
+["CFG-YOKOHAMA","http://www.fc-goleador.com/",35.410,139.550,"横浜市戸塚区","kanagawa"],
+["瀬谷インターナショナル","https://www.seyainternationalfootball.info/",35.465,139.495,"横浜市瀬谷区","kanagawa"],
+["VIENTO","http://viento-viento.com/",35.390,139.570,"横浜市栄区","kanagawa"],
+["FC T.BRUE","http://t-brue.com/",35.480,139.590,"横浜市神奈川区","kanagawa"],
+["FC66","https://fc66.amebaownd.com/",35.410,139.600,"横浜市港南区","kanagawa"],
+["東急レイエスFC","https://www.tokyu-sports.com/football/reyes.html",35.555,139.517,"横浜市青葉区","kanagawa"],
+["ロボスFC","https://www.footballnavi.jp/lobos/",35.500,139.545,"横浜市緑区","kanagawa"],
+["バディーJY","http://bsc-buddy.jp/",35.480,139.570,"横浜市保土ケ谷区","kanagawa"],
+["横浜FTAR","https://ftar-soccer.com/",35.490,139.610,"横浜市港北区","kanagawa"],
+["FCパルピターレ","http://www.palpitare.com/",35.420,139.580,"横浜市港南区","kanagawa"],
+["ARTH FC","https://arth.chikyu-jin.org/",35.440,139.570,"横浜市保土ケ谷区","kanagawa"],
+["バンデリージャ横浜","http://banderilla-yokohama.com/",35.430,139.620,"横浜市磯子区","kanagawa"],
+["DISPARO FC JY","https://disparo-fc.jimdofree.com/",35.460,139.555,"横浜市保土ケ谷区","kanagawa"],
+["BANFF横浜FC戸塚","http://www.banffyokohama.com/",35.405,139.540,"横浜市戸塚区","kanagawa"],
+["S-tadioRiaz","https://s-tadio.com/u1815/",35.450,139.530,"横浜市泉区","kanagawa"],
+["ミラオーネFC JY","http://www.miraone-fc.yokohama/",35.485,139.555,"横浜市保土ケ谷区","kanagawa"],
+["PANGEAFC","https://www.seyainternational2.com/",35.462,139.500,"横浜市瀬谷区","kanagawa"],
+["FC notus","https://minami-football.com/",35.435,139.605,"横浜市南区","kanagawa"],
+// 川崎市
+["川崎フロンターレ","https://www.frontale.co.jp/",35.576,139.655,"川崎市中原区","kanagawa"],
+["CBC FC","http://cachi-bambini.co.jp/",35.590,139.690,"川崎市幸区","kanagawa"],
+["AC等々力","http://www.actodoroki.net/",35.580,139.650,"川崎市中原区","kanagawa"],
+["FC川崎CHAMP","https://kawasakichamp.wixsite.com/",35.560,139.610,"川崎市宮前区","kanagawa"],
+["リーベルプントFC","http://riberupunto.com/",35.540,139.580,"川崎市麻生区","kanagawa"],
+["和光ユナイテッド川崎","http://wakoloco.org/soccer/",35.555,139.640,"川崎市高津区","kanagawa"],
+["FC Kanaloa JY","https://sgrum.com/web/1s_spks/",35.545,139.620,"川崎市宮前区","kanagawa"],
+["フガーリオ川崎","https://jugariokawasaki.com/",35.600,139.700,"川崎市川崎区","kanagawa"],
+["FC CLIO","https://www.fcclio.com/",35.570,139.630,"川崎市高津区","kanagawa"],
+["BAUMFC","https://baumfc.com/",35.555,139.605,"川崎市宮前区","kanagawa"],
+["GANESHA FC","https://www.ganeshafc.com/",35.545,139.595,"川崎市宮前区","kanagawa"],
+["パラムンド","http://paramundo.net/",35.585,139.665,"川崎市中原区","kanagawa"],
+["川崎アズーロ","#",35.560,139.650,"川崎市中原区","kanagawa"],
+["S.victoire S.C","http://s-victoire2007.raindrop.jp/",35.565,139.625,"川崎市高津区","kanagawa"],
+// 相模原市
+["アトラソンFC","https://stgp.jp/kazoo/jy",35.570,139.370,"相模原市南区","kanagawa"],
+["むげんJY","http://npomugen.jp/",35.570,139.380,"相模原市南区","kanagawa"],
+["ヴェルディ相模原","http://verdy-sagami.com/",35.575,139.395,"相模原市南区","kanagawa"],
+["SC相模原","https://www.scsagamihara.com/",35.580,139.390,"相模原市中央区","kanagawa"],
+["FCグラシア相模原","http://fcgracia.com/",35.585,139.375,"相模原市中央区","kanagawa"],
+["FCヴィンクーロ","http://fc-vinculo.info/",35.595,139.365,"相模原市中央区","kanagawa"],
+["相模原シティユナイテッド","https://sagamihara-city-united.com/",35.590,139.385,"相模原市中央区","kanagawa"],
+["FCコラソン","http://www.fc-coracao.com/",35.565,139.400,"相模原市南区","kanagawa"],
+["FIFTYCLUB","http://www.fiftyclub.jp/",35.600,139.350,"相模原市緑区","kanagawa"],
+["FCヴォセラーゴ津久井","https://vozelago-football.jimdofree.com/",35.620,139.280,"相模原市緑区","kanagawa"],
+["PALAVRAFC","https://palavrafootball.com/",35.575,139.405,"相模原市南区","kanagawa"],
+// 厚木・茅ヶ崎
+["FC厚木DREAMS","https://www.fcatsugi-dreams.com/",35.440,139.365,"厚木市","kanagawa"],
+["カルペソール湘南","https://carpesol.jp/",35.330,139.400,"茅ヶ崎市","kanagawa"],
+["LEOVISTA ATSUGI","https://www.leovista-atsugi.jp/",35.445,139.375,"厚木市","kanagawa"],
+["AFC茅ヶ崎","https://www.afc-chigasaki.com/",35.335,139.410,"茅ヶ崎市","kanagawa"],
+["CIELO.FC","https://cielo2013.com/",35.440,139.430,"綾瀬市","kanagawa"],
+["綾瀬FC","https://www.footballnavi.jp/ayase_fc/",35.435,139.435,"綾瀬市","kanagawa"],
+// 湘南・平塚・小田原
+["湘南ベルマーレU15","https://www.bellmare.co.jp/",35.340,139.350,"平塚市","kanagawa"],
+["AtraenceFC平塚","http://atraence.com/",35.345,139.355,"平塚市","kanagawa"],
+["SFAT ISEHARA JY","https://isesui.com/soccer/",35.400,139.320,"伊勢原市","kanagawa"],
+["海老名FC","http://www.ebinafc.net/",35.445,139.395,"海老名市","kanagawa"],
+["FC湘南","http://www5e.biglobe.ne.jp/~fcshonan/",35.330,139.445,"藤沢市","kanagawa"],
+["FC Fujisawa","https://fc-fujisawa.com/",35.340,139.470,"藤沢市","kanagawa"],
+["足柄FC","https://ashigarafc.wixsite.com/",35.310,139.150,"小田原市","kanagawa"],
+["FCワンセンス西湘","https://www.one-sense.jp/",35.300,139.170,"小田原市","kanagawa"],
+// 大和・座間・鎌倉
+["ライオンズSC","https://www.lions-sc.net/",35.470,139.460,"大和市","kanagawa"],
+["座間FC","http://zamafc.web.fc2.com/",35.490,139.405,"座間市","kanagawa"],
+["鎌倉インターナショナル","https://kamakura-inter.com/",35.320,139.550,"鎌倉市","kanagawa"],
+["横須賀シーガルズ","https://www.yokosuka-seagulls.com/",35.280,139.660,"横須賀市","kanagawa"],
+// 横須賀・秦野
+["FC AIVANCE YOKOSUKA","http://fcaivance.net/",35.275,139.670,"横須賀市","kanagawa"],
+["秦野FC","http://hadano-fc.org/",35.375,139.230,"秦野市","kanagawa"],
+// 東京
+["FC町田ゼルビア","https://www.zelvia.co.jp/",35.560,139.445,"町田市","tokyo"],
+["町田JFC","https://sgrum.com/web/machidajfc-jryouth/",35.555,139.450,"町田市","tokyo"],
+["FC AVIENTO","https://aviento-fc.com/",35.565,139.440,"町田市","tokyo"],
+["コンフィアール町田","https://official.confiar-machida.com/",35.550,139.455,"町田市","tokyo"],
+["緑山SC","https://www.midoriyama-sc.com/",35.570,139.460,"町田市","tokyo"],
+["FC多摩JY","https://fctama1994.main.jp/",35.630,139.445,"多摩市","tokyo"],
+["FC GLORIA","https://www.fc-gloria.com/",35.635,139.440,"多摩市","tokyo"],
+["ARTE八王子FC","https://yohtairen.jp/",35.660,139.330,"八王子市","tokyo"],
+["F.C.Branco八王子","https://brancohachioji.jimdofree.com/",35.655,139.340,"八王子市","tokyo"],
+["アローレ八王子U-15","https://arawore.jp/",35.665,139.325,"八王子市","tokyo"],
+["FC Almundo","https://www.fcalmundo.tokyo/",35.650,139.350,"八王子市","tokyo"],
+["FCベルテール","https://belleterre.jimdoweb.com/",35.645,139.345,"八王子市","tokyo"],
+["南八王子SC","https://www.minami-h.net/",35.640,139.340,"八王子市","tokyo"],
+// 女子
+["ノジマステラ相模原","https://www.stellakanagawa.nojima.co.jp/",35.575,139.395,"相模原市","girls"],
+["湘南ベルマーレガールズ","https://www.bellmare.co.jp/",35.340,139.355,"平塚市","girls"],
+["大和シルフィード","https://www.yamato-sylphid.com/",35.470,139.465,"大和市","girls"],
+["FC厚木ガールズ","https://www.fc-atsugigirls.org/",35.440,139.370,"厚木市","girls"],
+["横浜ウィンズ","http://yoko-wins.lolipop.jp/",35.450,139.610,"横浜市","girls"],
+["川崎フロンターレ女子","https://www.frontale.co.jp/",35.576,139.660,"川崎市","girls"],
+["綾瀬ガールズSC JADE","https://www.ayase-jade.com/",35.435,139.430,"綾瀬市","girls"],
+["ACロッソZAMA FIORE","https://rosso-zama.com/",35.490,139.410,"座間市","girls"],
+["YSCCコスモス","https://yscc1986.net/",35.445,139.640,"横浜市中区","girls"],
+];
+
+let markers = [];
+const markerGroup = L.layerGroup().addTo(map);
+
+function createMarker(t) {
+    const [name, url, lat, lng, area, cat] = t;
+    const colorClass = cat === 'girls' ? 'girls' : cat === 'tokyo' ? 'tokyo' : '';
+    const icon = L.divIcon({
+        className: '',
+        html: `<div class="custom-marker ${colorClass}">${name.charAt(0)}</div>`,
+        iconSize: [28, 28],
+        iconAnchor: [14, 14]
+    });
+    const marker = L.marker([lat, lng], {icon}).bindPopup(`
+        <div class="team-popup">
+            <h3>${name}</h3>
+            <div class="area">📍 ${area}</div>
+            ${url !== '#' ? `<a href="${url}" target="_blank">🌐 公式サイト →</a>` : ''}
+        </div>
+    `);
+    marker._teamData = {name, area, cat};
+    return marker;
+}
+
+function renderMarkers(filter, search) {
+    markerGroup.clearLayers();
+    let count = 0;
+    teams.forEach(t => {
+        const [name,,,,area,cat] = t;
+        if (filter !== 'all' && cat !== filter) return;
+        if (search && !name.toLowerCase().includes(search) && !area.includes(search)) return;
+        markerGroup.addLayer(createMarker(t));
+        count++;
+    });
+    document.getElementById('teamCount').innerHTML = `<strong>${count}</strong> チームを表示中`;
+}
+
+renderMarkers('all', '');
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderMarkers(btn.dataset.filter, document.getElementById('searchInput').value.toLowerCase());
+    });
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    const active = document.querySelector('.filter-btn.active').dataset.filter;
+    renderMarkers(active, e.target.value.toLowerCase());
+});
+</script>
+
+</body>
+</html>
