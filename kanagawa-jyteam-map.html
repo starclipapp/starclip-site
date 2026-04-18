@@ -13,17 +13,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Noto Sans JP',sans-serif;background:#0a0a12;color:#e8e8f0}
-        .top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(10,10,18,0.95);border-bottom:1px solid rgba(255,255,255,0.08);position:fixed;top:0;left:0;right:0;z-index:1000}
-        .top-bar h1{font-size:16px;font-weight:700}
-        .top-bar h1 span{color:#ffd700}
-        .top-bar a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px}
-        .top-bar a:hover{color:#ffd700}
-        .controls{position:fixed;top:56px;left:0;right:0;z-index:999;padding:10px 16px;background:rgba(10,10,18,0.9);backdrop-filter:blur(10px);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-        .controls input{flex:1;min-width:200px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:#fff;font-size:14px;outline:none}
-        .controls input:focus{border-color:#ffd700}
-        .controls input::placeholder{color:rgba(255,255,255,0.3)}
-        .filter-btn{padding:8px 14px;border-radius:50px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer;white-space:nowrap;font-family:inherit}
-        .filter-btn:hover,.filter-btn.active{color:#ffd700;border-color:#ffd700;background:rgba(255,215,0,0.08)}
+        .top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.95);border-bottom:1px solid rgba(0,0,0,0.1);position:fixed;top:0;left:0;right:0;z-index:1000}
+        .top-bar h1{font-size:16px;font-weight:700;color:#222}
+        .top-bar h1 span{color:#d4a017}
+        .top-bar a{color:#666;text-decoration:none;font-size:13px}
+        .top-bar a:hover{color:#d4a017}
+        .controls{position:fixed;top:56px;left:0;right:0;z-index:999;padding:10px 16px;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+        .controls input{flex:1;min-width:200px;padding:10px 14px;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#fff;color:#222;font-size:14px;outline:none}
+        .controls input:focus{border-color:#d4a017}
+        .controls input::placeholder{color:#999}
+        .filter-btn{padding:8px 14px;border-radius:50px;border:1px solid rgba(0,0,0,0.15);background:transparent;color:#666;font-size:12px;cursor:pointer;white-space:nowrap;font-family:inherit}
+        .filter-btn:hover,.filter-btn.active{color:#d4a017;border-color:#d4a017;background:rgba(212,160,23,0.08)}
         #map{position:fixed;top:104px;bottom:0;left:0;right:0}
         .team-popup{font-family:'Noto Sans JP',sans-serif}
         .team-popup h3{font-size:14px;font-weight:700;margin-bottom:4px}
@@ -31,12 +31,13 @@
         .team-popup a{color:#4a9eff;font-size:12px;text-decoration:none}
         .team-popup a:hover{text-decoration:underline}
         .leaflet-popup-content-wrapper{border-radius:12px}
-        /* Custom markers */
-        .custom-marker{background:#ffd700;color:#000;font-weight:800;font-size:11px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+        /* Custom markers — 4-char 2x2 grid */
+        .custom-marker{background:#ffd700;color:#000;font-weight:800;font-size:9px;width:36px;height:36px;border-radius:6px;display:grid;grid-template-columns:1fr 1fr;align-items:center;justify-items:center;line-height:1;padding:2px;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.4);letter-spacing:0}
+        .custom-marker span{display:block;text-align:center;width:100%}
         .custom-marker.girls{background:#ff69b4}
         .custom-marker.tokyo{background:#4a9eff}
-        .team-count{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(10,10,18,0.9);padding:8px 20px;border-radius:50px;font-size:13px;color:rgba(255,255,255,0.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
-        .team-count strong{color:#ffd700}
+        .team-count{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(255,255,255,0.92);padding:8px 20px;border-radius:50px;font-size:13px;color:#555;backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,0.1);box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+        .team-count strong{color:#d4a017}
     </style>
 </head>
 <body>
@@ -60,8 +61,8 @@
 <script>
 // Map centered on Kanagawa/Tokyo border area
 const map = L.map('map').setView([35.47, 139.45], 10);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 18
 }).addTo(map);
 
@@ -181,14 +182,27 @@ const teams = [
 let markers = [];
 const markerGroup = L.layerGroup().addTo(map);
 
+function getShortName(name) {
+    // Remove common prefixes to get a meaningful 4-char abbreviation
+    let s = name.replace(/^FC\s*/i, '').replace(/^JFC\s*/i, '').replace(/ジュニアユース$/,'').replace(/\s*JY$/i,'').replace(/\s*SC$/i,'');
+    if (s.length === 0) s = name;
+    // Take up to 4 chars
+    return s.substring(0, 4);
+}
+
 function createMarker(t) {
     const [name, url, lat, lng, area, cat] = t;
     const colorClass = cat === 'girls' ? 'girls' : cat === 'tokyo' ? 'tokyo' : '';
+    const short = getShortName(name);
+    // Split into 2x2 grid: top row (chars 0-1), bottom row (chars 2-3)
+    const c = [...short];
+    const top = (c[0]||'') + (c[1]||'');
+    const bot = (c[2]||'') + (c[3]||'');
     const icon = L.divIcon({
         className: '',
-        html: `<div class="custom-marker ${colorClass}">${name.charAt(0)}</div>`,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14]
+        html: `<div class="custom-marker ${colorClass}"><span>${top}</span><span>${bot}</span></div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
     });
     const marker = L.marker([lat, lng], {icon}).bindPopup(`
         <div class="team-popup">
