@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Camera WiFi Reader サポート</title><style>body{font:16px/1.8 system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 24px;color:#20242a;background:#fff}h1{font-size:1.8rem}h2{font-size:1.25rem;margin-top:2rem}a{color:#1758a7}aside{border:2px solid #a66100;padding:14px;background:#fff8e8}footer{border-top:1px solid #ddd;margin-top:40px;padding-top:16px}code{overflow-wrap:anywhere}</style></head><body>
+<main>
+<h1>Camera WiFi Reader サポート</h1>
+<p>Camera WiFi Readerは、USBケーブルやカードリーダーを使わず、カメラのWi-FiからSDカード内の写真・RAW・動画をMacへ取り込む独立したアプリです。OI.Share（OM Image Share）のWi-Fi画像共有に対応し、同じOlympus互換HTTP APIを提供するOlympus／OM Systemカメラを対象にします。対象は特定の2機種だけではありません。E-M5 Mark IIIとOM-1は実機検証中です。機種・ファームウェアによる応答差があるため、未検証機種の動作を保証するものではありません。OM SYSTEM／Olympusの公式アプリではありません。</p>
+<h2>カメラに接続する</h2>
+<ol><li>カメラの再生画面またはメニューから、Wi-Fiの画像共有接続を開始します。</li><li>Camera WiFi Readerの「Wi-Fi設定を開く」、またはMacのシステム設定 &gt; Wi-Fiを開きます。</li><li>カメラ画面に表示されたSSIDへ接続し、カメラ画面のパスワードをmacOSに入力します。Camera WiFi ReaderはWi-Fiパスワードを保存しません。</li><li>Camera WiFi Readerが有効なカメラ応答を確認すると、自動的に「カメラと通信中」へ切り替わります。必要なら「写真一覧を更新」を押します。</li><li>使用後はmacOSのWi-Fi設定で普段のネットワークへ戻します。</li></ol>
+<p>カメラのWi-Fiに接続中は通常のインターネット接続が利用できない場合があります。Wi-Fiライブビュー、Bluetooth接続、遠隔シャッターには対応していません。</p>
+<h2>カメラなしで試す</h2>
+<p>ヘルプメニューの「デモを表示」を選びます。「デモ表示（カメラ未接続）」と表示され、同梱の合成サンプル画像を閲覧できます。デモ中はカメラへの通信と原寸ダウンロードを行いません。カメラとの通信を試す前に「デモを終了」を選んでください。</p>
+<h2>写真が表示されない</h2>
+<p>macOS 15以降では、ローカルネットワークへのアクセスを許可してください。許可しなかった場合は、システム設定 → プライバシーとセキュリティ → ローカルネットワークでCamera WiFi Readerをオンにします。</p>
+<ul><li>デモを終了し、Macがカメラ画面のSSIDに接続しているか確認します。</li><li>カメラのWi-Fi共有モードと、メモリーカードに写真があるか確認します。</li><li>カメラの共有接続を開始し直し、「写真一覧を更新」を押します。</li></ul>
+<p>接続中表示はSSID、キャッシュ、以前の接続情報ではなく、有効なOlympus／OM Systemカメラの応答から判断します。カメラの応答を失うと未接続へ戻ります。</p>
+<h2>原寸写真とプレビュー</h2>
+<p>「写真一覧を更新」はカメラ内の一覧、写真・動画のサムネイル、プレビューに含まれるEXIFの更新です。プレビューに含まれないEXIFは原寸保存後まで空欄になる場合があります。EXIFだけを目的に原寸を自動取得することはありません。</p>
+<p>「全写真自動保存」はJPEGと設定で選んだRAWの原寸を保存します。動画は自動保存しません。進捗には保存済み件数／対象件数と保存中の写真名を表示します。「中止」で写真の原寸取り込みを止め、「再開」で未保存分を続けます。</p>
+<p>「閲覧写真のみ保存」は写真を1秒間表示すると原寸保存を予約します。「全写真自動保存」と「手動保存」も選べます。手動では「この写真をMacに保存」を押します。</p>
+<h2>動画を再生する</h2>
+<p>動画は自動保存せず、最初はサムネイルだけを表示します。「ダウンロードして再生」を押すとMacの一時ファイルへ受信し、サイズを確認して保存してからローカルファイルを再生します。容量、進捗率、速度、残り時間を表示し、転送中の「中止」または待機中の「キューから削除」で1件だけ取り消せます。残りの動画キューは順番どおり続行します。中止した動画を再開する場合は先頭から取得します。</p>
+<p>プレビューを見られるだけでは、原寸写真がMacに保存されたことにはなりません。保存状態を確認し、保存済み写真のFinder操作から実際の保存先を開いてください。保存先はmacOSのサンドボックスにより通常のホームフォルダ内の場所と異なる場合があります。</p>
+<p>原寸保存に失敗したら、カメラの共有接続、空き容量、アプリに表示される保存先とエラーを確認してください。</p>
+<h2>キャッシュを削除する</h2>
+<p>設定の「プレビューキャッシュを削除」で一時プレビューを削除できます。上限は合計512MiB、保持期間は最終取得から7日です。アプリの処理時に削除します。保存済みの原寸写真は削除されません。自動取得が有効ならプレビューを再取得する場合があります。</p>
+<h2>お問い合わせ</h2>
+<p><a href="mailto:starclipapp@gmail.com">starclipapp@gmail.com</a></p>
+<p>お問い合わせには、アプリのバージョン、macOSのバージョン、カメラ機種、操作手順、表示されたエラーを伝えてください。Wi-Fiパスワードは送らないでください。写真・ログを送る場合は、不要な個人情報やEXIF位置情報を確認してください。</p>
+<h2>個人情報</h2>
+<p>アカウント、広告、アクセス解析、追跡、クラウドアップロードはありません。詳細は<a href="https://starclip.app/camerawifireader/privacy/">プライバシーポリシー</a>を参照してください。メールに含まれる情報はお問い合わせへの対応に利用します。</p>
+</main>
+<footer>対象: Camera WiFi Reader for Mac。App Store公開準備中です。<br><a href="https://starclip.app/support/">共通サポート窓口</a> · <a href="https://starclip.app/camerawifireader/privacy/">プライバシーポリシー</a></footer>
+</body></html>
