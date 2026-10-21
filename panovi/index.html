@@ -32,6 +32,8 @@ h2{font-size:clamp(21px,3.6vw,30px);font-weight:800;margin-bottom:14px;line-heig
 h2 .accent{color:var(--accent)}
 .lead{color:var(--text-dim);margin-bottom:24px}
 .caption{font-size:13px;color:var(--text-dim);margin-top:10px;text-align:center}
+.note{margin-top:20px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--bg-card);font-size:14.5px;color:var(--text-dim)}
+.note strong{color:var(--text)}
 .pair{display:grid;grid-template-columns:1fr;gap:18px;margin-top:24px}
 @media(min-width:720px){.pair{grid-template-columns:1fr 1fr}}
 .pair figure{margin:0}
@@ -114,6 +116,14 @@ footer a{color:var(--accent);text-decoration:none}
            autoplay muted loop playsinline preload="metadata"
            aria-label="ピッチ全面が1本に収まった試合の映像"></video>
     <p class="caption">実際の試合を panovi で撮って結合したものです。カメラは三脚に置いたまま、一度も動かしていません。両ゴールも両ベンチも、ずっと画面の中にあります。</p>
+
+    <div class="note">
+      <p><strong>この動画は実物より粗いです。</strong>ページの読み込みを軽くするため、横1920pxに縮小しています。
+      実際の結合結果は <strong>7312 × 2160</strong>（横幅で約3.8倍、画素数で約14倍）。</p>
+      <p style="margin-top:10px">下は、同じ場面を<strong>元の解像度から原寸のまま切り出した</strong>ものです。これが本当の精細さです。</p>
+    </div>
+    <img src="img/soccer_zoom.jpg" alt="同じ試合映像を元の解像度から原寸で切り出したもの。選手一人ひとりが見える" style="margin-top:14px">
+    <p class="caption">7312×2160 から 1400×460 を原寸で切り出し（拡大していません）</p>
     <p class="lead">帰り道の車や電車の中で結合しておけば、家に着いたころには1本の動画ができています。クラウドにアップロードして待つ必要はありません。</p>
   </section>
 
