@@ -16,7 +16,7 @@
 }
 body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
   background:var(--bg-deep);color:var(--text);line-height:1.8}
-img{max-width:100%;height:auto;display:block;border-radius:12px}
+img,video{max-width:100%;height:auto;display:block;border-radius:12px}
 .wrap{max-width:900px;margin:0 auto;padding:0 24px}
 .hero{text-align:center;padding:80px 24px 40px;
   background:radial-gradient(ellipse 70% 55% at 50% 30%,rgba(30,100,200,.18) 0%,transparent 70%)}
@@ -110,6 +110,10 @@ footer a{color:var(--accent);text-decoration:none}
   <section>
     <h2>試合はまるごと。<span class="accent">帰り道につないで、家で大画面</span></h2>
     <p class="lead">サッカーやラグビーなら、三脚に据えて逆サイドまで入れたまま、最後まで撮り続けられます。3台目のiPhoneをリモコンにすれば、カメラに触れずに録画を始めたり止めたりできるので、自分は観戦に集中できます。</p>
+    <video src="img/soccer.mp4" poster="img/soccer_poster.jpg"
+           autoplay muted loop playsinline preload="metadata"
+           aria-label="ピッチ全面が1本に収まった試合の映像"></video>
+    <p class="caption">実際の試合を panovi で撮って結合したものです。カメラは三脚に置いたまま、一度も動かしていません。両ゴールも両ベンチも、ずっと画面の中にあります。</p>
     <p class="lead">帰り道の車や電車の中で結合しておけば、家に着いたころには1本の動画ができています。クラウドにアップロードして待つ必要はありません。</p>
   </section>
 
