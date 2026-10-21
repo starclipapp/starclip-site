@@ -168,10 +168,20 @@ h2 em{font-style:normal;color:var(--green)}
   border:1px solid var(--rule);touch-action:none;cursor:grab;user-select:none}
 .xp-stage:active{cursor:grabbing}
 .xp-film{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
-.xp-film video{display:block;background:#000}
+.xp-film video{display:block;background:#000;
+  /* ★上の `img,video{max-width:100%}` を打ち消す。
+     打ち消さないと JS が指定した幅（画面より広い）が容器の幅まで縮められ、
+     位置だけは広い前提で計算されるので**映像が左へ飛んで真っ黒**になる。 */
+  max-width:none;min-width:0}
 .xp-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
-.xp.is-live .xp-poster{display:none}
+/* ★ポスターは**最初の絵が出るまで**残す。24MBの読み込みを待つあいだ真っ黒にしない。 */
+.xp.is-ready .xp-poster{display:none}
+.xp.is-live .xp-poster{opacity:1}
 .xp:not(.is-live) .xp-film{display:none}
+.xp-loading{position:absolute;inset:auto 0 0;display:none;justify-content:center;padding:14px;
+  font-size:13px;color:#eaf1ee}
+.xp.is-live:not(.is-ready) .xp-loading{display:flex}
+.xp.is-live:not(.is-ready) .xp-hint{display:none}
 .xp-start{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:14px;text-align:center;padding:24px;
   background:linear-gradient(rgba(4,32,31,.4),rgba(4,32,31,.82))}
@@ -323,6 +333,7 @@ h2 em{font-style:normal;color:var(--green)}
         <button class="btn btn-fill" type="button" data-act="start">映像を動かしてみる</button>
         <p>広角レンズで撮った結合結果の原寸です。押すと読み込みが始まります（12秒・24MB）</p>
       </div>
+      <div class="xp-loading">読み込んでいます…（24MB）</div>
       <div class="xp-hint">ドラッグで左右へ　ホイール／ピンチで寄る</div>
     </div>
     <div class="xp-bar">

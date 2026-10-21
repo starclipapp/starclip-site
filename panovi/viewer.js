@@ -95,6 +95,10 @@
     if (video.videoWidth) AR = video.videoWidth / video.videoHeight;
     reset();
   });
+  // ★**最初の絵が出てから**ポスターを外す。でないと読み込みのあいだ真っ黒になる。
+  const ready = () => { root.classList.add('is-ready'); reset(); };
+  video.addEventListener('loadeddata', ready);
+  video.addEventListener('playing', ready);
   // 横に長すぎて再生できない端末向けの控え
   video.addEventListener('error', () => {
     const alt = video.dataset.fallback;
