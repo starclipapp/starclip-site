@@ -93,6 +93,14 @@ h2 em{font-style:normal;color:var(--green)}
 .end{margin-top:110px;padding:40px 0 70px;border-top:1px solid var(--rule);
   font-size:13px;color:var(--paper-dim);display:flex;flex-wrap:wrap;gap:8px 26px}
 .end a{color:var(--green);text-decoration:none}
+
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:12px;
+  font-weight:700;font-size:15px;text-decoration:none}
+.btn.primary{background:var(--green);color:var(--ink)}
+.btn.ghost{border:1px solid var(--rule);color:var(--paper)}
+.btn.ghost:hover{border-color:var(--green);color:var(--green)}
+.more{display:inline-block;margin-top:14px;font-size:14px;font-weight:700;color:var(--green);text-decoration:none}
 </style>
 </head>
 <body>
@@ -166,6 +174,7 @@ h2 em{font-style:normal;color:var(--green)}
     <img src="img/soccer_zoom.jpg" alt="同じ試合映像を元の解像度から原寸で切り出したもの。選手一人ひとりが見える">
     <figcaption style="margin-top:12px;font-size:12.5px;color:var(--paper-dim)">7312×2160 から 1400×460 を原寸で切り出し</figcaption>
   </figure>
+  <a class="more" href="viewer/?url=https%3A%2F%2Fstarclip.app%2Fpanovi%2Fimg%2Fsoccer.mp4">この試合の映像を、ブラウザで寄って見る →</a>
 
   <section class="chapter">
     <span class="eyebrow">04 — レンズを選ぶ</span>
@@ -211,7 +220,18 @@ h2 em{font-style:normal;color:var(--green)}
   </section>
 
   <section class="chapter">
-    <span class="eyebrow">08 — 料金</span>
+    <span class="eyebrow">08 — ブラウザで見る</span>
+    <h2>YouTubeでも、mp4でも。<br><em>URLを貼れば、寄れる。</em></h2>
+    <p class="body">panovi viewer は、横長の映像をブラウザで拡大・移動して見るための無料のビューアです。YouTubeにアップロードした動画でも、mp4ファイルのURLでも、貼るだけで見たいところへ寄れます。</p>
+    <p class="body">ビューアのリンクを送れば、受け取った人もそのまま寄って見られます。アプリのインストールは要りません。パソコンでもスマートフォンでも使えます。</p>
+    <div class="links">
+      <a class="btn primary" href="viewer/?url=https%3A%2F%2Fstarclip.app%2Fpanovi%2Fimg%2Fsoccer.mp4">サンプル映像で試す →</a>
+      <a class="btn ghost" href="viewer/guide.html">使い方を見る</a>
+    </div>
+  </section>
+
+  <section class="chapter">
+    <span class="eyebrow">09 — 料金</span>
     <h2>基本は、<em>無料で使えます。</em></h2>
     <p class="body">お金がかかるのは「2分以上の長い結合」だけです。</p>
     <table class="price">
@@ -225,7 +245,7 @@ h2 em{font-style:normal;color:var(--green)}
   </section>
 
   <section class="chapter">
-    <span class="eyebrow">09 — よくある質問</span>
+    <span class="eyebrow">10 — よくある質問</span>
     <h2>気になるところ。</h2>
     <dl class="faq">
       <dt>撮った映像はどこかに送られますか？</dt>
@@ -244,6 +264,7 @@ h2 em{font-style:normal;color:var(--green)}
   <footer class="end">
     <span>panovi</span>
     <span>撮った映像は、あなたのiPhoneの中だけに。</span>
+    <a href="viewer/">panovi viewer</a>
     <a href="privacy/">プライバシーポリシー</a>
   </footer>
 </main>
