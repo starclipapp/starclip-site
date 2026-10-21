@@ -27,7 +27,8 @@ img,video{display:block;max-width:100%;height:auto}
 
 .col{width:min(980px,calc(100% - 44px));margin-inline:auto}
 
-.mast{display:flex;align-items:baseline;gap:14px;padding:30px 0 0;flex-wrap:wrap}
+.mast{display:flex;align-items:center;gap:14px;padding:30px 0 0;flex-wrap:wrap}
+.icon{width:44px;height:44px;border-radius:11px}
 .mark{font-size:21px;font-weight:600;letter-spacing:.14em;color:var(--green)}
 .mark-sub{font-size:11px;letter-spacing:.22em;color:var(--paper-dim);text-transform:uppercase}
 
@@ -97,6 +98,7 @@ h2 em{font-style:normal;color:var(--green)}
 <body>
 
 <header class="col mast">
+  <img class="icon" src="img/icon.png" alt="panovi のアイコン" width="44" height="44">
   <span class="mark">panovi</span>
   <span class="mark-sub">two iPhones, one wide frame</span>
 </header>
@@ -157,7 +159,7 @@ h2 em{font-style:normal;color:var(--green)}
 
 <main class="col">
   <div class="aside" style="margin-top:28px">
-    <p><strong>この動画は実物より粗いです。</strong>ページを軽くするため横1920pxに縮小しています。実際の結合結果は <strong>7312 × 2160</strong>。横幅で約3.8倍、画素数で約14倍あります。</p>
+    <p><strong>この動画は実物より粗いです。</strong>実際の結合結果は <strong>7312 × 2160</strong>。ここでは空と手前を切り取ったうえで、ページを軽くするため横1920pxに縮小しています。元は横幅で約3.8倍の情報があります。</p>
     <p style="margin-top:12px">下は同じ場面を、<strong>元の解像度から原寸のまま切り出した</strong>ものです。これが本当の精細さです。</p>
   </div>
   <figure style="margin:24px 0 0">
@@ -166,19 +168,39 @@ h2 em{font-style:normal;color:var(--green)}
   </figure>
 
   <section class="chapter">
-    <span class="eyebrow">04 — 旅先で</span>
+    <span class="eyebrow">04 — レンズを選ぶ</span>
+    <h2>端まで入れるか、<em>大きく写すか。</em></h2>
+    <p class="body">同じピッチを超広角と広角で撮り比べたものです。超広角は端のコーナーまで入ります。広角は画角が狭いぶん、同じ選手がはっきり大きく写ります。撮る前にどちらのレンズを使うか選べます。</p>
+  </section>
+</main>
+
+<div style="margin-top:40px">
+  <video src="img/soccer_wide.mp4" poster="img/soccer_wide_poster.jpg"
+         autoplay muted loop playsinline preload="none"
+         style="width:100%" aria-label="広角レンズで撮った同じピッチの映像"></video>
+</div>
+
+<main class="col">
+  <p class="body" style="margin-top:22px;max-width:38em">広角で撮ったもの。超広角より狭いぶん、一人ひとりが大きく写ります。</p>
+  <figure style="margin:24px 0 0">
+    <img src="img/wide_zoom.jpg" alt="広角で撮った映像を元の解像度から原寸で切り出したもの。ユニフォームの柄まで見える">
+    <figcaption style="margin-top:12px;font-size:12.5px;color:var(--paper-dim)">広角で撮った映像を 6188×1508 から原寸で切り出し。ユニフォームの柄や足元まで残ります</figcaption>
+  </figure>
+
+  <section class="chapter">
+    <span class="eyebrow">05 — 旅先で</span>
     <h2>見たままの広さで、<em>残す。</em></h2>
     <p class="body">山頂から富士山まで。1台では入りきらない景色も、流れる雲ごと1本に収まります。特別な日だけでなく、散歩や旅行のちょっとした記録にも。</p>
   </section>
 
   <section class="chapter">
-    <span class="eyebrow">05 — 360度カメラとの違い</span>
+    <span class="eyebrow">06 — 360度カメラとの違い</span>
     <h2>画素を、<em>撮りたい方向にだけ使う。</em></h2>
     <p class="body">360度カメラは画素を全方位に分けます。そのぶん一方向あたりは粗くなり、遠くの被写体は小さくしか写りません。panovi は見たい方向にだけ画素を集めます。だから広く撮っても、迫力のある大きさのまま残せます。</p>
   </section>
 
   <section class="chapter">
-    <span class="eyebrow">06 — 使い方</span>
+    <span class="eyebrow">07 — 使い方</span>
     <h2>やることは、<em>3つだけ。</em></h2>
     <div class="steps">
       <div class="step"><div><h3>つなぐ</h3><p>1台でQRコードを出し、もう1台で読み取る。それだけです。</p></div></div>
@@ -189,7 +211,7 @@ h2 em{font-style:normal;color:var(--green)}
   </section>
 
   <section class="chapter">
-    <span class="eyebrow">07 — 料金</span>
+    <span class="eyebrow">08 — 料金</span>
     <h2>基本は、<em>無料で使えます。</em></h2>
     <p class="body">お金がかかるのは「2分以上の長い結合」だけです。</p>
     <table class="price">
@@ -203,7 +225,7 @@ h2 em{font-style:normal;color:var(--green)}
   </section>
 
   <section class="chapter">
-    <span class="eyebrow">08 — よくある質問</span>
+    <span class="eyebrow">09 — よくある質問</span>
     <h2>気になるところ。</h2>
     <dl class="faq">
       <dt>撮った映像はどこかに送られますか？</dt>
