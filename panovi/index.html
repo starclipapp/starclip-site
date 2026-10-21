@@ -312,7 +312,7 @@ h2 em{font-style:normal;color:var(--green)}
     <h2>この画面の中で、<br><em>寄ってみてください。</em></h2>
     <p class="body">本物の結合結果を 16:9 に切り出して表示しています。ドラッグで左右へ、ホイールやピンチで寄れます。アプリの中でも、できた動画に同じことができます。</p>
   </div>
-  <div class="col xp rise" id="xp">
+  <div class="col xp rise" id="xp" data-zoom="1.6" data-cx="0.62" data-cy="0.50" data-ar="4.0508">
     <div class="xp-stage">
       <img class="xp-poster" src="img/viewer_poster.jpg" alt="" loading="lazy">
       <div class="xp-film">
@@ -321,7 +321,7 @@ h2 em{font-style:normal;color:var(--green)}
       </div>
       <div class="xp-start">
         <button class="btn btn-fill" type="button" data-act="start">映像を動かしてみる</button>
-        <p>広角レンズで撮った 6188 × 1508 の結合結果。押すと読み込みが始まります（10秒・22MB）</p>
+        <p>広角レンズで撮った結合結果の原寸です。押すと読み込みが始まります（12秒・24MB）</p>
       </div>
       <div class="xp-hint">ドラッグで左右へ　ホイール／ピンチで寄る</div>
     </div>
@@ -330,12 +330,14 @@ h2 em{font-style:normal;color:var(--green)}
       <button class="xp-chip" data-frame="left" type="button">左</button>
       <button class="xp-chip" data-frame="center" type="button">中央</button>
       <button class="xp-chip" data-frame="right" type="button">右</button>
-      <button class="xp-chip" data-zoom="1.6" type="button">寄る ＋</button>
-      <button class="xp-chip" data-zoom="0.625" data-act="out" type="button">引く －</button>
+      <button class="xp-chip" data-zoom-by="1.5" type="button">寄る ＋</button>
+      <button class="xp-chip" data-zoom-by="0.6667" data-act="out" type="button">引く －</button>
+      <button class="xp-chip" data-act="whole" type="button">全体</button>
+      <button class="xp-chip" data-act="reset" type="button">最初に戻す</button>
       <span class="gap"></span>
       <span class="xp-zoom">1.0×</span>
     </div>
-    <p class="xp-note">広角レンズで撮った実際の結合結果（6188×1508・10秒・無音）。くり返し再生します。</p>
+    <p class="xp-note">広角レンズで撮った実際の結合結果。結合キャンバスの黒いフチだけを外した 6060×1496・12秒・無音です。「全体」を押すと端から端まで入ります。</p>
     <div class="links">
       <a class="btn btn-line" href="viewer/?url=https%3A%2F%2Fstarclip.app%2Fpanovi%2Fimg%2Fviewer.mp4">もっと自由に見る（panovi viewer）</a>
       <a class="btn btn-line" href="viewer/guide.html">ビューアの使い方</a>
@@ -365,11 +367,11 @@ h2 em{font-style:normal;color:var(--green)}
   <div class="col rise">
     <figure>
       <img src="img/wide_zoom.jpg" alt="広角で撮った映像を原寸のまま切り出したもの。ユニフォームの柄まで見える" loading="lazy">
-      <figcaption class="cap">広角で撮った映像の中から 1400×460 を原寸で切り出し。ユニフォームの柄や足元まで残ります</figcaption>
+      <figcaption class="cap">広角で撮った映像の中から 1400×460 を原寸で切り出し。背番号もボールも、拡大せずにこの大きさで残っています</figcaption>
     </figure>
     <div class="note">
       <p><strong>原寸のまま1枚置いてあります。</strong>圧縮で細部が落ちないよう、動画ではなく静止画です。
-      <a href="img/wide_native.jpg" download>6188×1130 の原寸をダウンロード（1.7MB）</a></p>
+      <a href="img/wide_native.jpg" download>6060×1496 の原寸をダウンロード（1.7MB）</a></p>
     </div>
   </div>
 </section>
@@ -426,10 +428,10 @@ h2 em{font-style:normal;color:var(--green)}
       <tr><th>端末どうしの転送</th><td class="y">無料</td></tr>
       <tr><th>置き方の確認・3秒の確認</th><td class="y">無料</td></tr>
       <tr><th>2分未満の結合</th><td class="y">ずっと無料・回数無制限</td></tr>
-      <tr><th>2分以上の結合</th><td>無料で3回 ／ そのあとは買い切り ¥8,000</td></tr>
+      <tr><th>2分以上の結合</th><td>無料で3回 ／ そのあとは買い切り</td></tr>
     </table>
     <div class="note">
-      <p><strong>月額ではありません。</strong>一度の支払いで、そのあとはずっと無制限です。専用の機材も要りません。すでにお持ちの iPhone 2台と、三脚だけ。</p>
+      <p><strong>月額ではありません。</strong>一度の支払いで、そのあとはずっと無制限です。価格は App Store でご確認ください。専用の機材も要りません。すでにお持ちの iPhone 2台と、三脚だけ。</p>
     </div>
   </div>
 </section>

@@ -53,6 +53,8 @@ let currentSource = null;
 let player = null;
 let playerKind = null;
 let viewportModel = createViewportModel();
+/// 前に見た位置が無い状態か（初めて開いた動画）。
+let viewportIsDefault = true;
 let renderFrame = null;
 let gestureController = null;
 let lastViewportSize = null;
@@ -170,7 +172,12 @@ function beginQualityCheck(videoId) {
 }
 
 function restoreViewport(sourceKey) {
-  viewportModel = createViewportModel(loadViewportState(sourceKey));
+  const saved = loadViewportState(sourceKey);
+  // ★前に見た位置が無いときは、**黒帯の出ない大きさ**から始める（下の applyDefaultFraming）。
+  //   横長の映像を scale 1（＝全体がレターボックス）で出すと、
+  //   初見の人の画面は上下が黒い帯で埋まる。
+  viewportIsDefault = saved.scale === 1 && saved.x === 0 && saved.y === 0;
+  viewportModel = createViewportModel(saved);
   const size = viewportSize();
   viewportModel.resize(size, size);
   lastViewportSize = size;
@@ -222,6 +229,7 @@ function openFileVideo(source) {
     url: source.url,
     onReady: (adapter) => {
       viewportModel.setContentAspect(adapter.getAspectRatio(), viewportSize());
+      applyDefaultFraming();
       renderViewport({ persist: false });
       showOnlyState(null);
       adapter.play();
@@ -321,6 +329,18 @@ elements.helpDialog.addEventListener('click', (event) => {
   if (event.target === elements.helpDialog) elements.helpDialog.close();
 });
 
+/// 初めて開いた動画の始めの見え方。
+/// ★**黒帯を出さない**ところまで寄せる（`getFillScale`＝映像が画面を覆う倍率）。
+///   横長のパノラマでは、ここが「16:9 に切り出した状態」にあたる。
+///   前に見た位置があるときは触らない（その人の続きを壊さない）。
+function applyDefaultFraming() {
+  if (!viewportIsDefault) return;
+  const size = viewportSize();
+  const fill = viewportModel.getFillScale(size);
+  if (!Number.isFinite(fill) || fill <= 1) return;
+  viewportModel.setScaleAt(fill, { x: size.width / 2, y: size.height / 2 }, size);
+}
+
 function presetScale(preset, size) {
   const fill = viewportModel.getFillScale(size);
   if (preset === 'fill') return fill;
@@ -353,7 +373,13 @@ elements.frameButtons.forEach((button) => {
 });
 
 elements.reset.addEventListener('click', () => {
+  // ★scale 1 に戻すと**また上下に黒帯**が出る。覆う大きさへ戻す。
   viewportModel.reset();
+  const size = viewportSize();
+  const fill = viewportModel.getFillScale(size);
+  if (Number.isFinite(fill) && fill > 1) {
+    viewportModel.setScaleAt(fill, { x: size.width / 2, y: size.height / 2 }, size);
+  }
   renderViewport();
 });
 

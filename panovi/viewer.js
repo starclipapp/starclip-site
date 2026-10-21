@@ -1,6 +1,12 @@
 /* panovi 体験ビューア
    横長の結合映像を 16:9 に切り出し、ドラッグとピンチで見たいところへ寄るだけの部品。
-   外部ライブラリなし。<video> に CSS transform を掛けている。 */
+   外部ライブラリなし。<video> に CSS transform を掛けている。
+
+   ★最初の見え方は HTML の data 属性で決める（#xp）:
+       data-zoom  … 始めの倍率。1.0 = 高さいっぱい（黒は出ない）
+       data-cx/cy … 始めに画面中央へ置く点（映像の中での割合 0〜1）
+     既定を「高さいっぱいの中央」にすると、**空と手前の空いた地面ばかり**が映り、
+     選手は上の方に小さく出る。だから少し寄せて、人のいる高さへ合わせる。 */
 (function () {
   const root = document.getElementById('xp');
   if (!root) return;
@@ -12,27 +18,27 @@
   const readout = root.querySelector('.xp-zoom');
   const outBtn  = root.querySelector('[data-act="out"]');
   const barPlay = root.querySelector('.xp-bar [data-act="play"]');
-  const MAX = 4;
+  const MAX = 5;
 
-  let AR = 6188 / 1508;       // 読み込めたら実寸で上書き
-  let baseW = 0, baseH = 0, minS = 1, s = 1, tx = 0, ty = 0;
+  const startZoom = parseFloat(root.dataset.zoom || '1') || 1;
+  const startCX   = parseFloat(root.dataset.cx || '0.5');
+  const startCY   = parseFloat(root.dataset.cy || '0.5');
+
+  let AR = parseFloat(root.dataset.ar || '') || 6060 / 1496;  // 読み込めたら実寸で上書き
+  let baseW = 0, baseH = 0, minS = 1, s = startZoom, tx = 0, ty = 0;
   let started = false;
 
   const stageW = () => stage.clientWidth;
   const stageH = () => stage.clientHeight;
 
-  function layout(keep) {
-    const w = stageW(), h = stageH();
-    if (!w || !h) return;
-    const cx = baseW ? (w / 2 - tx) / (baseW * s) : 0.5;
-    const cy = baseH ? (h / 2 - ty) / (baseH * s) : 0.5;
+  function sizes() {
+    const h = stageH();
     baseH = h; baseW = h * AR;
-    minS = Math.min(1, w / baseW);
+    // ★一番引いた状態＝全体が横に収まるところ。ここだけは上下に黒が出るが、
+    //   **人が「全体」を押したときだけ**（既定にはしない）。
+    minS = Math.min(1, stageW() / baseW);
     video.style.width = baseW + 'px';
     video.style.height = baseH + 'px';
-    s = Math.max(minS, Math.min(MAX, s));
-    if (keep) { tx = w / 2 - cx * baseW * s; ty = h / 2 - cy * baseH * s; }
-    clamp(); apply();
   }
   function clamp() {
     const w = stageW(), h = stageH(), vw = baseW * s, vh = baseH * s;
@@ -43,6 +49,22 @@
     film.style.transform = `translate3d(${tx}px,${ty}px,0) scale(${s})`;
     if (readout) readout.textContent = s.toFixed(1) + '×';
     if (outBtn) outBtn.disabled = s <= minS + 0.001;
+  }
+  /// 映像の中の (cx,cy) を画面の真ん中に置く。
+  function center(cx, cy) {
+    tx = stageW() / 2 - cx * baseW * s;
+    ty = stageH() / 2 - cy * baseH * s;
+    clamp(); apply();
+  }
+  function reset() { s = Math.max(minS, startZoom); sizes(); center(startCX, startCY); }
+
+  function layout(keep) {
+    if (!stageW() || !stageH()) return;
+    const cx = baseW ? (stageW() / 2 - tx) / (baseW * s) : startCX;
+    const cy = baseH ? (stageH() / 2 - ty) / (baseH * s) : startCY;
+    sizes();
+    s = Math.max(minS, Math.min(MAX, s));
+    if (keep) center(cx, cy); else center(startCX, startCY);
   }
   function zoomAt(ns, px, py) {
     ns = Math.max(minS, Math.min(MAX, ns));
@@ -55,6 +77,7 @@
     tx = where === 'left' ? 0 : where === 'right' ? w - vw : (w - vw) / 2;
     clamp(); apply();
   }
+  function whole() { s = minS; sizes(); center(0.5, 0.5); }
   function hideHint() { hint && hint.classList.add('is-gone'); }
 
   // 重い動画なので、押されるまで読み込まない
@@ -70,7 +93,7 @@
 
   video.addEventListener('loadedmetadata', () => {
     if (video.videoWidth) AR = video.videoWidth / video.videoHeight;
-    layout(false); frame('center');
+    reset();
   });
   // 横に長すぎて再生できない端末向けの控え
   video.addEventListener('error', () => {
@@ -110,24 +133,27 @@
     zoomAt(s * Math.pow(1.0022, -e.deltaY), e.clientX - r.left, e.clientY - r.top);
     hideHint();
   }, { passive: false });
-  stage.addEventListener('dblclick', () => { s = minS; clamp(); apply(); });
+  // ★二度押しは**始めの見え方へ戻す**（一番引いた状態にすると上下に黒が出る）
+  stage.addEventListener('dblclick', reset);
 
   // ボタン
-  // 大きな開始ボタンは「始める」だけ。下のバーの再生ボタンだけが一時停止も兼ねる
-  //（台の上を押した時点で begin() が走っているので、ここで toggle すると即止まる）
+  //   大きな開始ボタンは「始める」だけ。台を押した時点で begin() が走っているので、
+  //   ここで toggle すると押した瞬間に止まる。
   root.querySelectorAll('[data-act="start"]').forEach((b) =>
     b.addEventListener('click', (e) => { e.preventDefault(); begin(); }));
   root.querySelectorAll('.xp-bar [data-act="play"]').forEach((b) =>
     b.addEventListener('click', () => { started ? toggle() : begin(); }));
   root.querySelectorAll('[data-frame]').forEach((b) =>
     b.addEventListener('click', () => { begin(); frame(b.dataset.frame); hideHint(); }));
-  root.querySelectorAll('[data-zoom]').forEach((b) =>
+  root.querySelectorAll('[data-zoom-by]').forEach((b) =>
     b.addEventListener('click', () => {
-      begin();
-      zoomAt(s * parseFloat(b.dataset.zoom), stageW() / 2, stageH() / 2);
-      hideHint();
+      begin(); zoomAt(s * parseFloat(b.dataset.zoomBy), stageW() / 2, stageH() / 2); hideHint();
     }));
+  root.querySelectorAll('[data-act="whole"]').forEach((b) =>
+    b.addEventListener('click', () => { begin(); whole(); hideHint(); }));
+  root.querySelectorAll('[data-act="reset"]').forEach((b) =>
+    b.addEventListener('click', () => { begin(); reset(); hideHint(); }));
 
   addEventListener('resize', () => layout(true));
-  layout(false);
+  reset();
 })();
