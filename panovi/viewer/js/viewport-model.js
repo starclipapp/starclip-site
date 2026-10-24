@@ -162,17 +162,27 @@ export function createViewportModel(initialState = {}) {
     },
 
     resize(previousSize, nextSize) {
-      const previousWidth = validDimension(previousSize?.width);
-      const previousHeight = validDimension(previousSize?.height);
-      const nextWidth = validDimension(nextSize?.width);
-      const nextHeight = validDimension(nextSize?.height);
-      const widthRatio = previousWidth > 0 ? nextWidth / previousWidth : 1;
-      const heightRatio = previousHeight > 0 ? nextHeight / previousHeight : 1;
+      const previousContent = contentSize(previousSize, aspect);
+      const nextContent = contentSize(nextSize, aspect);
+      // A view that covered the viewport keeps covering it at the same relative
+      // zoom (rotation, mobile toolbars); a letterboxed view keeps its scale.
+      const previousFill = fillScaleFor(previousSize, aspect);
+      const scale = state.scale >= previousFill
+        ? scaleValue(
+          state.scale * fillScaleFor(nextSize, aspect) / previousFill,
+          state.scale,
+          maxScaleFor(nextSize, aspect),
+        )
+        : scaleValue(state.scale, state.scale, maxScaleFor(nextSize, aspect));
+      // Keep the same point of the media at the viewport center.
+      const offset = (value, previous, next) => (previous > 0
+        ? value / (state.scale * previous) * scale * next
+        : value);
 
       state = clampState({
-        scale: state.scale,
-        x: state.x * widthRatio,
-        y: state.y * heightRatio,
+        scale,
+        x: offset(state.x, previousContent.width, nextContent.width),
+        y: offset(state.y, previousContent.height, nextContent.height),
       }, nextSize, aspect);
       return snapshot();
     },

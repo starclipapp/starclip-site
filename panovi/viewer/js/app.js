@@ -35,6 +35,7 @@ const elements = {
   forward: document.querySelector('#forward-button'),
   reset: document.querySelector('#reset-button'),
   openFullscreen: document.querySelector('#open-fullscreen'),
+  exitFullscreen: document.querySelector('#exit-fullscreen-button'),
   zoomSlider: document.querySelector('#zoom-slider'),
   zoomReadout: document.querySelector('#zoom-readout'),
   qualityGate: document.querySelector('#quality-gate'),
@@ -250,7 +251,7 @@ async function openVideo(input, { enterFullscreen = false } = {}) {
 
   elements.urlError.textContent = '';
   elements.urlInput.removeAttribute('aria-invalid');
-  if (enterFullscreen && document.fullscreenElement !== elements.viewerShell) {
+  if (enterFullscreen && !isFullscreen()) {
     void toggleFullscreen();
   }
   const request = requestGate.begin();
@@ -383,7 +384,34 @@ elements.reset.addEventListener('click', () => {
   renderViewport();
 });
 
+// iPhone Safari has no element Fullscreen API, so the viewer instead covers
+// the page with a fixed layer ("pseudo fullscreen") that reuses the same styles.
+const supportsNativeFullscreen = Boolean(
+  document.fullscreenEnabled && elements.viewerShell.requestFullscreen,
+);
+
+function isPseudoFullscreen() {
+  return elements.viewerShell.classList.contains('is-pseudo-fullscreen');
+}
+
+function isFullscreen() {
+  return document.fullscreenElement === elements.viewerShell || isPseudoFullscreen();
+}
+
+function setPseudoFullscreen(active) {
+  lastViewportSize = viewportSize();
+  if (active) setInteractionMode(interactionModeForFullscreen(qualityGate.getState().active));
+  elements.viewerShell.classList.toggle('is-pseudo-fullscreen', active);
+  document.documentElement.classList.toggle('has-pseudo-fullscreen', active);
+  syncViewportSize();
+}
+
 async function toggleFullscreen() {
+  if (!supportsNativeFullscreen) {
+    setPseudoFullscreen(!isPseudoFullscreen());
+    return;
+  }
+
   try {
     if (document.fullscreenElement === elements.viewerShell) {
       await document.exitFullscreen();
@@ -397,14 +425,18 @@ async function toggleFullscreen() {
   }
 }
 
-document.addEventListener('fullscreenchange', () => {
+function syncViewportSize() {
   requestAnimationFrame(() => {
     const nextSize = viewportSize();
     viewportModel.resize(lastViewportSize ?? nextSize, nextSize);
     lastViewportSize = nextSize;
     renderViewport();
   });
-});
+}
+
+document.addEventListener('fullscreenchange', syncViewportSize);
+window.addEventListener('resize', syncViewportSize);
+elements.exitFullscreen.addEventListener('click', () => setPseudoFullscreen(false));
 
 function zoomBy(factor) {
   const size = viewportSize();
@@ -446,6 +478,11 @@ function executeCommand(command) {
 }
 
 document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && isPseudoFullscreen() && !elements.helpDialog.open) {
+    event.preventDefault();
+    setPseudoFullscreen(false);
+    return;
+  }
   const command = classifyShortcut(
     event,
     isShortcutTypingTarget(event.target),

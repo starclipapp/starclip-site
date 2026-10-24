@@ -558,7 +558,27 @@ h1 {
   background: #000;
 }
 
+.viewer-shell.is-pseudo-fullscreen {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  flex-direction: column;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+}
+
 .viewer-shell:fullscreen .viewer-viewport {
+  min-height: 0;
+  flex: 1;
+  aspect-ratio: auto;
+}
+
+.viewer-shell.is-pseudo-fullscreen .viewer-viewport {
   min-height: 0;
   flex: 1;
   aspect-ratio: auto;
@@ -583,11 +603,38 @@ h1 {
   transform: translateX(-50%);
 }
 
+.viewer-shell.is-pseudo-fullscreen .quality-gate {
+  position: absolute;
+  z-index: 10;
+  top: max(12px, env(safe-area-inset-top));
+  left: 50%;
+  width: min(720px, calc(100vw - 24px));
+  min-height: 0;
+  align-items: center;
+  flex-direction: row;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 249, 148, 0.4);
+  border-radius: 14px;
+  background: rgba(5, 22, 14, 0.9);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  transform: translateX(-50%);
+}
+
 .viewer-shell:fullscreen .quality-gate-copy h2 {
   font-size: 0.88rem;
 }
 
+.viewer-shell.is-pseudo-fullscreen .quality-gate-copy h2 {
+  font-size: 0.88rem;
+}
+
 .viewer-shell:fullscreen .quality-gate-copy > p:last-child {
+  font-size: 0.7rem;
+}
+
+.viewer-shell.is-pseudo-fullscreen .quality-gate-copy > p:last-child {
   font-size: 0.7rem;
 }
 
@@ -598,7 +645,18 @@ h1 {
   gap: 8px;
 }
 
+.viewer-shell.is-pseudo-fullscreen .quality-gate-actions {
+  width: auto;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+}
+
 .viewer-shell:fullscreen .quality-status {
+  font-size: 0.68rem;
+}
+
+.viewer-shell.is-pseudo-fullscreen .quality-status {
   font-size: 0.68rem;
 }
 
@@ -609,11 +667,26 @@ h1 {
   font-size: 0.76rem;
 }
 
+.viewer-shell.is-pseudo-fullscreen .quality-confirm-button {
+  width: auto;
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 0.76rem;
+}
+
 .viewer-shell:fullscreen .control-deck {
   display: none;
 }
 
+.viewer-shell.is-pseudo-fullscreen .control-deck {
+  display: none;
+}
+
 .viewer-shell:fullscreen .live-readout {
+  display: none;
+}
+
+.viewer-shell.is-pseudo-fullscreen .live-readout {
   display: none;
 }
 
@@ -818,6 +891,11 @@ kbd {
   .viewer-shell:fullscreen .control-deck {
     flex: 0 0 auto;
   }
+
+  .viewer-shell.is-pseudo-fullscreen .quality-gate,
+  .viewer-shell.is-pseudo-fullscreen .control-deck {
+    flex: 0 0 auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -848,4 +926,34 @@ kbd {
 .guide-link:hover {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+/* Kept separate from the :fullscreen rules so browsers that do not know
+   :fullscreen (older iOS Safari) still apply the pseudo fullscreen layer. */
+html.has-pseudo-fullscreen,
+html.has-pseudo-fullscreen body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.exit-fullscreen-button {
+  position: absolute;
+  z-index: 5;
+  top: max(12px, env(safe-area-inset-top));
+  left: max(12px, env(safe-area-inset-left));
+  display: none;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  background: rgba(2, 8, 6, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.viewer-shell.is-pseudo-fullscreen .exit-fullscreen-button {
+  display: grid;
 }
