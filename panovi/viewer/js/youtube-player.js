@@ -1,3 +1,5 @@
+import { t } from './i18n.js';
+
 const apiLoads = new WeakMap();
 
 export function loadYouTubeApi(documentRef = globalThis.document) {
@@ -25,7 +27,7 @@ export function loadYouTubeApi(documentRef = globalThis.document) {
     script.onerror = () => {
       apiLoads.delete(documentRef);
       windowRef.onYouTubeIframeAPIReady = previousReady;
-      reject(new Error('YouTube APIの読み込みに失敗しました。'));
+      reject(new Error(t('YouTube APIの読み込みに失敗しました。')));
     };
 
     documentRef.head.append(script);
@@ -40,7 +42,7 @@ export function describeYouTubeError(code) {
     return {
       code,
       kind: 'embedding-disabled',
-      message: 'この動画は埋め込み再生が許可されていません。YouTubeで開いてください。',
+      message: t('この動画は埋め込み再生が許可されていません。YouTubeで開いてください。'),
     };
   }
 
@@ -52,7 +54,7 @@ export function describeYouTubeError(code) {
   return {
     code,
     kind: 'player-error',
-    message: messages[code] ?? 'YouTube動画を読み込めませんでした。',
+    message: t(messages[code] ?? 'YouTube動画を読み込めませんでした。'),
   };
 }
 

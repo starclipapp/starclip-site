@@ -1,3 +1,5 @@
+import { t } from './i18n.js';
+
 const MEDIA_ERROR_MESSAGES = {
   1: '動画の読み込みが中断されました。',
   2: 'ネットワークエラーで動画を読み込めませんでした。',
@@ -9,7 +11,7 @@ export function describeMediaError(code) {
   return {
     code,
     kind: 'player-error',
-    message: MEDIA_ERROR_MESSAGES[code] ?? '動画を読み込めませんでした。',
+    message: t(MEDIA_ERROR_MESSAGES[code] ?? '動画を読み込めませんでした。'),
   };
 }
 

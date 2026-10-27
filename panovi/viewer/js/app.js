@@ -1,3 +1,4 @@
+import { t } from './i18n.js';
 import { createGestureController } from './gesture-controller.js';
 import {
   beginQualityPlayback,
@@ -88,7 +89,7 @@ function showToast(message) {
 function scheduleSave(state) {
   if (!currentSource) return;
   viewportSaver.schedule(currentSource.key, state, () => {
-    showToast('表示位置を保存できませんでした。');
+    showToast(t('表示位置を保存できませんでした。'));
   });
 }
 
@@ -137,15 +138,15 @@ function setPlayerError(error) {
   qualityGate.cancel();
   renderQualityGate();
   elements.errorTitle.textContent = error.kind === 'embedding-disabled'
-    ? 'この動画はここでは再生できません'
-    : '動画を読み込めませんでした';
+    ? t('この動画はここでは再生できません')
+    : t('動画を読み込めませんでした');
   elements.errorMessage.textContent = error.message;
   showOnlyState(elements.error);
 }
 
 function updateSourceLink(source) {
   elements.youtubeLink.href = source.url;
-  elements.youtubeLink.textContent = source.kind === 'youtube' ? 'YouTubeで開く ↗' : '動画を直接開く ↗';
+  elements.youtubeLink.textContent = source.kind === 'youtube' ? t('YouTubeで開く ↗') : t('動画を直接開く ↗');
 }
 
 function setInteractionMode(mode) {
@@ -161,8 +162,8 @@ function renderQualityGate() {
   elements.qualityGate.classList.toggle('is-hidden', !state.active);
   elements.qualitySettings.classList.toggle('is-hidden', state.active || !state.videoId);
   elements.qualityStatus.textContent = state.reportedQuality
-    ? `YouTubeの現在の報告: ${labelForYouTubeQuality(state.reportedQuality)}`
-    : '映像をクリック／タップして操作バーを表示';
+    ? `${t('YouTubeの現在の報告')}: ${labelForYouTubeQuality(state.reportedQuality)}`
+    : t('映像をクリック／タップして操作バーを表示');
 }
 
 function beginQualityCheck(videoId) {
@@ -201,7 +202,7 @@ function installGestureController() {
 function updatePlaybackState(state) {
   const playing = state === 1;
   elements.playIcon.textContent = playing ? 'Ⅱ' : '▶';
-  elements.play.setAttribute('aria-label', playing ? '一時停止' : '再生');
+  elements.play.setAttribute('aria-label', playing ? t('一時停止') : t('再生'));
 }
 
 function mountPlayer(kind) {
@@ -236,7 +237,7 @@ function openFileVideo(source) {
       adapter.play();
     },
     onStateChange: updatePlaybackState,
-    onMutedAutoplay: () => showToast('自動再生のためミュートで再生中です。Mで解除できます。'),
+    onMutedAutoplay: () => showToast(t('自動再生のためミュートで再生中です。Mで解除できます。')),
     onError: setPlayerError,
   });
 }
@@ -244,7 +245,7 @@ function openFileVideo(source) {
 async function openVideo(input, { enterFullscreen = false } = {}) {
   const source = parseVideoSource(input);
   if (!source) {
-    elements.urlError.textContent = 'YouTubeのURLまたは動画ファイル（mp4など）のURLを入力してください。';
+    elements.urlError.textContent = t('YouTubeのURLまたは動画ファイル（mp4など）のURLを入力してください。');
     elements.urlInput.setAttribute('aria-invalid', 'true');
     return;
   }
@@ -293,7 +294,7 @@ async function openVideo(input, { enterFullscreen = false } = {}) {
     if (!requestGate.isCurrent(request)) return;
     setPlayerError({
       kind: 'api-error',
-      message: error instanceof Error ? error.message : 'YouTube APIを読み込めませんでした。',
+      message: error instanceof Error ? error.message : t('YouTube APIを読み込めませんでした。'),
     });
   }
 }
@@ -421,7 +422,7 @@ async function toggleFullscreen() {
       await elements.viewerShell.requestFullscreen();
     }
   } catch {
-    showToast('フルスクリーン表示を開始できませんでした。');
+    showToast(t('フルスクリーン表示を開始できませんでした。'));
   }
 }
 

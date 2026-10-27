@@ -1,3 +1,5 @@
+import { t } from './i18n.js';
+
 const QUALITY_LABELS = {
   small: '240p以下',
   medium: '360p',
@@ -8,7 +10,7 @@ const QUALITY_LABELS = {
 };
 
 export function labelForYouTubeQuality(quality) {
-  return QUALITY_LABELS[quality] ?? '自動調整';
+  return t(QUALITY_LABELS[quality] ?? '自動調整');
 }
 
 export function interactionModeForFullscreen(qualityCheckActive) {
