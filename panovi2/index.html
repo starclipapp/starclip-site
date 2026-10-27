@@ -75,9 +75,17 @@ a{color:inherit}
 .hero h1 em{font-style:normal;color:var(--green)}
 .hero-lead{margin:22px auto 0;max-width:33em;font-size:clamp(15px,1.8vw,18px);color:#dfe6e3}
 .hero-join{margin:44px auto 0;max-width:1120px}
-.hero-join video{width:100%;height:auto;aspect-ratio:16/9;background:var(--ink);
-  border:1px solid var(--rule);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
-.hero-join figcaption{margin-top:14px;font-size:12.5px;color:#cfdad7;line-height:1.75;text-align:center}
+.join-stage{position:relative;aspect-ratio:16/9;background:var(--ink);
+  border:1px solid var(--rule);border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.join-stage video{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .45s}
+.join-stage video.is-on{opacity:1}
+.join-nav{margin-top:16px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.join-chip{background:transparent;border:1px solid var(--rule);color:var(--paper);
+  padding:8px 18px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+.join-chip:hover{border-color:var(--green);color:var(--green)}
+.join-chip.is-on{background:var(--green);border-color:var(--green);color:#042a20;font-weight:700}
+.hero-join figcaption{margin-top:12px;font-size:12.5px;color:#cfdad7;line-height:1.75;text-align:center}
 .hero-cta{margin-top:34px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
 
 /* ───── 数字の帯 ───── */
@@ -247,11 +255,19 @@ h2 em{font-style:normal;color:var(--green)}
     <h1>2本の映像が、<br><em>1本になる。</em></h1>
     <p class="hero-lead">2台のiPhoneを三脚に並べて置くだけ。左右の映像がつながって、端から端まで入った1本の超ワイド動画になります。</p>
     <figure class="hero-join">
-      <video autoplay muted loop playsinline preload="auto" poster="img/hero-join-poster.jpg"
-             width="1920" height="1080" aria-label="左右2台の映像が1本の超ワイドになるデモ。5秒・無音">
-        <source src="img/hero-join.mp4" type="video/mp4">
-      </video>
-      <figcaption>実際に2台のiPhoneで撮った映像です（金時山・無音・5秒ループ）。左右の2本が、富士山まで入った1本になります。</figcaption>
+      <div class="join-stage">
+        <video class="is-on" src="img/hero-join-mountain.mp4" poster="img/hero-join-mountain-poster.jpg"
+               autoplay muted playsinline preload="auto"
+               aria-label="金時山: 左右2台の映像が1本の超ワイドになるデモ。無音"></video>
+        <video src="img/hero-join-city.mp4" poster="img/hero-join-city-poster.jpg"
+               muted playsinline preload="metadata"
+               aria-label="電車の走る街並み: 左右2台の映像が1本の超ワイドになるデモ。無音"></video>
+      </div>
+      <div class="join-nav" aria-label="デモの切り替え">
+        <button class="join-chip is-on" type="button" data-join="0">金時山</button>
+        <button class="join-chip" type="button" data-join="1">街と電車</button>
+      </div>
+      <figcaption>実際に2台のiPhoneで撮った映像です（無音）。左右の2本が、1本の超ワイドになります。再生が終わると次のデモに切り替わります。</figcaption>
     </figure>
     <div class="hero-cta">
       <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">App Store で入手</a>
@@ -560,11 +576,27 @@ const vio = new IntersectionObserver((es) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.band video').forEach((v) => vio.observe(v));
 
-// 動きを控える設定の人には、ヒーローのデモを自動再生しない
-if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const hv = document.querySelector('.hero-join video');
-  if (hv) { hv.autoplay = false; hv.pause(); hv.controls = true; }
-}
+// ヒーローのデモ: 1本の再生が終わったら次のシーンへ切り替わるカルーセル
+(function(){
+  const vids = Array.from(document.querySelectorAll('.join-stage video'));
+  const chips = Array.from(document.querySelectorAll('.join-chip'));
+  if (!vids.length) return;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0;
+  function show(i){
+    cur = i;
+    vids.forEach((v, k) => {
+      v.classList.toggle('is-on', k === i);
+      if (k === i) { try { v.currentTime = 0; } catch (_) {} if (!calm) v.play().catch(() => {}); }
+      else v.pause();
+    });
+    chips.forEach((c, k) => c.classList.toggle('is-on', k === i));
+  }
+  vids.forEach((v, k) => v.addEventListener('ended', () => { if (k === cur && !calm) show((k + 1) % vids.length); }));
+  chips.forEach((c, k) => c.addEventListener('click', () => show(k)));
+  // 動きを控える設定の人には、自動再生も自動切り替えもしない（手動の操作だけ）
+  if (calm) vids.forEach((v) => { v.autoplay = false; v.pause(); v.controls = true; });
+})();
 </script>
 <script src="/panovi/viewer.js"></script>
 <div class="lb" id="lightbox" hidden><img alt=""></div>
