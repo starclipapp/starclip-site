@@ -57,20 +57,27 @@ a{color:inherit}
 .btn-line:hover{border-color:var(--green);color:var(--green)}
 .btn-sm{padding:9px 18px;font-size:13px}
 
-/* ───── 一枚目: 「2本 → 1本」を最初に見せる ───── */
-.hero{position:relative;padding:136px 0 72px;overflow:hidden;isolation:isolate;
-  background:radial-gradient(110% 90% at 50% -10%,rgba(0,249,148,.10),transparent 58%)}
+/* ───── 一枚目: 流れる映像の上で「2本 → 1本」を見せる ───── */
+.hero{position:relative;padding:136px 0 72px;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero-bg video{position:absolute;left:0;top:0;height:100%;width:auto;max-width:none;
+  object-fit:cover;animation:pan 46s linear infinite alternate}
+@keyframes pan{from{transform:translateX(calc(-100% + 100vw))}to{transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.hero-bg video{animation:none}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,rgba(4,32,31,.62) 0%,rgba(4,32,31,.38) 30%,rgba(4,32,31,.92) 80%,var(--ink) 100%)}
 .hero-head{text-align:center}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.26em;
   text-transform:uppercase;color:var(--green);margin-bottom:22px}
 .kicker::before,.kicker::after{content:"";width:34px;height:1px;background:var(--green)}
-.hero h1{font-size:clamp(34px,6.4vw,72px);font-weight:800;line-height:1.14;letter-spacing:-.04em}
+.hero h1{font-size:clamp(34px,6.4vw,72px);font-weight:800;line-height:1.14;letter-spacing:-.04em;
+  text-shadow:0 2px 44px rgba(0,0,0,.45)}
 .hero h1 em{font-style:normal;color:var(--green)}
 .hero-lead{margin:22px auto 0;max-width:33em;font-size:clamp(15px,1.8vw,18px);color:#dfe6e3}
 .hero-join{margin:44px auto 0;max-width:1120px}
 .hero-join video{width:100%;height:auto;aspect-ratio:16/9;background:var(--ink);
   border:1px solid var(--rule);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
-.hero-join figcaption{margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.75;text-align:center}
+.hero-join figcaption{margin-top:14px;font-size:12.5px;color:#cfdad7;line-height:1.75;text-align:center}
 .hero-cta{margin-top:34px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
 
 /* ───── 数字の帯 ───── */
@@ -232,6 +239,9 @@ h2 em{font-style:normal;color:var(--green)}
 </header>
 
 <section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <video src="/panovi/img/hero.mp4" poster="/panovi/img/hero_poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  </div>
   <div class="col hero-head">
     <span class="kicker">two iPhones, one wide frame</span>
     <h1>2本の映像が、<br><em>1本になる。</em></h1>
