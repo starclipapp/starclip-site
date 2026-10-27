@@ -107,6 +107,15 @@ h2 em{font-style:normal;color:var(--green)}
 .shot img{width:100%}
 .shot figcaption{margin-top:13px;font-size:12.5px;color:var(--dim);line-height:1.75}
 .shot .n{color:var(--green);font-weight:700;margin-right:.5em}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.trio figure{margin:0}
+.trio a.zoom{display:block;cursor:zoom-in}
+.trio img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block}
+.trio figcaption{margin-top:8px;font-size:12.5px;color:var(--dim);line-height:1.6}
+.trio .n{display:block;color:var(--green);font-weight:700}
+.lb{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:28px;cursor:zoom-out}
+.lb[hidden]{display:none}
+.lb img{max-width:100%;max-height:100%;border-radius:4px}
 .duo{display:grid;gap:18px;margin-top:46px}
 @media(min-width:780px){.duo{grid-template-columns:1fr 1fr;gap:24px}}
 .duo figure{margin:0}
@@ -432,18 +441,21 @@ h2 em{font-style:normal;color:var(--green)}
     <div class="note" id="tripod" style="margin-top:26px">
       <p><strong>How to build the tripod rig.</strong>Take any tripod you own, add <a href="https://www.amazon.co.jp/dp/B0HFZNJWCX?tag=petanote-22" target="_blank" rel="noopener sponsored">a dual bracket plate (Amazon)</a>, and screw on two <a href="https://link.amazon/B0cYKJkFr" target="_blank" rel="noopener sponsored">MagSafe tripod mounts (Amazon)</a>. The iPhones snap on magnetically, so mounting and removing them on site takes a second. Place the two so the lenses meet near the center — the in-app placement check guides the angle.</p>
     </div>
-    <figure class="shot">
-      <img src="../img/tripod_parts.jpg" alt="The rig: two MagSafe mounts screwed onto a dual bracket plate" loading="lazy">
-      <figcaption><span class="n">1. Assemble</span>Screw two MagSafe mounts onto the plate. No tools needed</figcaption>
-    </figure>
-    <figure class="shot">
-      <img src="../img/tripod_magsafe.jpg" alt="Two iPhones attached magnetically to the MagSafe mounts, seen from above" loading="lazy">
-      <figcaption><span class="n">2. Snap on</span>iPhones attach magnetically — even over a MagSafe-compatible case</figcaption>
-    </figure>
-    <figure class="shot">
-      <img src="../img/tripod_standing.jpg" alt="The finished rig on a tripod, phones angled so the lenses meet near the center" loading="lazy">
-      <figcaption><span class="n">3. Place</span>Angle them so the lenses meet near the center. The in-app placement check tells you when it is right</figcaption>
-    </figure>
+    <div class="trio">
+      <figure>
+        <a class="zoom" href="../img/tripod_parts.jpg"><img src="../img/tripod_parts.jpg" alt="The rig: two MagSafe mounts screwed onto a dual bracket plate" loading="lazy"></a>
+        <figcaption><span class="n">1. Assemble</span>Screw two mounts onto the plate. No tools needed</figcaption>
+      </figure>
+      <figure>
+        <a class="zoom" href="../img/tripod_magsafe.jpg"><img src="../img/tripod_magsafe.jpg" alt="Two iPhones attached magnetically to the MagSafe mounts, seen from above" loading="lazy"></a>
+        <figcaption><span class="n">2. Snap on</span>iPhones attach magnetically</figcaption>
+      </figure>
+      <figure>
+        <a class="zoom" href="../img/tripod_standing.jpg"><img src="../img/tripod_standing.jpg" alt="The finished rig on a tripod, phones angled so the lenses meet near the center" loading="lazy"></a>
+        <figcaption><span class="n">3. Place</span>Lenses meet near the center</figcaption>
+      </figure>
+    </div>
+    <p class="cap">Tap a photo to enlarge.</p>
   </div>
 </section>
 
@@ -529,5 +541,21 @@ const vio = new IntersectionObserver((es) => {
 document.querySelectorAll('.band video').forEach((v) => vio.observe(v));
 </script>
 <script src="viewer.js"></script>
+<div class="lb" id="lightbox" hidden><img alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'),pic=lb.querySelector('img');
+  function close(){lb.hidden=true;pic.src='';document.documentElement.style.overflow='';}
+  document.querySelectorAll('a.zoom').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();pic.src=a.href;
+      var t=a.querySelector('img');pic.alt=t?t.alt:'';
+      lb.hidden=false;document.documentElement.style.overflow='hidden';
+    });
+  });
+  lb.addEventListener('click',close);
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&!lb.hidden)close();});
+})();
+</script>
 </body>
 </html>
