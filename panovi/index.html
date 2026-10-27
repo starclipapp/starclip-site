@@ -59,23 +59,38 @@ a{color:inherit}
 .btn-sm{padding:9px 18px;font-size:13px}
 
 /* ───── 一枚目 ───── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;
-  padding:150px 0 clamp(60px,7vw,100px);overflow:hidden;isolation:isolate}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;
+  padding:120px 0 76px;overflow:hidden;isolation:isolate}
 .hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
-.hero-bg video{position:absolute;left:0;top:0;height:100%;width:auto;max-width:none;
-  object-fit:cover;animation:pan 46s linear infinite alternate}
-@keyframes pan{from{transform:translateX(calc(-100% + 100vw))}to{transform:translateX(0)}}
-@media(prefers-reduced-motion:reduce){.hero-bg video{animation:none}}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.45}
+.hero-grid{display:grid;grid-template-areas:"intro" "demo" "details";gap:28px}
+.hero-intro{grid-area:intro;min-width:0}
+.hero-details{grid-area:details;min-width:0}
+.hero-demo{grid-area:demo;min-width:0;margin:0;align-self:center}
+.hero-demo video{width:100%;height:auto;aspect-ratio:32/21;object-fit:contain;
+  background:#0b0c2d;border:1px solid rgba(244,243,238,.28);border-radius:18px;
+  box-shadow:0 18px 54px rgba(0,0,0,.25)}
+.hero-demo figcaption{margin-top:14px;color:#dfe6e3;font-size:12.5px;line-height:1.7}
+.hero-demo figcaption strong{display:block;color:var(--green);font-size:13.5px;margin-bottom:3px}
+@media(min-width:980px){
+  .hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    grid-template-areas:"intro demo" "details demo";gap:0 44px}
+  .hero-intro{align-self:end}
+  .hero-details{align-self:start}
+}
+@media(max-width:979px){.hero{min-height:auto;padding:108px 0 64px}}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
   linear-gradient(180deg,rgba(4,32,31,.52) 0%,rgba(4,32,31,.22) 30%,rgba(4,32,31,.9) 84%,var(--ink) 100%)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.26em;
   text-transform:uppercase;color:var(--green);margin-bottom:22px}
 .kicker::before{content:"";width:34px;height:1px;background:var(--green)}
-.hero h1{font-size:clamp(35px,7.2vw,84px);font-weight:800;line-height:1.11;letter-spacing:-.04em;
+.hero h1{font-size:clamp(34px,7.2vw,48px);font-weight:800;line-height:1.11;letter-spacing:-.04em;
   text-shadow:0 2px 44px rgba(0,0,0,.45)}
 .hero h1 em{font-style:normal;color:var(--green)}
+@media(min-width:980px){.hero h1{font-size:clamp(34px,3.5vw,46px)}}
 .hero-lead{margin-top:26px;max-width:33em;font-size:clamp(15px,1.8vw,18.5px);color:#dfe6e3}
-.hero-cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
+.hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px}
+@media(max-width:979px){.hero-lead{margin-top:0}}
 .cue{position:absolute;left:50%;bottom:16px;translate:-50% 0;font-size:10.5px;letter-spacing:.22em;
   color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:8px}
 .cue i{width:1px;height:32px;background:linear-gradient(var(--dim),transparent)}
@@ -89,6 +104,19 @@ a{color:inherit}
 .stat b{display:block;font-size:clamp(27px,4vw,42px);font-weight:800;letter-spacing:-.03em;
   color:var(--green);line-height:1.12}
 .stat span{display:block;margin-top:9px;font-size:12.5px;color:var(--dim);line-height:1.7}
+
+/* 左右の素材と結合結果の作例 */
+.demo-grid{display:grid;gap:32px;margin-top:40px}
+@media(min-width:900px){.demo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.demo-card{min-width:0;margin:0}
+.demo-card video{width:100%;aspect-ratio:32/21;background:#0b0c2d;
+  border:1px solid var(--rule);border-radius:18px}
+.demo-card figcaption{margin-top:16px}
+.demo-card h3{font-size:20px;line-height:1.4;letter-spacing:-.02em}
+.demo-card p{margin-top:6px;color:var(--dim);font-size:13.5px}
+.demo-card a{display:inline-block;margin-top:8px;color:var(--green);font-size:13px;
+  text-underline-offset:4px}
+.demo-card a:focus-visible{outline:2px solid var(--green);outline-offset:5px}
 
 /* ───── 章 ───── */
 .sec{padding:var(--pad) 0}
@@ -248,16 +276,31 @@ h2 em{font-style:normal;color:var(--green)}
 </header>
 
 <section class="hero" id="top">
-  <div class="hero-bg">
-    <video src="img/hero.mp4" poster="img/hero_poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <div class="hero-bg" aria-hidden="true">
+    <img src="img/hero_poster.jpg" alt="">
   </div>
-  <div class="col">
-    <span class="kicker">two iPhones, one wide frame</span>
-    <h1>引きか、寄りか。<br><em>もう選ばなくていい。</em></h1>
-    <p class="hero-lead">2台のiPhoneを三脚に並べて置くだけ。左右の映像が1本の超ワイド動画になります。広いまま撮っておいて、見るときに寄れます。</p>
-    <div class="hero-cta">
-      <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">App Store で入手</a>
-      <a class="btn btn-line" href="#try">実際の映像を動かしてみる</a>
+  <div class="col hero-grid">
+    <div class="hero-intro">
+      <span class="kicker">two iPhones, one wide frame</span>
+      <h1>引きか、寄りか。<br><em>もう選ばなくていい。</em></h1>
+    </div>
+    <figure class="hero-demo">
+      <video controls muted loop playsinline preload="none" poster="img/demo-mountain-poster.jpg"
+             width="1280" height="840" aria-label="金時山：左右の撮影素材と結合結果、5秒・無音" aria-describedby="hero-demo-caption">
+        <source src="img/demo-mountain.mp4" type="video/mp4">
+        <a href="img/demo-mountain.mp4">金時山のデモ動画を開く</a>
+      </video>
+      <figcaption id="hero-demo-caption">
+        <strong>金時山で撮影 · 5秒のデモ</strong>
+        上の2本が、下の1本に。再生して見比べてください（無音）。
+      </figcaption>
+    </figure>
+    <div class="hero-details">
+      <p class="hero-lead">2台のiPhoneを三脚に並べて置くだけ。左右の映像が1本の超ワイド動画になります。広いまま撮っておいて、見るときに寄れます。</p>
+      <div class="hero-cta">
+        <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">App Store で入手</a>
+        <a class="btn btn-line" href="#try">実際の映像を動かしてみる</a>
+      </div>
     </div>
   </div>
   <div class="cue">SCROLL<i></i></div>
@@ -269,6 +312,41 @@ h2 em{font-style:normal;color:var(--green)}
     <div class="stat"><b>4K × 2</b><span>左右それぞれを4Kで記録する</span></div>
     <div class="stat"><b>0円</b><span>撮影は何分でも、3分未満の結合は無制限</span></div>
     <div class="stat"><b>クラウド不要</b><span>電波の無いグラウンドや山の上でも完結</span></div>
+  </div>
+</section>
+
+<section class="sec alt" id="examples" aria-labelledby="examples-title">
+  <div class="col">
+    <span class="eyebrow">2本から、1本へ</span>
+    <h2 id="examples-title">つなぐ前と、<em>つないだ後。</em></h2>
+    <p class="body">上は左右のiPhoneで撮った2本の映像、下は実際の結合結果です。金時山の景色と、電車の走る街並み。それぞれ5秒・無音で見比べられます。</p>
+    <div class="demo-grid">
+      <figure class="demo-card">
+        <video controls muted loop playsinline preload="none" poster="img/demo-mountain-poster.jpg"
+               width="1280" height="840" aria-label="金時山：左右の撮影素材と結合結果、5秒・無音" aria-describedby="demo-mountain-caption">
+          <source src="img/demo-mountain.mp4" type="video/mp4">
+          <a href="img/demo-mountain.mp4">金時山のデモ動画を開く</a>
+        </video>
+        <figcaption id="demo-mountain-caption">
+          <h3>金時山からの眺め</h3>
+          <p>左右の景色が、富士山まで見渡す1本のパノラマに。</p>
+          <a href="img/demo-mountain.mp4" download>金時山のデモを保存（5秒・MP4）</a>
+        </figcaption>
+      </figure>
+      <figure class="demo-card">
+        <video controls muted loop playsinline preload="none" poster="img/demo-city-poster.jpg"
+               width="1280" height="840" aria-label="街並み：左右の撮影素材と結合結果、5秒・無音" aria-describedby="demo-city-caption">
+          <source src="img/demo-city.mp4" type="video/mp4">
+          <a href="img/demo-city.mp4">街並みのデモ動画を開く</a>
+        </video>
+        <figcaption id="demo-city-caption">
+          <h3>電車の走る街並み</h3>
+          <p>2台で同時に撮った映像を、横に広いつながった景色に。</p>
+          <a href="img/demo-city.mp4" download>街並みのデモを保存（5秒・MP4）</a>
+        </figcaption>
+      </figure>
+    </div>
+    <p class="cap">再生ボタンを押すと動きます。映像は掲載用に縮小しています。</p>
   </div>
 </section>
 
