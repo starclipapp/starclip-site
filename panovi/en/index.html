@@ -151,6 +151,12 @@ h2 em{font-style:normal;color:var(--green)}
 .duo figcaption{margin-top:13px;font-size:12.5px;color:var(--dim);line-height:1.75}
 .duo .n{color:var(--green);font-weight:700;margin-right:.5em}
 .cap{margin-top:13px;font-size:12.5px;color:var(--dim)}
+.vr-still{position:relative;display:block;margin-top:30px;border-radius:12px;overflow:hidden;border:1px solid var(--rule)}
+.vr-still img{width:100%;display:block}
+.vr-play{position:absolute;left:50%;top:50%;translate:-50% -50%;display:inline-flex;align-items:center;gap:9px;
+  background:rgba(4,32,31,.84);color:#fff;font-size:14.5px;font-weight:700;padding:12px 22px;border-radius:999px;
+  border:1px solid rgba(0,249,148,.55);white-space:nowrap;transition:.2s}
+.vr-still:hover .vr-play{background:var(--green);color:#042a20}
 
 .list{margin-top:36px;max-width:38em}
 .list li{list-style:none;padding:18px 0 18px 30px;border-top:1px solid var(--rule);
@@ -523,10 +529,11 @@ h2 em{font-style:normal;color:var(--green)}
       <li>8K — exports the ultra-wide video at 8K size, so it stays sharp even on a big screen</li>
       <li>8K + VR (360°) — a format YouTube&rsquo;s VR viewer plays. Viewers pan around and zoom into any spot themselves, as if they were standing there</li>
     </ul>
-    <div style="position:relative;aspect-ratio:16/9;margin-top:30px;border-radius:12px;overflow:hidden;background:#000">
-      <iframe src="https://www.youtube-nocookie.com/embed/4H52UkEouJ0" title="panovi 8K + VR (360°) sample" style="position:absolute;inset:0;width:100%;height:100%;border:0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    </div>
-    <p class="cap">A real 8K + VR (360°) export from the app. Drag to look around. On a phone, open it in the YouTube app for gyro and pinch zoom. <a href="https://www.youtube.com/watch?v=4H52UkEouJ0" target="_blank" rel="noopener">Open on YouTube ↗</a></p>
+    <a class="vr-still" href="https://www.youtube.com/watch?v=4H52UkEouJ0" target="_blank" rel="noopener" aria-label="Watch the VR sample on YouTube (opens in a new window)">
+      <img src="/panovi/img/vr-sample.jpg" alt="A still from the 8K+VR sample: a whole match pitch in one ultra-wide frame" loading="lazy">
+      <span class="vr-play">▶︎&nbsp; Watch in YouTube&rsquo;s VR viewer</span>
+    </a>
+    <p class="cap">A real 8K + VR (360°) export from the app. Clicking opens YouTube in a new window. Drag to look around during playback; on a phone, open it in the YouTube app for gyro and pinch zoom.</p>
   </div>
 </section>
 

@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>panovi — 置くだけで、端から端まで</title>
+<title>panovi — 2本の映像が、1本になる</title>
 <meta name="description" content="三脚に置くだけ。2台のiPhoneの映像が1本の超ワイド動画になります。全体を撮りながら、あとから寄れる。運動会・発表会・旅先の景色に。クラウド不要、すべて端末内で完結。">
-<meta property="og:title" content="panovi — 置くだけで、端から端まで">
+<meta property="og:title" content="panovi — 2本の映像が、1本になる">
 <meta property="og:description" content="2台のiPhoneで1本の超ワイド動画。全体を撮りながら、あとから寄れる。クラウド不要。">
 <meta property="og:image" content="https://starclip.app/panovi/img/hero.jpg">
 <link rel="alternate" hreflang="en" href="https://starclip.app/panovi/en/">
 <link rel="alternate" hreflang="ja" href="https://starclip.app/panovi/">
-<link rel="icon" type="image/png" href="img/icon.png">
-<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="icon" type="image/png" href="/panovi/img/icon.png">
+<link rel="apple-touch-icon" href="/panovi/img/icon.png">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -58,43 +58,36 @@ a{color:inherit}
 .btn-line:hover{border-color:var(--green);color:var(--green)}
 .btn-sm{padding:9px 18px;font-size:13px}
 
-/* ───── 一枚目 ───── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;
-  padding:120px 0 76px;overflow:hidden;isolation:isolate}
+/* ───── 一枚目: 流れる映像の上で「2本 → 1本」を見せる ───── */
+.hero{position:relative;padding:136px 0 72px;overflow:hidden;isolation:isolate}
 .hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
-.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.45}
-.hero-grid{display:grid;grid-template-areas:"intro" "demo" "details";gap:28px}
-.hero-intro{grid-area:intro;min-width:0}
-.hero-details{grid-area:details;min-width:0}
-.hero-demo{grid-area:demo;min-width:0;margin:0;align-self:center}
-.hero-demo video{width:100%;height:auto;aspect-ratio:32/21;object-fit:contain;
-  background:#0b0c2d;border:1px solid rgba(244,243,238,.28);border-radius:18px;
-  box-shadow:0 18px 54px rgba(0,0,0,.25)}
-.hero-demo figcaption{margin-top:14px;color:#dfe6e3;font-size:12.5px;line-height:1.7}
-.hero-demo figcaption strong{display:block;color:var(--green);font-size:13.5px;margin-bottom:3px}
-@media(min-width:980px){
-  .hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
-    grid-template-areas:"intro demo" "details demo";gap:0 44px}
-  .hero-intro{align-self:end}
-  .hero-details{align-self:start}
-}
-@media(max-width:979px){.hero{min-height:auto;padding:108px 0 64px}}
+.hero-bg video{position:absolute;left:0;top:0;height:100%;width:auto;max-width:none;
+  object-fit:cover;animation:pan 46s linear infinite alternate}
+@keyframes pan{from{transform:translateX(calc(-100% + 100vw))}to{transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.hero-bg video{animation:none}}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
-  linear-gradient(180deg,rgba(4,32,31,.52) 0%,rgba(4,32,31,.22) 30%,rgba(4,32,31,.9) 84%,var(--ink) 100%)}
+  linear-gradient(180deg,rgba(4,32,31,.62) 0%,rgba(4,32,31,.38) 30%,rgba(4,32,31,.92) 80%,var(--ink) 100%)}
+.hero-head{text-align:center}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.26em;
   text-transform:uppercase;color:var(--green);margin-bottom:22px}
-.kicker::before{content:"";width:34px;height:1px;background:var(--green)}
-.hero h1{font-size:clamp(34px,7.2vw,48px);font-weight:800;line-height:1.11;letter-spacing:-.04em;
+.kicker::before,.kicker::after{content:"";width:34px;height:1px;background:var(--green)}
+.hero h1{font-size:clamp(34px,6.4vw,72px);font-weight:800;line-height:1.14;letter-spacing:-.04em;
   text-shadow:0 2px 44px rgba(0,0,0,.45)}
 .hero h1 em{font-style:normal;color:var(--green)}
-@media(min-width:980px){.hero h1{font-size:clamp(34px,3.5vw,46px)}}
-.hero-lead{margin-top:26px;max-width:33em;font-size:clamp(15px,1.8vw,18.5px);color:#dfe6e3}
-.hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px}
-@media(max-width:979px){.hero-lead{margin-top:0}}
-.cue{position:absolute;left:50%;bottom:16px;translate:-50% 0;font-size:10.5px;letter-spacing:.22em;
-  color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:8px}
-.cue i{width:1px;height:32px;background:linear-gradient(var(--dim),transparent)}
-@media(max-width:760px){.cue{display:none}}
+.hero-lead{margin:22px auto 0;max-width:33em;font-size:clamp(15px,1.8vw,18px);color:#dfe6e3}
+.hero-join{margin:44px auto 0;max-width:1120px}
+.join-stage{position:relative;aspect-ratio:16/9;background:var(--ink);
+  border:1px solid var(--rule);border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.join-stage video{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .45s}
+.join-stage video.is-on{opacity:1}
+.join-nav{margin-top:16px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.join-chip{background:transparent;border:1px solid var(--rule);color:var(--paper);
+  padding:8px 18px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+.join-chip:hover{border-color:var(--green);color:var(--green)}
+.join-chip.is-on{background:var(--green);border-color:var(--green);color:#042a20;font-weight:700}
+.hero-join figcaption{margin-top:12px;font-size:12.5px;color:#cfdad7;line-height:1.75;text-align:center}
+.hero-cta{margin-top:34px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
 
 /* ───── 数字の帯 ───── */
 .stats{background:var(--ink2);border-block:1px solid var(--rule)}
@@ -104,19 +97,6 @@ a{color:inherit}
 .stat b{display:block;font-size:clamp(27px,4vw,42px);font-weight:800;letter-spacing:-.03em;
   color:var(--green);line-height:1.12}
 .stat span{display:block;margin-top:9px;font-size:12.5px;color:var(--dim);line-height:1.7}
-
-/* 左右の素材と結合結果の作例 */
-.demo-grid{display:grid;gap:32px;margin-top:40px}
-@media(min-width:900px){.demo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.demo-card{min-width:0;margin:0}
-.demo-card video{width:100%;aspect-ratio:32/21;background:#0b0c2d;
-  border:1px solid var(--rule);border-radius:18px}
-.demo-card figcaption{margin-top:16px}
-.demo-card h3{font-size:20px;line-height:1.4;letter-spacing:-.02em}
-.demo-card p{margin-top:6px;color:var(--dim);font-size:13.5px}
-.demo-card a{display:inline-block;margin-top:8px;color:var(--green);font-size:13px;
-  text-underline-offset:4px}
-.demo-card a:focus-visible{outline:2px solid var(--green);outline-offset:5px}
 
 /* ───── 章 ───── */
 .sec{padding:var(--pad) 0}
@@ -144,13 +124,13 @@ h2 em{font-style:normal;color:var(--green)}
 .lb{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:28px;cursor:zoom-out}
 .lb[hidden]{display:none}
 .lb img{max-width:100%;max-height:100%;border-radius:4px}
-.duo{display:grid;gap:18px;margin-top:46px}
-@media(min-width:780px){.duo{grid-template-columns:1fr 1fr;gap:24px}}
-.duo figure{margin:0}
-.duo img{width:100%}
-.duo figcaption{margin-top:13px;font-size:12.5px;color:var(--dim);line-height:1.75}
-.duo .n{color:var(--green);font-weight:700;margin-right:.5em}
 .cap{margin-top:13px;font-size:12.5px;color:var(--dim)}
+.vr-still{position:relative;display:block;margin-top:30px;border-radius:12px;overflow:hidden;border:1px solid var(--rule)}
+.vr-still img{width:100%;display:block}
+.vr-play{position:absolute;left:50%;top:50%;translate:-50% -50%;display:inline-flex;align-items:center;gap:9px;
+  background:rgba(4,32,31,.84);color:#fff;font-size:14.5px;font-weight:700;padding:12px 22px;border-radius:999px;
+  border:1px solid rgba(0,249,148,.55);white-space:nowrap;transition:.2s}
+.vr-still:hover .vr-play{background:var(--green);color:#042a20}
 
 .list{margin-top:36px;max-width:38em}
 .list li{list-style:none;padding:18px 0 18px 30px;border-top:1px solid var(--rule);
@@ -248,7 +228,6 @@ h2 em{font-style:normal;color:var(--green)}
   display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center}
 .foot a{color:var(--green);text-decoration:none}
 
-/* 出てくる動き */
 .rise{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
 .rise.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
@@ -270,7 +249,7 @@ h2 em{font-style:normal;color:var(--green)}
 
 <header class="nav" id="nav">
   <div class="col nav-in">
-    <a class="brand" href="#top"><img src="img/icon.png" alt=""><b>panovi</b></a>
+    <a class="brand" href="#top"><img src="/panovi/img/icon.png" alt=""><b>panovi</b></a>
     <nav class="nav-links">
       <a href="#why">できること</a>
       <a href="#match">試合まるごと</a>
@@ -285,33 +264,36 @@ h2 em{font-style:normal;color:var(--green)}
 
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
-    <img src="img/hero_poster.jpg" alt="">
+    <video src="/panovi/img/hero.mp4" poster="/panovi/img/hero_poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
   </div>
-  <div class="col hero-grid">
-    <div class="hero-intro">
-      <span class="kicker">two iPhones, one wide frame</span>
-      <h1>引きか、寄りか。<br><em>もう選ばなくていい。</em></h1>
-    </div>
-    <figure class="hero-demo">
-      <video controls muted loop playsinline preload="none" poster="img/demo-mountain-poster.jpg"
-             width="1280" height="840" aria-label="金時山：左右の撮影素材と結合結果、5秒・無音" aria-describedby="hero-demo-caption">
-        <source src="img/demo-mountain.mp4" type="video/mp4">
-        <a href="img/demo-mountain.mp4">金時山のデモ動画を開く</a>
-      </video>
-      <figcaption id="hero-demo-caption">
-        <strong>金時山で撮影 · 5秒のデモ</strong>
-        上の2本が、下の1本に。再生して見比べてください（無音）。
-      </figcaption>
-    </figure>
-    <div class="hero-details">
-      <p class="hero-lead">2台のiPhoneを三脚に並べて置くだけ。左右の映像が1本の超ワイド動画になります。広いまま撮っておいて、見るときに寄れます。</p>
-      <div class="hero-cta">
-        <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">App Store で入手</a>
-        <a class="btn btn-line" href="#try">実際の映像を動かしてみる</a>
+  <div class="col hero-head">
+    <span class="kicker">two iPhones, one wide frame</span>
+    <h1>2本の映像が、<br><em>1本になる。</em></h1>
+    <p class="hero-lead">2台のiPhoneを三脚に並べて置くだけ。左右の映像がつながって、端から端まで入った1本の超ワイド動画になります。</p>
+    <figure class="hero-join">
+      <div class="join-stage">
+        <video class="is-on" src="img/hero-join-mountain.mp4" poster="img/hero-join-mountain-poster.jpg"
+               autoplay muted playsinline preload="auto"
+               aria-label="金時山: 左右2台の映像が1本の超ワイドになるデモ。無音"></video>
+        <video src="img/hero-join-city.mp4" poster="img/hero-join-city-poster.jpg"
+               muted playsinline preload="metadata"
+               aria-label="電車の走る街並み: 左右2台の映像が1本の超ワイドになるデモ。無音"></video>
+        <video src="img/hero-join-soccer.mp4" poster="img/hero-join-soccer-poster.jpg"
+               muted playsinline preload="metadata"
+               aria-label="サッカーの試合: 左右2台の映像が1本の超ワイドになるデモ。無音"></video>
       </div>
+      <div class="join-nav" aria-label="デモの切り替え">
+        <button class="join-chip is-on" type="button" data-join="0">金時山</button>
+        <button class="join-chip" type="button" data-join="1">街と電車</button>
+        <button class="join-chip" type="button" data-join="2">サッカー</button>
+      </div>
+      <figcaption>実際に2台のiPhoneで撮った映像です（無音）。左右の2本が、1本の超ワイドになります。再生が終わると次のデモに切り替わります。</figcaption>
+    </figure>
+    <div class="hero-cta">
+      <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">App Store で入手</a>
+      <a class="btn btn-line" href="#try">できた映像を動かしてみる</a>
     </div>
   </div>
-  <div class="cue">SCROLL<i></i></div>
 </section>
 
 <section class="stats">
@@ -323,110 +305,37 @@ h2 em{font-style:normal;color:var(--green)}
   </div>
 </section>
 
-<section class="sec alt" id="examples" aria-labelledby="examples-title">
-  <div class="col">
-    <span class="eyebrow">2本から、1本へ</span>
-    <h2 id="examples-title">つなぐ前と、<em>つないだ後。</em></h2>
-    <p class="body">上は左右のiPhoneで撮った2本の映像、下は実際の結合結果です。金時山の景色と、電車の走る街並み。それぞれ5秒・無音で見比べられます。</p>
-    <div class="demo-grid">
-      <figure class="demo-card">
-        <video controls muted loop playsinline preload="none" poster="img/demo-mountain-poster.jpg"
-               width="1280" height="840" aria-label="金時山：左右の撮影素材と結合結果、5秒・無音" aria-describedby="demo-mountain-caption">
-          <source src="img/demo-mountain.mp4" type="video/mp4">
-          <a href="img/demo-mountain.mp4">金時山のデモ動画を開く</a>
-        </video>
-        <figcaption id="demo-mountain-caption">
-          <h3>金時山からの眺め</h3>
-          <p>左右の景色が、富士山まで見渡す1本のパノラマに。</p>
-          <a href="img/demo-mountain.mp4" download>金時山のデモを保存（5秒・MP4）</a>
-        </figcaption>
-      </figure>
-      <figure class="demo-card">
-        <video controls muted loop playsinline preload="none" poster="img/demo-city-poster.jpg"
-               width="1280" height="840" aria-label="街並み：左右の撮影素材と結合結果、5秒・無音" aria-describedby="demo-city-caption">
-          <source src="img/demo-city.mp4" type="video/mp4">
-          <a href="img/demo-city.mp4">街並みのデモ動画を開く</a>
-        </video>
-        <figcaption id="demo-city-caption">
-          <h3>電車の走る街並み</h3>
-          <p>2台で同時に撮った映像を、横に広いつながった景色に。</p>
-          <a href="img/demo-city.mp4" download>街並みのデモを保存（5秒・MP4）</a>
-        </figcaption>
-      </figure>
-    </div>
-    <p class="cap">再生ボタンを押すと動きます。映像は掲載用に縮小しています。</p>
-  </div>
-</section>
-
 <section class="sec" id="why">
   <div class="col rise">
     <span class="eyebrow">01 — 全体と、我が子</span>
-    <h2>カメラ1台だと、<br><em>どちらかを捨てている。</em></h2>
-    <p class="body">運動会や発表会。引きで全体を撮るか、寄って我が子を撮るか。1台しかなければ、撮りながらどちらかを諦めています。</p>
-    <p class="body">panovi は広いまま撮っておいて、見るときに拡大します。左右それぞれを4Kで撮るので、1台で同じ広さを撮るより細かく残ります。</p>
+    <h2>全体を撮るか、我が子を撮るか。<br><em>1台だと、選ばされている。</em></h2>
+    <p class="body">運動会や発表会のビデオはいつも二択です。引けば我が子は米粒になり、寄れば全体の流れが消えます。</p>
+    <p class="body">panovi はこの二択をなくします。<strong>広いまま撮っておいて、見るときに寄る</strong>からです。左右それぞれを4Kで撮るので、1台で同じ広さを撮るより細かく残ります。</p>
     <figure class="shot">
-      <img src="img/wide.jpg" alt="端から端まで入った超ワイドの全体映像" loading="lazy">
+      <img src="/panovi/img/wide.jpg" alt="端から端まで入った超ワイドの全体映像" loading="lazy">
       <figcaption><span class="n">撮るとき</span>端から端まで、全部入れておく</figcaption>
     </figure>
     <figure class="shot">
-      <img src="img/zoom.jpg" alt="同じ映像から等倍で切り出した富士山。立て札の文字や街並みまで残っている" loading="lazy">
+      <img src="/panovi/img/zoom.jpg" alt="同じ映像から等倍で切り出した富士山。立て札の文字や街並みまで残っている" loading="lazy">
       <figcaption><span class="n">見るとき</span>寄る。同じ映像からの等倍の切り出しです。拡大していません</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="sec alt">
-  <div class="col rise">
-    <span class="eyebrow">02 — 置くだけ</span>
-    <h2>カメラを、<em>振らなくていい。</em></h2>
-    <p class="body">三脚に据えたら、あとは触りません。カメラを向ける操作が要らないので、こういうことが起きません。</p>
-    <ul class="list">
-      <li>ゴールの瞬間、夢中になって見ていてカメラを向け忘れた</li>
-      <li>走ってくる我が子を追いきれず、フレームから外してしまった</li>
-      <li>撮ることに集中して、自分は見られなかった</li>
-    </ul>
-    <p class="body" style="margin-top:32px">「ちゃんと写っているかな」と画面を気にしながら応援しなくて済みます。決定的な瞬間は、必ず画面の中に入っています。</p>
-  </div>
-</section>
-
-<section class="sec" id="match">
-  <div class="col rise">
-    <span class="eyebrow">03 — 試合はまるごと</span>
-    <h2>三脚に置いたまま、<br><em>一度も動かしていません。</em></h2>
-    <p class="body">両ゴールも、両ベンチも、ずっと画面の中にあります。3台目のiPhoneをリモコンにすれば、録画の開始・停止はもちろん、つなぎ目の確認、各カメラの電池・空き容量の確認、動画の取り寄せまでカメラに触れずにできるので、自分は観戦に集中できます。</p>
-  </div>
-</section>
-
-<div class="band">
-  <video data-src="img/soccer.mp4" poster="img/soccer_poster.jpg" muted loop playsinline preload="none"
-         aria-label="ピッチ全面が1本に収まった試合の映像"></video>
-</div>
-
-<section class="sec">
-  <div class="col rise">
-    <div class="note">
-      <p><strong>この動画は実物より粗いです。</strong>超広角で撮ったこの試合の結合結果は <strong>4110 × 1214</strong>。ここでは手前を外して横長に整えたうえ、ページを軽くするため横1920pxに縮小しています。</p>
-      <p style="margin-top:12px">超広角はコーナーの端まで入るかわりに、1画素あたりの細かさは広角より粗くなります。寄って見たいときは広角で撮るのが向いています（下の「体験する」は広角で撮ったものです）。</p>
-    </div>
-    <figure style="margin:32px 0 0">
-      <img src="img/soccer_zoom.jpg" alt="同じ試合映像を原寸のまま切り出したもの。選手一人ひとりが見える" loading="lazy">
-      <figcaption class="cap">上の映像の中から 1200×394 を原寸で切り出し。拡大していません</figcaption>
     </figure>
   </div>
 </section>
 
 <section class="sec alt" id="try">
   <div class="col rise mid">
-    <span class="eyebrow">04 — 体験する</span>
+    <span class="eyebrow">02 — 体験する</span>
     <h2>この画面の中で、<br><em>寄ってみてください。</em></h2>
-    <p class="body">本物の結合結果を 16:9 に切り出して表示しています。ドラッグで左右へ、ホイールやピンチで寄れます。アプリの中でも、できた動画に同じことができます。</p>
+    <p class="body">上のデモと同じ仕組みでできた本物の結合結果です。少し引いた表示から始まるので、「寄る ＋」やホイール・ピンチで好きなところへ寄ってみてください。ドラッグで左右へ動かせます。アプリの中でも、できた動画に同じことができます。</p>
   </div>
-  <div class="col xp rise" id="xp" data-zoom="1.6" data-cx="0.62" data-cy="0.50" data-ar="4.0508">
+  <!-- ★既定は少し引いた表示（0.88×）。上下に細い黒帯が出る=「映像の縦は全部見えている」が
+       ひと目で伝わる。そこから寄る＋/ホイール/ピンチで自由に寄れる。 -->
+  <div class="col xp rise" id="xp" data-zoom="0.88" data-cx="0.62" data-cy="0.50" data-ar="4.0508">
     <div class="xp-stage">
-      <img class="xp-poster" src="img/viewer_poster.jpg" alt="" loading="lazy">
+      <img class="xp-poster" src="/panovi/img/viewer_poster.jpg" alt="" loading="lazy">
       <div class="xp-film">
         <video playsinline muted loop preload="none"
-               data-src="img/viewer.mp4" data-fallback="img/viewer_4k.mp4"></video>
+               data-src="/panovi/img/viewer.mp4" data-fallback="/panovi/img/viewer_4k.mp4"></video>
       </div>
       <div class="xp-start">
         <button class="btn btn-fill" type="button" data-act="start">映像を動かしてみる</button>
@@ -449,13 +358,54 @@ h2 em{font-style:normal;color:var(--green)}
     </div>
     <p class="xp-note">広角レンズで撮った実際の結合結果。結合キャンバスの黒いフチだけを外した 6060×1496・12秒・無音です。「全体」を押すと端から端まで入ります。</p>
     <div class="links">
-      <a class="btn btn-line" href="viewer/?url=https%3A%2F%2Fstarclip.app%2Fpanovi%2Fimg%2Fviewer.mp4">もっと自由に見る（panovi viewer）</a>
-      <a class="btn btn-line" href="viewer/guide.html">ビューアの使い方</a>
+      <a class="btn btn-line" href="/panovi/viewer/?url=https%3A%2F%2Fstarclip.app%2Fpanovi%2Fimg%2Fviewer.mp4">もっと自由に見る（panovi viewer）</a>
+      <a class="btn btn-line" href="/panovi/viewer/guide.html">ビューアの使い方</a>
     </div>
   </div>
 </section>
 
-<section class="sec" id="lens">
+<section class="sec">
+  <div class="col rise">
+    <span class="eyebrow">03 — 置くだけ</span>
+    <h2>カメラを、<em>振らなくていい。</em></h2>
+    <p class="body">三脚に据えたら、あとは触りません。カメラを向ける操作が要らないので、こういうことが起きません。</p>
+    <ul class="list">
+      <li>ゴールの瞬間、夢中になって見ていてカメラを向け忘れた</li>
+      <li>走ってくる我が子を追いきれず、フレームから外してしまった</li>
+      <li>撮ることに集中して、自分は見られなかった</li>
+    </ul>
+    <p class="body" style="margin-top:32px">「ちゃんと写っているかな」と画面を気にしながら応援しなくて済みます。決定的な瞬間は、必ず画面の中に入っています。</p>
+  </div>
+</section>
+
+<section class="sec alt" id="match">
+  <div class="col rise">
+    <span class="eyebrow">04 — 試合はまるごと</span>
+    <h2>三脚に置いたまま、<br><em>一度も動かしていません。</em></h2>
+    <p class="body">下の映像は、サッカーの試合をまるごと撮ったものです。両ゴールも、両ベンチも、ずっと画面の中にあります。</p>
+    <p class="body">3台目のiPhoneをリモコンにすれば、録画の開始・停止はもちろん、つなぎ目の確認、各カメラの電池・空き容量の確認、動画の取り寄せまでカメラに触れずにできるので、自分は観戦に集中できます。</p>
+  </div>
+</section>
+
+<div class="band">
+  <video data-src="/panovi/img/soccer.mp4" poster="/panovi/img/soccer_poster.jpg" muted loop playsinline preload="none"
+         aria-label="ピッチ全面が1本に収まった試合の映像"></video>
+</div>
+
+<section class="sec">
+  <div class="col rise">
+    <div class="note">
+      <p><strong>この動画は実物より粗いです。</strong>超広角で撮ったこの試合の結合結果は <strong>4110 × 1214</strong>。ここでは手前を外して横長に整えたうえ、ページを軽くするため横1920pxに縮小しています。</p>
+      <p style="margin-top:12px">超広角はコーナーの端まで入るかわりに、1画素あたりの細かさは広角より粗くなります。寄って見たいときは広角で撮るのが向いています（上の「体験する」は広角で撮ったものです）。</p>
+    </div>
+    <figure style="margin:32px 0 0">
+      <img src="/panovi/img/soccer_zoom.jpg" alt="同じ試合映像を原寸のまま切り出したもの。選手一人ひとりが見える" loading="lazy">
+      <figcaption class="cap">上の映像の中から 1200×394 を原寸で切り出し。拡大していません</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec alt" id="lens">
   <div class="col rise">
     <span class="eyebrow">05 — レンズを選ぶ</span>
     <h2>端まで入れるか、<br><em>大きく写すか。</em></h2>
@@ -465,7 +415,7 @@ h2 em{font-style:normal;color:var(--green)}
 </section>
 
 <div class="band">
-  <video data-src="img/soccer_wide.mp4" poster="img/soccer_wide_poster.jpg" muted loop playsinline preload="none"
+  <video data-src="/panovi/img/soccer_wide.mp4" poster="/panovi/img/soccer_wide_poster.jpg" muted loop playsinline preload="none"
          aria-label="広角レンズで撮った同じピッチの映像"></video>
   <div class="band-over"><div class="col">
     <h3>広角レンズで撮ると</h3>
@@ -476,12 +426,12 @@ h2 em{font-style:normal;color:var(--green)}
 <section class="sec">
   <div class="col rise">
     <figure>
-      <img src="img/wide_zoom.jpg" alt="広角で撮った映像を原寸のまま切り出したもの。ユニフォームの柄まで見える" loading="lazy">
+      <img src="/panovi/img/wide_zoom.jpg" alt="広角で撮った映像を原寸のまま切り出したもの。ユニフォームの柄まで見える" loading="lazy">
       <figcaption class="cap">広角で撮った映像の中から 1400×460 を原寸で切り出し。背番号もボールも、拡大せずにこの大きさで残っています</figcaption>
     </figure>
     <div class="note">
       <p><strong>原寸のまま1枚置いてあります。</strong>圧縮で細部が落ちないよう、動画ではなく静止画です。
-      <a href="img/wide_native.jpg" download>6060×1496 の原寸をダウンロード（1.7MB）</a></p>
+      <a href="/panovi/img/wide_native.jpg" download>6060×1496 の原寸をダウンロード（1.7MB）</a></p>
     </div>
   </div>
 </section>
@@ -495,10 +445,10 @@ h2 em{font-style:normal;color:var(--green)}
 </section>
 
 <div class="band">
-  <img src="img/hero.jpg" alt="金時山の山頂から。富士山まで入った超ワイドの一場面" loading="lazy">
+  <img src="/panovi/img/hero.jpg" alt="金時山の山頂から。富士山まで入った超ワイドの一場面" loading="lazy">
   <div class="band-over"><div class="col">
     <h3>金時山の山頂から</h3>
-    <p>2台のiPhoneで撮って、そのまま結合した映像です（4032×1380）</p>
+    <p>一番上のデモと同じ2本を、そのまま結合した映像です（4032×1380）</p>
   </div></div>
 </div>
 
@@ -523,10 +473,11 @@ h2 em{font-style:normal;color:var(--green)}
       <li>8K … 超ワイドのまま、8Kサイズの動画にして公開できます。大画面でも細かさが残ります</li>
       <li>8K＋VR（360度） … YouTubeのVRビューワーで見られる形。見る人が自分で視点を動かし、好きな場所を拡大しながら、その場にいるように見られます</li>
     </ul>
-    <div style="position:relative;aspect-ratio:16/9;margin-top:30px;border-radius:12px;overflow:hidden;background:#000">
-      <iframe src="https://www.youtube-nocookie.com/embed/4H52UkEouJ0" title="panovi 8K+VR（360度）サンプル" style="position:absolute;inset:0;width:100%;height:100%;border:0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    </div>
-    <p class="cap">実際にアプリから書き出した8K＋VR（360度）のサンプルです。画面をドラッグすると見回せます。スマホはYouTubeアプリで開くと、ジャイロや拡大（ピンチ）も使えます。<a href="https://www.youtube.com/watch?v=4H52UkEouJ0" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+    <a class="vr-still" href="https://www.youtube.com/watch?v=4H52UkEouJ0" target="_blank" rel="noopener" aria-label="YouTubeのVRビューワーでサンプルを見る（別ウィンドウで開きます）">
+      <img src="img/vr-sample.jpg" alt="8K+VRサンプルの一場面。試合のピッチが端から端まで1本に入っている" loading="lazy">
+      <span class="vr-play">▶︎&nbsp; YouTubeのVRビューワーで見る</span>
+    </a>
+    <p class="cap">実際にアプリから書き出した8K＋VR（360度）のサンプルです。クリックするとYouTubeが別ウィンドウで開きます。再生中に画面をドラッグすると見回せます。スマホはYouTubeアプリで開くと、ジャイロや拡大（ピンチ）も使えます。</p>
   </div>
 </section>
 
@@ -547,15 +498,15 @@ h2 em{font-style:normal;color:var(--green)}
     </div>
     <div class="trio">
       <figure>
-        <a class="zoom" href="img/tripod_parts.jpg"><img src="img/tripod_parts.jpg" alt="2台用ブラケットプレートにMagSafeマウントを2個ねじ止めした金具" loading="lazy"></a>
+        <a class="zoom" href="/panovi/img/tripod_parts.jpg"><img src="/panovi/img/tripod_parts.jpg" alt="2台用ブラケットプレートにMagSafeマウントを2個ねじ止めした金具" loading="lazy"></a>
         <figcaption><span class="n">1. 組む</span>プレートにマウントを2個ねじ止め。工具不要</figcaption>
       </figure>
       <figure>
-        <a class="zoom" href="img/tripod_rig.jpg"><img src="img/tripod_rig.jpg" alt="完成した金具を正面から。2つのMagSafeリングにiPhoneが磁石で着く" loading="lazy"></a>
+        <a class="zoom" href="/panovi/img/tripod_rig.jpg"><img src="/panovi/img/tripod_rig.jpg" alt="完成した金具を正面から。2つのMagSafeリングにiPhoneが磁石で着く" loading="lazy"></a>
         <figcaption><span class="n">2. できあがり</span>このリングにiPhoneが着きます</figcaption>
       </figure>
       <figure>
-        <a class="zoom" href="img/tripod_standing.jpg"><img src="img/tripod_standing.jpg" alt="三脚に載せ、2台のレンズが中央で近づくハの字に置いた完成形" loading="lazy"></a>
+        <a class="zoom" href="/panovi/img/tripod_standing.jpg"><img src="/panovi/img/tripod_standing.jpg" alt="三脚に載せ、2台のレンズが中央で近づくハの字に置いた完成形" loading="lazy"></a>
         <figcaption><span class="n">3. 置く</span>iPhoneを磁石でパチッと載せ「ハの字」に</figcaption>
       </figure>
     </div>
@@ -620,8 +571,8 @@ h2 em{font-style:normal;color:var(--green)}
 <footer class="col foot">
   <span>© 2026 starclip</span>
   <span>撮った映像は、あなたのiPhoneの中だけに。</span>
-  <a href="viewer/">panovi viewer</a>
-  <a href="privacy/">プライバシーポリシー</a>
+  <a href="/panovi/viewer/">panovi viewer</a>
+  <a href="/panovi/privacy/">プライバシーポリシー</a>
 </footer>
 
 <script>
@@ -646,8 +597,30 @@ const vio = new IntersectionObserver((es) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.band video').forEach((v) => vio.observe(v));
+
+// ヒーローのデモ: 1本の再生が終わったら次のシーンへ切り替わるカルーセル
+(function(){
+  const vids = Array.from(document.querySelectorAll('.join-stage video'));
+  const chips = Array.from(document.querySelectorAll('.join-chip'));
+  if (!vids.length) return;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0;
+  function show(i){
+    cur = i;
+    vids.forEach((v, k) => {
+      v.classList.toggle('is-on', k === i);
+      if (k === i) { try { v.currentTime = 0; } catch (_) {} if (!calm) v.play().catch(() => {}); }
+      else v.pause();
+    });
+    chips.forEach((c, k) => c.classList.toggle('is-on', k === i));
+  }
+  vids.forEach((v, k) => v.addEventListener('ended', () => { if (k === cur && !calm) show((k + 1) % vids.length); }));
+  chips.forEach((c, k) => c.addEventListener('click', () => show(k)));
+  // 動きを控える設定の人には、自動再生も自動切り替えもしない（手動の操作だけ）
+  if (calm) vids.forEach((v) => { v.autoplay = false; v.pause(); v.controls = true; });
+})();
 </script>
-<script src="viewer.js"></script>
+<script src="/panovi/viewer.js"></script>
 <div class="lb" id="lightbox" hidden><img alt=""></div>
 <script>
 (function(){
