@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>panovi — Set it down. Capture edge to edge.</title>
+<title>panovi — Two videos become one</title>
 <meta name="description" content="Just set two iPhones on a tripod. Their footage becomes one ultra-wide video. Shoot everything, zoom in later. For sports days, recitals and travel. No cloud — everything stays on your iPhones.">
-<meta property="og:title" content="panovi — Set it down. Capture edge to edge.">
+<meta property="og:title" content="panovi — Two videos become one">
 <meta property="og:description" content="Two iPhones, one ultra-wide video. Shoot it all, zoom in later. No cloud.">
 <meta property="og:image" content="https://starclip.app/panovi/img/hero.jpg">
+<link rel="alternate" hreflang="en" href="https://starclip.app/panovi/en/">
 <link rel="alternate" hreflang="ja" href="https://starclip.app/panovi/">
-<link rel="alternate" hreflang="x-default" href="https://starclip.app/panovi/">
-<link rel="icon" type="image/png" href="../img/icon.png">
-<link rel="apple-touch-icon" href="../img/icon.png">
+<link rel="icon" type="image/png" href="/panovi/img/icon.png">
+<link rel="apple-touch-icon" href="/panovi/img/icon.png">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -58,43 +58,33 @@ a{color:inherit}
 .btn-line:hover{border-color:var(--green);color:var(--green)}
 .btn-sm{padding:9px 18px;font-size:13px}
 
-/* ───── 一枚目 ───── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;
-  padding:120px 0 76px;overflow:hidden;isolation:isolate}
+/* ───── 一枚目: 流れる映像の上で「2本 → 1本」を見せる ───── */
+.hero{position:relative;padding:136px 0 72px;overflow:hidden;isolation:isolate}
 .hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
-.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.45}
-.hero-grid{display:grid;grid-template-areas:"intro" "demo" "details";gap:28px}
-.hero-intro{grid-area:intro;min-width:0}
-.hero-details{grid-area:details;min-width:0}
-.hero-demo{grid-area:demo;min-width:0;margin:0;align-self:center}
-.hero-demo video{width:100%;height:auto;aspect-ratio:32/21;object-fit:contain;
-  background:#0b0c2d;border:1px solid rgba(244,243,238,.28);border-radius:18px;
-  box-shadow:0 18px 54px rgba(0,0,0,.25)}
-.hero-demo figcaption{margin-top:14px;color:#dfe6e3;font-size:12.5px;line-height:1.7}
-.hero-demo figcaption strong{display:block;color:var(--green);font-size:13.5px;margin-bottom:3px}
-@media(min-width:980px){
-  .hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
-    grid-template-areas:"intro demo" "details demo";gap:0 44px}
-  .hero-intro{align-self:end}
-  .hero-details{align-self:start}
-}
-@media(max-width:979px){.hero{min-height:auto;padding:108px 0 64px}}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
-  linear-gradient(180deg,rgba(4,32,31,.52) 0%,rgba(4,32,31,.22) 30%,rgba(4,32,31,.9) 84%,var(--ink) 100%)}
+  linear-gradient(180deg,rgba(4,32,31,.62) 0%,rgba(4,32,31,.38) 30%,rgba(4,32,31,.92) 80%,var(--ink) 100%)}
+.hero-head{text-align:center}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.26em;
   text-transform:uppercase;color:var(--green);margin-bottom:22px}
-.kicker::before{content:"";width:34px;height:1px;background:var(--green)}
-.hero h1{font-size:clamp(34px,7.2vw,48px);font-weight:800;line-height:1.11;letter-spacing:-.04em;
+.kicker::before,.kicker::after{content:"";width:34px;height:1px;background:var(--green)}
+.hero h1{font-size:clamp(34px,6.4vw,72px);font-weight:800;line-height:1.14;letter-spacing:-.04em;
   text-shadow:0 2px 44px rgba(0,0,0,.45)}
 .hero h1 em{font-style:normal;color:var(--green)}
-@media(min-width:980px){.hero h1{font-size:clamp(34px,3.5vw,46px)}}
-.hero-lead{margin-top:26px;max-width:33em;font-size:clamp(15px,1.8vw,18.5px);color:#dfe6e3}
-.hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px}
-@media(max-width:979px){.hero-lead{margin-top:0}}
-.cue{position:absolute;left:50%;bottom:16px;translate:-50% 0;font-size:10.5px;letter-spacing:.22em;
-  color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:8px}
-.cue i{width:1px;height:32px;background:linear-gradient(var(--dim),transparent)}
-@media(max-width:760px){.cue{display:none}}
+.hero-lead{margin:22px auto 0;max-width:33em;font-size:clamp(15px,1.8vw,18px);color:#dfe6e3}
+.hero-join{margin:44px auto 0;max-width:1120px}
+.join-stage{position:relative;aspect-ratio:16/9;background:var(--ink);
+  border:1px solid var(--rule);border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.join-stage video{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .45s}
+.join-stage video.is-on{opacity:1}
+.join-nav{margin-top:16px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.join-chip{background:transparent;border:1px solid var(--rule);color:var(--paper);
+  padding:8px 18px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+.join-chip:hover{border-color:var(--green);color:var(--green)}
+.join-chip.is-on{background:var(--green);border-color:var(--green);color:#042a20;font-weight:700}
+.hero-join figcaption{margin-top:12px;font-size:12.5px;color:#cfdad7;line-height:1.75;text-align:center}
+.hero-cta{margin-top:34px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
 
 /* ───── 数字の帯 ───── */
 .stats{background:var(--ink2);border-block:1px solid var(--rule)}
@@ -104,19 +94,6 @@ a{color:inherit}
 .stat b{display:block;font-size:clamp(27px,4vw,42px);font-weight:800;letter-spacing:-.03em;
   color:var(--green);line-height:1.12}
 .stat span{display:block;margin-top:9px;font-size:12.5px;color:var(--dim);line-height:1.7}
-
-/* 左右の素材と結合結果の作例 */
-.demo-grid{display:grid;gap:32px;margin-top:40px}
-@media(min-width:900px){.demo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.demo-card{min-width:0;margin:0}
-.demo-card video{width:100%;aspect-ratio:32/21;background:#0b0c2d;
-  border:1px solid var(--rule);border-radius:18px}
-.demo-card figcaption{margin-top:16px}
-.demo-card h3{font-size:20px;line-height:1.4;letter-spacing:-.02em}
-.demo-card p{margin-top:6px;color:var(--dim);font-size:13.5px}
-.demo-card a{display:inline-block;margin-top:8px;color:var(--green);font-size:13px;
-  text-underline-offset:4px}
-.demo-card a:focus-visible{outline:2px solid var(--green);outline-offset:5px}
 
 /* ───── 章 ───── */
 .sec{padding:var(--pad) 0}
@@ -144,12 +121,6 @@ h2 em{font-style:normal;color:var(--green)}
 .lb{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:28px;cursor:zoom-out}
 .lb[hidden]{display:none}
 .lb img{max-width:100%;max-height:100%;border-radius:4px}
-.duo{display:grid;gap:18px;margin-top:46px}
-@media(min-width:780px){.duo{grid-template-columns:1fr 1fr;gap:24px}}
-.duo figure{margin:0}
-.duo img{width:100%}
-.duo figcaption{margin-top:13px;font-size:12.5px;color:var(--dim);line-height:1.75}
-.duo .n{color:var(--green);font-weight:700;margin-right:.5em}
 .cap{margin-top:13px;font-size:12.5px;color:var(--dim)}
 .vr-still{position:relative;display:block;margin-top:30px;border-radius:12px;overflow:hidden;border:1px solid var(--rule)}
 .vr-still img{width:100%;display:block}
@@ -220,7 +191,7 @@ h2 em{font-style:normal;color:var(--green)}
      位置だけは広い前提で計算されるので**映像が左へ飛んで真っ黒**になる。 */
   max-width:none;min-width:0}
 .xp-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
-/* ★ポスターは**最初の絵が出るまで**as wide as you saw it.24MBの読み込みを待つあいだ真っ黒にしない。 */
+/* ★ポスターは**最初の絵が出るまで**残す。24MBの読み込みを待つあいだ真っ黒にしない。 */
 .xp.is-ready .xp-poster{display:none}
 .xp.is-live .xp-poster{opacity:1}
 .xp:not(.is-live) .xp-film{display:none}
@@ -254,7 +225,6 @@ h2 em{font-style:normal;color:var(--green)}
   display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center}
 .foot a{color:var(--green);text-decoration:none}
 
-/* 出てくる動き */
 .rise{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
 .rise.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
@@ -276,222 +246,193 @@ h2 em{font-style:normal;color:var(--green)}
 
 <header class="nav" id="nav">
   <div class="col nav-in">
-    <a class="brand" href="#top"><img src="../img/icon.png" alt=""><b>panovi</b></a>
+    <a class="brand" href="#top"><img src="/panovi/img/icon.png" alt=""><b>panovi</b></a>
     <nav class="nav-links">
-      <a href="#why">Features</a>
-      <a href="#match">Full match</a>
+      <a href="#why">What it does</a>
+      <a href="#match">Whole match</a>
       <a href="#try">Try it</a>
       <a href="#how">How it works</a>
       <a href="#price">Pricing</a>
-      <a href="../" lang="ja">日本語</a>
+      <a href="/panovi/" lang="ja">日本語</a>
     </nav>
-    <a class="btn btn-fill btn-sm" href="https://apps.apple.com/app/id6797261654">App Store</a>
+    <a class="btn btn-fill btn-sm" href="https://apps.apple.com/jp/app/id6797261654">App Store</a>
   </div>
 </header>
 
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
-    <img src="../img/hero_poster.jpg" alt="">
+    <img src="/panovi/img/hero_poster.jpg" alt="">
   </div>
-  <div class="col hero-grid">
-    <div class="hero-intro">
-      <span class="kicker">two iPhones, one wide frame</span>
-      <h1>Wide shot, or close-up?<br><em>Stop choosing.</em></h1>
-    </div>
-    <figure class="hero-demo">
-      <video controls muted loop playsinline preload="none" poster="../img/demo-mountain-poster.jpg"
-             width="1280" height="840" aria-label="Mt. Kintoki: left and right recordings and the stitched result, five seconds, silent" aria-describedby="hero-demo-caption">
-        <source src="../img/demo-mountain.mp4" type="video/mp4">
-        <a href="../img/demo-mountain.mp4">Open the Mt. Kintoki demo video</a>
-      </video>
-      <figcaption id="hero-demo-caption">
-        <strong>Filmed on Mt. Kintoki · 5-second demo</strong>
-        Two recordings above, one panorama below. Press play to compare (no sound).
-      </figcaption>
-    </figure>
-    <div class="hero-details">
-      <p class="hero-lead">Just set two iPhones side by side on a tripod. The left and right footage becomes one ultra-wide video. Shoot wide, zoom in when you watch.</p>
-      <div class="hero-cta">
-        <a class="btn btn-fill" href="https://apps.apple.com/app/id6797261654">Get it on the App Store</a>
-        <a class="btn btn-line" href="#try">Play with real footage</a>
+  <div class="col hero-head">
+    <span class="kicker">two iPhones, one wide frame</span>
+    <h1>Two videos become<br><em>one.</em></h1>
+    <p class="hero-lead">Just set two iPhones side by side on a tripod. Their left and right footage joins into one ultra-wide video, edge to edge.</p>
+    <figure class="hero-join">
+      <div class="join-stage">
+        <video class="is-on" src="/panovi/img/hero-join-mountain.mp4" poster="/panovi/img/hero-join-mountain-poster.jpg"
+               autoplay muted playsinline preload="auto"
+               aria-label="Mt. Kintoki: footage from two iPhones becomes one ultra-wide video. Muted"></video>
+        <video src="/panovi/img/hero-join-city.mp4" poster="/panovi/img/hero-join-city-poster.jpg"
+               muted playsinline preload="metadata"
+               aria-label="City with a passing train: footage from two iPhones becomes one ultra-wide video. Muted"></video>
+        <video src="/panovi/img/hero-join-soccer.mp4" poster="/panovi/img/hero-join-soccer-poster.jpg"
+               muted playsinline preload="metadata"
+               aria-label="A soccer match: footage from two iPhones becomes one ultra-wide video. Muted"></video>
       </div>
+      <div class="join-nav" aria-label="Switch demo">
+        <button class="join-chip is-on" type="button" data-join="0">Mt. Kintoki</button>
+        <button class="join-chip" type="button" data-join="1">City &amp; train</button>
+        <button class="join-chip" type="button" data-join="2">Soccer</button>
+      </div>
+      <figcaption>Real footage from two iPhones (muted). The left and right clips become one ultra-wide video. When one demo ends, the next plays.</figcaption>
+    </figure>
+    <div class="hero-cta">
+      <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">Get it on the App Store</a>
+      <a class="btn btn-line" href="#try">Play with a real result</a>
     </div>
   </div>
-  <div class="cue">SCROLL<i></i></div>
 </section>
 
 <section class="stats">
   <div class="col stats-in">
-    <div class="stat"><b>2 iPhones</b><span>Just the iPhones you own, plus a tripod</span></div>
-    <div class="stat"><b>4K × 2</b><span>Left and right are each recorded in 4K</span></div>
-    <div class="stat"><b>$0</b><span>Record as long as you like; stitches under 3 min are unlimited</span></div>
+    <div class="stat"><b>2 iPhones</b><span>Just the ones you own, plus a tripod</span></div>
+    <div class="stat"><b>4K × 2</b><span>Each side records in full 4K</span></div>
+    <div class="stat"><b>Free</b><span>Record any length; stitches under 3 min unlimited</span></div>
     <div class="stat"><b>No cloud</b><span>Works on fields and mountaintops with no signal</span></div>
-  </div>
-</section>
-
-<section class="sec alt" id="examples" aria-labelledby="examples-title">
-  <div class="col">
-    <span class="eyebrow">Two videos, one panorama</span>
-    <h2 id="examples-title">Before and <em>after stitching.</em></h2>
-    <p class="body">The two iPhone recordings are on top, with the actual stitched result below. Compare a view from Mt. Kintoki and a passing train in the city. Each example is five seconds long, with no sound.</p>
-    <div class="demo-grid">
-      <figure class="demo-card">
-        <video controls muted loop playsinline preload="none" poster="../img/demo-mountain-poster.jpg"
-               width="1280" height="840" aria-label="Mt. Kintoki: left and right recordings and the stitched result, five seconds, silent" aria-describedby="demo-mountain-caption">
-          <source src="../img/demo-mountain.mp4" type="video/mp4">
-          <a href="../img/demo-mountain.mp4">Open the Mt. Kintoki demo video</a>
-        </video>
-        <figcaption id="demo-mountain-caption">
-          <h3>A view from Mt. Kintoki</h3>
-          <p>Two views become one panorama, stretching across to Mt. Fuji.</p>
-          <a href="../img/demo-mountain.mp4" download>Download the mountain demo (5s · MP4)</a>
-        </figcaption>
-      </figure>
-      <figure class="demo-card">
-        <video controls muted loop playsinline preload="none" poster="../img/demo-city-poster.jpg"
-               width="1280" height="840" aria-label="City: left and right recordings and the stitched result, five seconds, silent" aria-describedby="demo-city-caption">
-          <source src="../img/demo-city.mp4" type="video/mp4">
-          <a href="../img/demo-city.mp4">Open the city demo video</a>
-        </video>
-        <figcaption id="demo-city-caption">
-          <h3>A train passing through the city</h3>
-          <p>Footage recorded by two iPhones at the same time, joined into one wide view.</p>
-          <a href="../img/demo-city.mp4" download>Download the city demo (5s · MP4)</a>
-        </figcaption>
-      </figure>
-    </div>
-    <p class="cap">Press play to watch. The videos have been resized for this page.</p>
   </div>
 </section>
 
 <section class="sec" id="why">
   <div class="col rise">
     <span class="eyebrow">01 — The whole scene, and your kid</span>
-    <h2>With one camera,<br><em>you always give one up.</em></h2>
-    <p class="body">Sports day or the school recital: shoot wide for the whole scene, or zoom in on your kid? With a single camera you are always giving one of them up.</p>
-    <p class="body">panovi shoots wide and lets you zoom in afterwards. Each side is recorded in 4K, so you keep far more detail than one camera covering the same width.</p>
+    <h2>The whole scene, or your kid?<br><em>One camera makes you choose.</em></h2>
+    <p class="body">Filming a sports day or a recital is always a trade-off. Zoom out and your kid becomes a speck; zoom in and you lose the whole scene.</p>
+    <p class="body">panovi removes that choice: <strong>shoot wide, zoom in when you watch</strong>. Each side records in 4K, so you keep far more detail than one camera covering the same width.</p>
     <figure class="shot">
-      <img src="../img/wide.jpg" alt="Ultra-wide footage with everything in frame, edge to edge" loading="lazy">
-      <figcaption><span class="n">When shooting</span>Keep everything in, edge to edge</figcaption>
+      <img src="/panovi/img/wide.jpg" alt="An ultra-wide frame reaching from edge to edge" loading="lazy">
+      <figcaption><span class="n">When you shoot</span>Capture everything, edge to edge</figcaption>
     </figure>
     <figure class="shot">
-      <img src="../img/zoom.jpg" alt="A 1:1 crop of Mt. Fuji from the same footage — signboard text and the town still legible" loading="lazy">
-      <figcaption><span class="n">When watching</span>Zoom in. A 1:1 crop of the same footage — not upscaled</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="sec alt">
-  <div class="col rise">
-    <span class="eyebrow">02 — Just set it down</span>
-    <h2>You never have to<em>pan the camera.</em></h2>
-    <p class="body">Once it is on the tripod, you never touch it. There is no aiming, so none of this happens:</p>
-    <ul class="list">
-      <li>You were lost in the goal and forgot to point the camera</li>
-      <li>Your kid outran the frame and slipped out of the shot</li>
-      <li>You were so busy filming that you never actually watched</li>
-    </ul>
-    <p class="body" style="margin-top:32px">No more glancing at the screen wondering if it is still framed. The decisive moment is always inside the picture.</p>
-  </div>
-</section>
-
-<section class="sec" id="match">
-  <div class="col rise">
-    <span class="eyebrow">03 — The whole match</span>
-    <h2>On the tripod,<br><em>never moved once.</em></h2>
-    <p class="body">Both goals and both benches stay in frame the whole time. Use a third iPhone as a remote: start and stop recording, check the seam, see each camera&rsquo;s battery and free space, and pull videos over — all without touching the cameras. You just watch the game.</p>
-  </div>
-</section>
-
-<div class="band">
-  <video data-src="../img/soccer.mp4" poster="../img/soccer_poster.jpg" muted loop playsinline preload="none"
-         aria-label="Match footage with the whole pitch in one frame"></video>
-</div>
-
-<section class="sec">
-  <div class="col rise">
-    <div class="note">
-      <p><strong>This clip is rougher than the real output.</strong>The stitched result of this match, shot on ultra-wide, is <strong>4110 × 1214</strong>. Here the foreground is trimmed and the clip is downscaled to 1920 px wide to keep the page light.</p>
-      <p style="margin-top:12px">Ultra-wide reaches the corner flags, but each pixel covers more ground than the wide lens. If you plan to zoom in, shoot on wide (the "Try it" demo below was shot on wide).</p>
-    </div>
-    <figure style="margin:32px 0 0">
-      <img src="../img/soccer_zoom.jpg" alt="A 1:1 crop of the same match footage — every player is visible" loading="lazy">
-      <figcaption class="cap">A 1200×394 crop from the clip above at 1:1 — not upscaled</figcaption>
+      <img src="/panovi/img/zoom.jpg" alt="Mt. Fuji cut from the same footage at 1:1 — signs and townscape still legible" loading="lazy">
+      <figcaption><span class="n">When you watch</span>Zoom in. A 1:1 cut from the same footage — not enlarged</figcaption>
     </figure>
   </div>
 </section>
 
 <section class="sec alt" id="try">
   <div class="col rise mid">
-    <span class="eyebrow">04 — Try it</span>
-    <h2>Zoom in,<br><em>right on this page.</em></h2>
-    <p class="body">This is a real stitched result, cropped to 16:9. Drag to pan, scroll or pinch to zoom. You can do exactly the same with your own videos inside the app.</p>
+    <span class="eyebrow">02 — Try it</span>
+    <h2>Zoom in,<br><em>right here on this screen.</em></h2>
+    <p class="body">A real stitched result, made the same way as the demos above. It starts fully zoomed out, edge to edge. Zoom in with &ldquo;Zoom +&rdquo;, your mouse wheel or a pinch, and drag to pan. You can do the same with your own videos inside the app.</p>
   </div>
+  <!-- ★既定は少し引いた表示（0.88×）。上下に細い黒帯が出る=「映像の縦は全部見えている」が
+       ひと目で伝わる。そこから寄る＋/ホイール/ピンチで自由に寄れる。 -->
   <div class="col xp rise" id="xp" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="4.0508">
     <div class="xp-stage">
-      <img class="xp-poster" src="../img/viewer_poster.jpg" alt="" loading="lazy">
+      <img class="xp-poster" src="/panovi/img/viewer_poster.jpg" alt="" loading="lazy">
       <div class="xp-film">
         <video playsinline muted loop preload="none"
-               data-src="../img/viewer.mp4" data-fallback="../img/viewer_4k.mp4"></video>
+               data-src="/panovi/img/viewer.mp4" data-fallback="/panovi/img/viewer_4k.mp4"></video>
       </div>
       <div class="xp-start">
-        <button class="btn btn-fill" type="button" data-act="start">Load the footage</button>
-        <p>A full-resolution stitched result shot on the wide lens. Tap to start loading (12 s, 24 MB)</p>
+        <button class="btn btn-fill" type="button" data-act="start">Start the footage</button>
+        <p>The original-size result shot with the wide lens. Loading starts when you press (12 s · 24 MB)</p>
       </div>
       <div class="xp-loading">Loading… (24 MB)</div>
-      <div class="xp-hint">Drag to pan — scroll or pinch to zoom</div>
+      <div class="xp-hint">Drag to pan · wheel / pinch to zoom</div>
     </div>
     <div class="xp-bar">
       <button class="xp-chip" data-act="play" type="button">Play</button>
       <button class="xp-chip" data-frame="left" type="button">Left</button>
       <button class="xp-chip" data-frame="center" type="button">Center</button>
       <button class="xp-chip" data-frame="right" type="button">Right</button>
-      <button class="xp-chip" data-zoom-by="1.5" type="button">Zoom in +</button>
-      <button class="xp-chip" data-zoom-by="0.6667" data-act="out" type="button">Zoom out −</button>
-      <button class="xp-chip" data-act="whole" type="button">Fit all</button>
+      <button class="xp-chip" data-zoom-by="1.5" type="button">Zoom +</button>
+      <button class="xp-chip" data-zoom-by="0.6667" data-act="out" type="button">Out −</button>
+      <button class="xp-chip" data-act="whole" type="button">Whole</button>
       <button class="xp-chip" data-act="reset" type="button">Reset</button>
       <span class="gap"></span>
       <span class="xp-zoom">1.0×</span>
     </div>
-    <p class="xp-note">An actual stitched result shot on the wide lens: 6060×1496, 12 s, silent, with only the black canvas border trimmed. Press "Fit all" to see edge to edge.</p>
+    <p class="xp-note">A real stitched result shot with the wide lens: 6060×1496, 12 s, muted, with only the black canvas border trimmed. It starts with the whole width in view.</p>
     <div class="links">
       <a class="btn btn-line" href="/panovi/viewer/en/">Explore freely (panovi viewer)</a>
-      <a class="btn btn-line" href="../viewer/en/guide.html">How the viewer works</a>
+      <a class="btn btn-line" href="/panovi/viewer/en/guide.html">How the viewer works</a>
     </div>
   </div>
 </section>
 
-<section class="sec" id="lens">
+<section class="sec">
   <div class="col rise">
-    <span class="eyebrow">05 — Choose your lens</span>
-    <h2>Reach the edges,<br><em>or fill the frame.</em></h2>
-    <p class="body">The same pitch shot on ultra-wide and wide. Ultra-wide reaches the corner flags; wide has a narrower view, so the same player appears larger and sharper. You choose the lens before you shoot.</p>
-    <p class="body">The stitched size also depends on the lens.<strong>4110×1214 on ultra-wide, 6188×1508 on wide</strong>. Wide keeps about 1.5× more horizontal detail.</p>
+    <span class="eyebrow">03 — Just set it down</span>
+    <h2>You never have to <em>aim the camera.</em></h2>
+    <p class="body">Once it sits on the tripod, you never touch it again. Because there is no aiming, none of this happens:</p>
+    <ul class="list">
+      <li>You watched the goal happen — and forgot to point the camera</li>
+      <li>Your kid sprinted out of the frame before you could follow</li>
+      <li>You were so busy filming that you never really watched</li>
+    </ul>
+    <p class="body" style="margin-top:32px">No more checking the screen while you cheer. The decisive moment is always inside the frame — you can find it later.</p>
+  </div>
+</section>
+
+<section class="sec alt" id="match">
+  <div class="col rise">
+    <span class="eyebrow">04 — The whole match</span>
+    <h2>On the tripod the whole time.<br><em>Never moved once.</em></h2>
+    <p class="body">The video below is a whole soccer match. Both goals and both benches stay in frame the entire time.</p>
+    <p class="body">Use a third iPhone as a remote: start and stop recording, check the seam, see each camera&rsquo;s battery and free space, and pull videos over — all without touching the cameras. You just watch the game.</p>
   </div>
 </section>
 
 <div class="band">
-  <video data-src="../img/soccer_wide.mp4" poster="../img/soccer_wide_poster.jpg" muted loop playsinline preload="none"
-         aria-label="The same pitch shot on the wide lens"></video>
+  <video data-src="/panovi/img/soccer.mp4" poster="/panovi/img/soccer_poster.jpg" muted loop playsinline preload="none"
+         aria-label="A match video with the whole pitch in one frame"></video>
+</div>
+
+<section class="sec">
+  <div class="col rise">
+    <div class="note">
+      <p><strong>This video is rougher than the real thing.</strong> The stitched result of this ultra-wide match is <strong>4110 × 1214</strong>; here it is trimmed and downscaled to 1920 px wide to keep the page light.</p>
+      <p style="margin-top:12px">Ultra-wide reaches the corner flags, but each pixel covers more ground than wide. If you plan to zoom in later, shoot with the wide lens — &ldquo;Try it&rdquo; above was shot wide.</p>
+    </div>
+    <figure style="margin:32px 0 0">
+      <img src="/panovi/img/soccer_zoom.jpg" alt="A cut from the same match at original size — individual players visible" loading="lazy">
+      <figcaption class="cap">A 1200×394 cut from the video above at original size. Not enlarged</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec alt" id="lens">
+  <div class="col rise">
+    <span class="eyebrow">05 — Choose your lens</span>
+    <h2>Reach the corners,<br><em>or see them bigger.</em></h2>
+    <p class="body">The same pitch shot ultra-wide and wide. Ultra-wide reaches the corner flags; wide has a narrower view, so the same players appear bigger and sharper. You choose the lens before you shoot.</p>
+    <p class="body">The stitched size changes with the lens too: <strong>4110×1214 ultra-wide, 6188×1508 wide</strong> — 1.5× more horizontal detail with the wide lens.</p>
+  </div>
+</section>
+
+<div class="band">
+  <video data-src="/panovi/img/soccer_wide.mp4" poster="/panovi/img/soccer_wide_poster.jpg" muted loop playsinline preload="none"
+         aria-label="The same pitch shot with the wide lens"></video>
   <div class="band-over"><div class="col">
-    <h3>Shot on the wide lens</h3>
-    <p>A narrower view than ultra-wide, so each player is larger and sharper</p>
+    <h3>Shot with the wide lens</h3>
+    <p>A narrower view than ultra-wide — every player appears bigger and sharper</p>
   </div></div>
 </div>
 
 <section class="sec alt">
   <div class="col rise">
     <span class="eyebrow">06 — On the road</span>
-    <h2>Keep the view<em>as wide as you saw it.</em></h2>
+    <h2>Keep the view <em>as wide as you saw it.</em></h2>
     <p class="body">From the summit all the way to Mt. Fuji. Views too wide for one camera fit in a single video, drifting clouds and all. Not just for special days — walks and trips too.</p>
   </div>
 </section>
 
 <div class="band">
-  <img src="../img/hero.jpg" alt="From the summit of Mt. Kintoki — an ultra-wide frame reaching Mt. Fuji" loading="lazy">
+  <img src="/panovi/img/hero.jpg" alt="From the summit of Mt. Kintoki — an ultra-wide frame reaching Mt. Fuji" loading="lazy">
   <div class="band-over"><div class="col">
     <h3>From the summit of Mt. Kintoki</h3>
-    <p>Shot on two iPhones and stitched as-is (4032×1380)</p>
+    <p>The same two clips as the top demo, stitched as is (4032×1380)</p>
   </div></div>
 </div>
 
@@ -527,7 +468,7 @@ h2 em{font-style:normal;color:var(--green)}
 <section class="sec" id="how">
   <div class="col rise">
     <span class="eyebrow">09 — How it works</span>
-    <h2>There are only<em>three steps.</em></h2>
+    <h2>There are only <em>three steps.</em></h2>
     <div class="steps">
       <div class="step"><b>01</b><h3>Pair</h3><p>Show a QR code on one iPhone, scan it with the other. That is it.</p></div>
       <div class="step"><b>02</b><h3>Place</h3><p>Set the two side by side on the tripod. The screen shows the overlap while you adjust the angle.</p></div>
@@ -537,20 +478,20 @@ h2 em{font-style:normal;color:var(--green)}
       <p><strong>The second iPhone can be borrowed.</strong> Recording and transfer are free, so a family member&rsquo;s or friend&rsquo;s iPhone becomes your second camera the moment they install the free app. No shared Apple ID or iCloud needed — any two iPhones pair by reading a QR code (iOS 18 or later). The only thing that can ever cost money is a stitch of 3 minutes or longer, and only on your device doing the stitching — never on the borrowed one.</p>
     </div>
     <div class="note" id="tripod" style="margin-top:26px">
-      <p><strong>How to build the tripod rig.</strong>Take any tripod you own, add <a href="https://www.amazon.co.jp/dp/B0HFZNJWCX?tag=petanote-22" target="_blank" rel="noopener sponsored">a dual bracket plate (Amazon)</a>, and screw on two <a href="https://link.amazon/B0cYKJkFr" target="_blank" rel="noopener sponsored">MagSafe tripod mounts (Amazon)</a>. The iPhones snap on magnetically, so mounting and removing them on site takes a second. Place the two so the lenses meet near the center — the in-app placement check guides the angle.</p>
+      <p><strong>How to build the tripod rig.</strong> Take any tripod you own, add <a href="https://www.amazon.co.jp/dp/B0HFZNJWCX?tag=petanote-22" target="_blank" rel="noopener sponsored">a dual bracket plate (Amazon)</a>, and screw on two <a href="https://link.amazon/B0cYKJkFr" target="_blank" rel="noopener sponsored">MagSafe tripod mounts (Amazon)</a>. The iPhones snap on magnetically, so mounting and removing them on site takes a second. Place the two so the lenses meet near the center — the in-app placement check guides the angle.</p>
     </div>
     <div class="trio">
       <figure>
-        <a class="zoom" href="../img/tripod_parts.jpg"><img src="../img/tripod_parts.jpg" alt="The rig: two MagSafe mounts screwed onto a dual bracket plate" loading="lazy"></a>
-        <figcaption><span class="n">1. Assemble</span>Screw two mounts onto the plate. No tools needed</figcaption>
+        <a class="zoom" href="/panovi/img/tripod_parts.jpg"><img src="/panovi/img/tripod_parts.jpg" alt="A dual bracket plate with two MagSafe mounts screwed on" loading="lazy"></a>
+        <figcaption><span class="n">1. Build</span>Screw two mounts onto the plate. No tools needed</figcaption>
       </figure>
       <figure>
-        <a class="zoom" href="../img/tripod_rig.jpg"><img src="../img/tripod_rig.jpg" alt="The finished rig seen from the front: two MagSafe rings the iPhones snap onto" loading="lazy"></a>
-        <figcaption><span class="n">2. The finished rig</span>iPhones snap onto these rings</figcaption>
+        <a class="zoom" href="/panovi/img/tripod_rig.jpg"><img src="/panovi/img/tripod_rig.jpg" alt="The finished rig from the front — iPhones attach magnetically to the two MagSafe rings" loading="lazy"></a>
+        <figcaption><span class="n">2. Done</span>The iPhones snap onto these rings</figcaption>
       </figure>
       <figure>
-        <a class="zoom" href="../img/tripod_standing.jpg"><img src="../img/tripod_standing.jpg" alt="The finished rig on a tripod, phones angled so the lenses meet near the center" loading="lazy"></a>
-        <figcaption><span class="n">3. Place</span>Snap the phones on, lenses meeting near the center</figcaption>
+        <a class="zoom" href="/panovi/img/tripod_standing.jpg"><img src="/panovi/img/tripod_standing.jpg" alt="On the tripod, the two iPhones angled so the lenses meet near the center" loading="lazy"></a>
+        <figcaption><span class="n">3. Place</span>Snap the iPhones on and angle them inward</figcaption>
       </figure>
     </div>
     <p class="cap">Tap a photo to enlarge.</p>
@@ -560,18 +501,18 @@ h2 em{font-style:normal;color:var(--green)}
 <section class="sec alt" id="price">
   <div class="col rise">
     <span class="eyebrow">10 — Pricing</span>
-    <h2>The basics are<em>free.</em></h2>
+    <h2>The basics are <em>free.</em></h2>
     <p class="body">The only thing that costs money is stitching videos 3 minutes or longer.</p>
     <table class="price">
       <tr><th>Recording</th><td class="y">Free — any length, any number</td></tr>
       <tr><th>Transfer between iPhones</th><td class="y">Free</td></tr>
-      <tr><th>Placement check & 3-second preview</th><td class="y">Free</td></tr>
+      <tr><th>Placement check &amp; 3-second preview</th><td class="y">Free</td></tr>
       <tr><th>Stitches under 3 min</th><td class="y">Always free, unlimited</td></tr>
       <tr><th>Stitches 3 min and longer</th><td>3 free / then an event pass or a one-time unlock</td></tr>
     </table>
     <div class="note">
       <p><strong>After the 3 free stitches, pick whichever fits.</strong></p>
-      <p><strong>Event pass (24 hours)</strong> — a ticket for &ldquo;just this one day&rdquo;. From the first stitch you use it on, you get 24 hours of unlimited long stitches. The clock starts when you first use it, not when you buy it — so buying it the night before costs you nothing. One pass covers a whole sports day, recital or match day.</p>
+      <p><strong>Event pass (24 hours)</strong> — a ticket for &ldquo;just this one day&rdquo;. From the first stitch you use it on, you get 24 hours of unlimited long stitches. The clock starts when you first use it, not when you buy it — buying it the night before costs you nothing. One pass covers a whole sports day, recital or match day.</p>
       <p><strong>One-time unlock</strong> — pay once, unlimited forever. Not a subscription. The right choice if you will keep using it.</p>
       <p>See the App Store for prices. No special gear either — two iPhones you already own, and a tripod.</p>
     </div>
@@ -602,10 +543,10 @@ h2 em{font-style:normal;color:var(--green)}
 <section class="end">
   <div class="col-n">
     <span class="eyebrow">get panovi</span>
-    <h2 class="mid" style="margin-inline:auto">Set it down,<em>capture edge to edge.</em></h2>
-    <p class="body mid">Stitches under 3 minutes are free forever. Try it with the two iPhones you already have.</p>
+    <h2 class="mid" style="margin-inline:auto">Set it down, and get <em>edge to edge.</em></h2>
+    <p class="body mid">Stitches under 3 minutes are free forever. Try it with the two iPhones you have.</p>
     <div style="margin-top:36px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
-      <a class="btn btn-fill" href="https://apps.apple.com/app/id6797261654">Get it on the App Store</a>
+      <a class="btn btn-fill" href="https://apps.apple.com/jp/app/id6797261654">Get it on the App Store</a>
       <a class="btn btn-line" href="#try">See the footage first</a>
     </div>
   </div>
@@ -613,8 +554,8 @@ h2 em{font-style:normal;color:var(--green)}
 
 <footer class="col foot">
   <span>© 2026 starclip</span>
-  <span>Your footage stays on your iPhones. Nowhere else.</span>
-  <a href="../viewer/en/">panovi viewer</a>
+  <span>Your footage stays on your iPhones.</span>
+  <a href="/panovi/viewer/en/">panovi viewer</a>
   <a href="/panovi/en/privacy/">Privacy Policy</a>
 </footer>
 
@@ -640,8 +581,30 @@ const vio = new IntersectionObserver((es) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.band video').forEach((v) => vio.observe(v));
+
+// ヒーローのデモ: 1本の再生が終わったら次のシーンへ切り替わるカルーセル
+(function(){
+  const vids = Array.from(document.querySelectorAll('.join-stage video'));
+  const chips = Array.from(document.querySelectorAll('.join-chip'));
+  if (!vids.length) return;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0;
+  function show(i){
+    cur = i;
+    vids.forEach((v, k) => {
+      v.classList.toggle('is-on', k === i);
+      if (k === i) { try { v.currentTime = 0; } catch (_) {} if (!calm) v.play().catch(() => {}); }
+      else v.pause();
+    });
+    chips.forEach((c, k) => c.classList.toggle('is-on', k === i));
+  }
+  vids.forEach((v, k) => v.addEventListener('ended', () => { if (k === cur && !calm) show((k + 1) % vids.length); }));
+  chips.forEach((c, k) => c.addEventListener('click', () => show(k)));
+  // 動きを控える設定の人には、自動再生も自動切り替えもしない（手動の操作だけ）
+  if (calm) vids.forEach((v) => { v.autoplay = false; v.pause(); v.controls = true; });
+})();
 </script>
-<script src="../viewer.js"></script>
+<script src="/panovi/viewer.js"></script>
 <div class="lb" id="lightbox" hidden><img alt=""></div>
 <script>
 (function(){
