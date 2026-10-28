@@ -18,7 +18,7 @@
   const readout = root.querySelector('.xp-zoom');
   const outBtn  = root.querySelector('[data-act="out"]');
   const barPlay = root.querySelector('.xp-bar [data-act="play"]');
-  const MAX = 2;  // ★寄り上限。被写体の顔が判別できる倍率まで寄らせない（2026-10-28）
+  const MAX = 1;  // ★寄り上限＝高さいっぱいまで。被写体の顔が判別できる倍率まで寄らせない（2026-10-28）
 
   const startZoom = parseFloat(root.dataset.zoom || '1') || 1;
   const startCX   = parseFloat(root.dataset.cx || '0.5');
