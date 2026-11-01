@@ -324,7 +324,7 @@ h2 em{font-style:normal;color:var(--green)}
   </div>
   <!-- ★既定は少し引いた表示（0.88×）。上下に細い黒帯が出る=「映像の縦は全部見えている」が
        ひと目で伝わる。そこから寄る＋/ホイール/ピンチで自由に寄れる。 -->
-  <div class="col xp rise" id="xp" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="2.9217">
+  <div class="col xp rise" id="xp" data-max-zoom="2" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="2.9217">
     <div class="xp-stage">
       <img class="xp-poster" src="/panovi/img/hero.jpg" alt="" loading="lazy">
       <div class="xp-film">
@@ -561,7 +561,7 @@ document.querySelectorAll('.band video').forEach((v) => vio.observe(v));
   if (calm) vids.forEach((v) => { v.autoplay = false; v.pause(); v.controls = true; });
 })();
 </script>
-<script src="/panovi/viewer.js"></script>
+<script src="/panovi/viewer.js?v=20261101"></script>
 <div class="lb" id="lightbox" hidden><img alt=""></div>
 <script>
 (function(){

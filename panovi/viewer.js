@@ -18,7 +18,9 @@
   const readout = root.querySelector('.xp-zoom');
   const outBtn  = root.querySelector('[data-act="out"]');
   const barPlay = root.querySelector('.xp-bar [data-act="play"]');
-  const MAX = 1;  // ★寄り上限＝高さいっぱいまで。被写体の顔が判別できる倍率まで寄らせない（2026-10-28）
+  // ページごとに上限を指定。未指定の旧デモでは、従来どおり 1 倍を維持する。
+  const configuredMax = Number(root.dataset.maxZoom);
+  const MAX = Number.isFinite(configuredMax) && configuredMax >= 1 ? configuredMax : 1;
 
   const startZoom = parseFloat(root.dataset.zoom || '1') || 1;
   const startCX   = parseFloat(root.dataset.cx || '0.5');
