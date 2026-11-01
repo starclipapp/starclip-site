@@ -276,14 +276,10 @@ h2 em{font-style:normal;color:var(--green)}
         <video src="/panovi/img/hero-join-city.mp4?v=20261029" poster="/panovi/img/hero-join-city-poster.jpg?v=20261029"
                muted playsinline preload="metadata"
                aria-label="City with a passing train: footage from two iPhones becomes one ultra-wide video. Muted"></video>
-        <video src="/panovi/img/hero-join-soccer.mp4?v=20261029" poster="/panovi/img/hero-join-soccer-poster.jpg?v=20261029"
-               muted playsinline preload="metadata"
-               aria-label="A soccer match: footage from two iPhones becomes one ultra-wide video. Muted"></video>
       </div>
       <div class="join-nav" aria-label="Switch demo">
         <button class="join-chip is-on" type="button" data-join="0">From the summit</button>
         <button class="join-chip" type="button" data-join="1">City &amp; train</button>
-        <button class="join-chip" type="button" data-join="2">Soccer</button>
       </div>
       <figcaption>Real footage from two iPhones (muted). The left and right clips become one ultra-wide video. When one demo ends, the next plays.</figcaption>
     </figure>
@@ -328,18 +324,18 @@ h2 em{font-style:normal;color:var(--green)}
   </div>
   <!-- ★既定は少し引いた表示（0.88×）。上下に細い黒帯が出る=「映像の縦は全部見えている」が
        ひと目で伝わる。そこから寄る＋/ホイール/ピンチで自由に寄れる。 -->
-  <div class="col xp rise" id="xp" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="4.0508">
+  <div class="col xp rise" id="xp" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="2.9217">
     <div class="xp-stage">
-      <img class="xp-poster" src="/panovi/img/viewer_poster.jpg" alt="" loading="lazy">
+      <img class="xp-poster" src="/panovi/img/hero.jpg" alt="" loading="lazy">
       <div class="xp-film">
         <video playsinline muted loop preload="none"
-               data-src="/panovi/img/viewer.mp4" data-fallback="/panovi/img/viewer_4k.mp4"></video>
+               data-src="/panovi/img/kintoki.mp4" data-fallback="/panovi/img/hero.mp4"></video>
       </div>
       <div class="xp-start">
         <button class="btn btn-fill" type="button" data-act="start">Start the footage</button>
-        <p>The original-size result shot with the wide lens. Loading starts when you press (12 s · 24 MB)</p>
+        <p>The stitched view from Mt. Kintoki. Loading starts when you press (about 16 s · 19 MB)</p>
       </div>
-      <div class="xp-loading">Loading… (24 MB)</div>
+      <div class="xp-loading">Loading… (19 MB)</div>
       <div class="xp-hint">Drag to pan · wheel / pinch to zoom</div>
     </div>
     <div class="xp-bar">
@@ -354,7 +350,7 @@ h2 em{font-style:normal;color:var(--green)}
       <span class="gap"></span>
       <span class="xp-zoom">1.0×</span>
     </div>
-    <p class="xp-note">A real stitched result shot with the wide lens: 6060×1496, 12 s, muted, with only the black canvas border trimmed. It starts with the whole width in view.</p>
+    <p class="xp-note">A real stitched view from Mt. Kintoki: 4032×1380, about 16 seconds, muted.</p>
     <div class="links">
       <a class="btn btn-line" href="/panovi/viewer/en/">Explore freely (panovi viewer)</a>
       <a class="btn btn-line" href="/panovi/viewer/en/guide.html">How the viewer works</a>
@@ -376,54 +372,9 @@ h2 em{font-style:normal;color:var(--green)}
   </div>
 </section>
 
-<section class="sec alt" id="match">
-  <div class="col rise">
-    <span class="eyebrow">04 — The whole match</span>
-    <h2>On the tripod the whole time.<br><em>Never moved once.</em></h2>
-    <p class="body">The video below is a whole soccer match. Both goals and both benches stay in frame the entire time.</p>
-    <p class="body">Use a third iPhone as a remote: start and stop recording, check the seam, see each camera&rsquo;s battery and free space, and pull videos over — all without touching the cameras. You just watch the game.</p>
-  </div>
-</section>
-
-<div class="band">
-  <video data-src="/panovi/img/soccer.mp4" poster="/panovi/img/soccer_poster.jpg" muted loop playsinline preload="none"
-         aria-label="A match video with the whole pitch in one frame"></video>
-</div>
-
-<section class="sec">
-  <div class="col rise">
-    <div class="note">
-      <p><strong>This video is rougher than the real thing.</strong> The stitched result of this ultra-wide match is <strong>4110 × 1214</strong>; here it is trimmed and downscaled to 1920 px wide to keep the page light.</p>
-      <p style="margin-top:12px">Ultra-wide reaches the corner flags, but each pixel covers more ground than wide. If you plan to zoom in later, shoot with the wide lens — &ldquo;Try it&rdquo; above was shot wide.</p>
-    </div>
-    <figure style="margin:32px 0 0">
-      <img src="/panovi/img/soccer_zoom.jpg" alt="A cut from the same match at original size — individual players visible" loading="lazy">
-      <figcaption class="cap">A 1200×394 cut from the video above at original size. Not enlarged</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="sec alt" id="lens">
-  <div class="col rise">
-    <span class="eyebrow">05 — Choose your lens</span>
-    <h2>Reach the corners,<br><em>or see them bigger.</em></h2>
-    <p class="body">The same pitch shot ultra-wide and wide. Ultra-wide reaches the corner flags; wide has a narrower view, so the same players appear bigger and sharper. You choose the lens before you shoot.</p>
-    <p class="body">The stitched size changes with the lens too: <strong>4110×1214 ultra-wide, 6188×1508 wide</strong> — 1.5× more horizontal detail with the wide lens.</p>
-  </div>
-</section>
-
-<div class="band">
-  <video data-src="/panovi/img/soccer_wide.mp4" poster="/panovi/img/soccer_wide_poster.jpg" muted loop playsinline preload="none"
-         aria-label="The same pitch shot with the wide lens"></video>
-  <div class="band-over"><div class="col">
-    <h3>Shot with the wide lens</h3>
-    <p>A narrower view than ultra-wide — every player appears bigger and sharper</p>
-  </div></div>
-</div>
-
 <section class="sec alt">
   <div class="col rise">
-    <span class="eyebrow">06 — On the road</span>
+    <span class="eyebrow">04 — On the road</span>
     <h2>Keep the view <em>as wide as you saw it.</em></h2>
     <p class="body">From the summit all the way to Mt. Fuji. Views too wide for one camera fit in a single video, drifting clouds and all. Not just for special days — walks and trips too.</p>
   </div>
@@ -439,7 +390,7 @@ h2 em{font-style:normal;color:var(--green)}
 
 <section class="sec">
   <div class="col rise">
-    <span class="eyebrow">07 — Unlike a 360° camera</span>
+    <span class="eyebrow">05 — Unlike a 360° camera</span>
     <h2>Spend your pixels<br><em>only where you are looking.</em></h2>
     <p class="body">A 360° camera spreads its pixels in every direction, so any single direction gets fewer of them and distant subjects stay small. panovi concentrates every pixel where you are looking — wide, yet still big and punchy.</p>
     <ul class="list">
@@ -452,24 +403,19 @@ h2 em{font-style:normal;color:var(--green)}
 
 <section class="sec alt" id="youtube">
   <div class="col rise">
-    <span class="eyebrow">08 — To YouTube</span>
+    <span class="eyebrow">06 — To YouTube</span>
     <h2>From shooting to publishing, <em>iPhone only.</em></h2>
     <p class="body">Shoot at the field, stitch in the car or on the train home, and watch on the big screen when you walk in. Publishing to YouTube happens right from the phone too — no computer, no cloud subscription.</p>
     <ul class="list">
       <li>8K — exports the ultra-wide video at 8K size, so it stays sharp even on a big screen</li>
       <li>8K + VR (360°) — a format YouTube&rsquo;s VR viewer plays. Viewers pan around and zoom into any spot themselves, as if they were standing there</li>
     </ul>
-    <a class="vr-still" href="https://www.youtube.com/watch?v=4H52UkEouJ0" target="_blank" rel="noopener" aria-label="Watch the VR sample on YouTube (opens in a new window)">
-      <img src="/panovi/img/vr-sample.jpg" alt="A still from the 8K+VR sample: a whole match pitch in one ultra-wide frame" loading="lazy">
-      <span class="vr-play">▶︎&nbsp; Watch in YouTube&rsquo;s VR viewer</span>
-    </a>
-    <p class="cap">A real 8K + VR (360°) export from the app. Clicking opens YouTube in a new window. Drag to look around during playback; on a phone, open it in the YouTube app for gyro and pinch zoom.</p>
   </div>
 </section>
 
 <section class="sec" id="how">
   <div class="col rise">
-    <span class="eyebrow">09 — How it works</span>
+    <span class="eyebrow">07 — How it works</span>
     <h2>There are only <em>three steps.</em></h2>
     <div class="steps">
       <div class="step"><b>01</b><h3>Pair</h3><p>Show a QR code on one iPhone, scan it with the other. That is it.</p></div>
@@ -511,7 +457,7 @@ h2 em{font-style:normal;color:var(--green)}
 
 <section class="sec alt" id="price">
   <div class="col rise">
-    <span class="eyebrow">10 — Pricing</span>
+    <span class="eyebrow">08 — Pricing</span>
     <h2>The basics are <em>free.</em></h2>
     <p class="body">The only thing that costs money is stitching videos 3 minutes or longer.</p>
     <table class="price">
