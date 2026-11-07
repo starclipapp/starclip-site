@@ -8,7 +8,9 @@
     <title>panovi viewer</title>
     <link rel="alternate" hreflang="ja" href="https://starclip.app/panovi/viewer/">
     <link rel="alternate" hreflang="en" href="https://starclip.app/panovi/viewer/en/">
-    <link rel="alternate" hreflang="x-default" href="https://starclip.app/panovi/viewer/">
+    <link rel="alternate" hreflang="pt-BR" href="https://starclip.app/panovi/viewer/pt/">
+    <link rel="alternate" hreflang="es" href="https://starclip.app/panovi/viewer/es/">
+    <link rel="alternate" hreflang="x-default" href="https://starclip.app/panovi/viewer/en/">
     <link rel="icon" type="image/png" href="../img/icon.png">
     <link rel="apple-touch-icon" href="../img/icon.png">
     <link rel="stylesheet" href="../styles.css">
@@ -51,7 +53,15 @@
             </label>
             <button id="help-button" type="button" class="utility-button help-button" aria-label="Keyboard shortcuts help" aria-keyshortcuts="?">?</button>
             <a class="guide-link" href="./guide.html">How to use</a>
-            <a class="guide-link" href="../" lang="ja">日本語</a>
+            <details class="lang-menu">
+              <summary class="guide-link" aria-label="Language: EN">EN</summary>
+              <div class="lang-menu-list">
+                <a href="/panovi/viewer/" lang="ja" hreflang="ja">日本語</a>
+                <a href="/panovi/viewer/en/" lang="en" hreflang="en" aria-current="page">English</a>
+                <a href="/panovi/viewer/pt/" lang="pt-BR" hreflang="pt-BR">Português</a>
+                <a href="/panovi/viewer/es/" lang="es" hreflang="es">Español</a>
+              </div>
+            </details>
           </div>
         </form>
         <p id="url-error" class="field-error" role="alert"></p>

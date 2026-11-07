@@ -18,6 +18,13 @@
   const readout = root.querySelector('.xp-zoom');
   const outBtn  = root.querySelector('[data-act="out"]');
   const barPlay = root.querySelector('.xp-bar [data-act="play"]');
+  // 実行中に書き換える文言は HTML 側の data 属性から読む（日本語ページは属性なし＝従来どおり）。
+  //   en/pt/es ページ: #xp に data-fallback-note、再生ボタンに data-label-play / data-label-pause
+  const L = {
+    play:  (barPlay && barPlay.dataset.labelPlay)  || '再生',
+    pause: (barPlay && barPlay.dataset.labelPause) || '一時停止',
+    fallback: root.dataset.fallbackNote || 'この端末では原寸を再生できないため、少し小さい版に切り替えました。',
+  };
   // ページごとに上限を指定。未指定の旧デモでは、従来どおり 1 倍を維持する。
   const configuredMax = Number(root.dataset.maxZoom);
   const MAX = Number.isFinite(configuredMax) && configuredMax >= 1 ? configuredMax : 1;
@@ -106,12 +113,12 @@
     const alt = video.dataset.fallback;
     if (alt && video.src.indexOf(alt) < 0) {
       video.src = alt;
-      if (note) note.textContent = 'この端末では原寸を再生できないため、少し小さい版に切り替えました。';
+      if (note) note.textContent = L.fallback;
       video.play().catch(() => {});
     }
   });
-  video.addEventListener('play',  () => { if (barPlay) barPlay.textContent = '一時停止'; });
-  video.addEventListener('pause', () => { if (barPlay) barPlay.textContent = '再生'; });
+  video.addEventListener('play',  () => { if (barPlay) barPlay.textContent = L.pause; });
+  video.addEventListener('pause', () => { if (barPlay) barPlay.textContent = L.play; });
 
   // 指とマウス
   let drag = null;

@@ -8,8 +8,11 @@
 <meta property="og:title" content="panovi — Two videos become one">
 <meta property="og:description" content="Two iPhones, one ultra-wide video. Shoot it all, zoom in later. No cloud.">
 <meta property="og:image" content="https://starclip.app/panovi/img/hero.jpg">
-<link rel="alternate" hreflang="en" href="https://starclip.app/panovi/en/">
 <link rel="alternate" hreflang="ja" href="https://starclip.app/panovi/">
+<link rel="alternate" hreflang="en" href="https://starclip.app/panovi/en/">
+<link rel="alternate" hreflang="pt-BR" href="https://starclip.app/panovi/pt/">
+<link rel="alternate" hreflang="es" href="https://starclip.app/panovi/es/">
+<link rel="alternate" hreflang="x-default" href="https://starclip.app/panovi/en/">
 <link rel="icon" type="image/png" href="/panovi/img/icon.png">
 <link rel="apple-touch-icon" href="/panovi/img/icon.png">
 <style>
@@ -48,6 +51,9 @@ a{color:inherit}
 .nav-links a{text-decoration:none;font-size:13.5px;color:var(--dim);letter-spacing:.04em;transition:color .2s}
 .nav-links a:hover{color:var(--paper)}
 @media(max-width:900px){.nav-links{display:none}}
+.nav-lang{display:flex;gap:12px;padding-left:22px;border-left:1px solid var(--rule)}
+.nav-links .nav-lang a{font-size:12.5px;letter-spacing:.08em}
+.nav-links a[aria-current],.foot a[aria-current]{color:var(--paper);pointer-events:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 26px;
   border-radius:999px;text-decoration:none;font-size:14.5px;font-weight:700;letter-spacing:.02em;
   border:1px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit;
@@ -225,6 +231,7 @@ h2 em{font-style:normal;color:var(--green)}
 .foot{border-top:1px solid var(--rule);padding:32px 0 58px;font-size:13px;color:var(--dim);
   display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center}
 .foot a{color:var(--green);text-decoration:none}
+.foot-lang{display:flex;flex-wrap:wrap;gap:6px 16px}
 
 .rise{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
 .rise.in{opacity:1;transform:none}
@@ -254,7 +261,7 @@ h2 em{font-style:normal;color:var(--green)}
       <a href="#try">Try it</a>
       <a href="#how">How it works</a>
       <a href="#price">Pricing</a>
-      <a href="/panovi/" lang="ja">日本語</a>
+      <span class="nav-lang" role="group" aria-label="Language"><a href="/panovi/" lang="ja" hreflang="ja">JA</a><a href="/panovi/en/" lang="en" hreflang="en" aria-current="page">EN</a><a href="/panovi/pt/" lang="pt-BR" hreflang="pt-BR">PT</a><a href="/panovi/es/" lang="es" hreflang="es">ES</a></span>
     </nav>
     <a class="btn btn-fill btn-sm" href="https://apps.apple.com/jp/app/id6797261654">App Store</a>
   </div>
@@ -328,7 +335,7 @@ h2 em{font-style:normal;color:var(--green)}
   </div>
   <!-- ★既定は少し引いた表示（0.88×）。上下に細い黒帯が出る=「映像の縦は全部見えている」が
        ひと目で伝わる。そこから寄る＋/ホイール/ピンチで自由に寄れる。 -->
-  <div class="col xp rise" id="xp" data-max-zoom="2" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="2.9217">
+  <div class="col xp rise" id="xp" data-max-zoom="2" data-zoom="0.4" data-cx="0.62" data-cy="0.50" data-ar="2.9217" data-fallback-note="This device cannot play the full-size video, so a slightly smaller version is playing.">
     <div class="xp-stage">
       <img class="xp-poster" src="/panovi/img/hero.jpg" alt="" loading="lazy">
       <div class="xp-film">
@@ -343,7 +350,7 @@ h2 em{font-style:normal;color:var(--green)}
       <div class="xp-hint">Drag to pan · wheel / pinch to zoom</div>
     </div>
     <div class="xp-bar">
-      <button class="xp-chip" data-act="play" type="button">Play</button>
+      <button class="xp-chip" data-act="play" data-label-play="Play" data-label-pause="Pause" type="button">Play</button>
       <button class="xp-chip" data-frame="left" type="button">Left</button>
       <button class="xp-chip" data-frame="center" type="button">Center</button>
       <button class="xp-chip" data-frame="right" type="button">Right</button>
@@ -518,6 +525,7 @@ h2 em{font-style:normal;color:var(--green)}
   <span>Your footage stays on your iPhones.</span>
   <a href="/panovi/viewer/en/">panovi viewer</a>
   <a href="/panovi/en/privacy/">Privacy Policy</a>
+  <span class="foot-lang" role="group" aria-label="Language"><a href="/panovi/" lang="ja" hreflang="ja">日本語</a><a href="/panovi/en/" lang="en" hreflang="en" aria-current="page">English</a><a href="/panovi/pt/" lang="pt-BR" hreflang="pt-BR">Português</a><a href="/panovi/es/" lang="es" hreflang="es">Español</a></span>
 </footer>
 
 <script>
@@ -565,7 +573,7 @@ document.querySelectorAll('.band video').forEach((v) => vio.observe(v));
   if (calm) vids.forEach((v) => { v.autoplay = false; v.pause(); v.controls = true; });
 })();
 </script>
-<script src="/panovi/viewer.js?v=20261101"></script>
+<script src="/panovi/viewer.js?v=20261108"></script>
 <div class="lb" id="lightbox" hidden><img alt=""></div>
 <script>
 (function(){
