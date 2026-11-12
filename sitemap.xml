@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://starclip.app/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starclip.app/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://starclip.app/jp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starclip.app/"/>
+  </url>
+  <url>
+    <loc>https://starclip.app/jp/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starclip.app/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://starclip.app/jp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starclip.app/"/>
+  </url>
+  <url>
+    <loc>https://starclip.app/support/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starclip.app/support/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://starclip.app/jp/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starclip.app/support/"/>
+  </url>
+  <url>
+    <loc>https://starclip.app/jp/support/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starclip.app/support/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://starclip.app/jp/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starclip.app/support/"/>
+  </url>
+  <url>
+    <loc>https://starclip.app/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starclip.app/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://starclip.app/privacy/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starclip.app/privacy/"/>
+  </url>
+  <url>
+    <loc>https://starclip.app/privacy/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starclip.app/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://starclip.app/privacy/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starclip.app/privacy/"/>
+  </url>
+  <url>
+    <loc>https://starclip.app/anotvremote/</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/anotvremote/support/</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/anotvremote/privacy/</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/ouchiremocon/</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/ouchiremocon/support/</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/ouchiremocon/privacy/</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/kanagawa-jyteam.html</loc>
+  </url>
+  <url>
+    <loc>https://starclip.app/kanagawa-jyteam-map.html</loc>
+  </url>
+</urlset>
