@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STARCLIP — That roar. Starred. Relive the goal instantly.</title>
-    <meta name="description" content="Tap the star on every goal while filming. Upload to YouTube — chapters already done. No more rewatching. Built for parents on the sideline.">
+    <meta name="description" content="Tap the star on every goal while filming. Upload to YouTube — chapters already done. No more rewatching. Built for parents on the sideline. Now with Wide Later Photo &amp; Video: widen the frame after you shoot.">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -15,27 +15,32 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --gold: #ffd700;
-            --gold-dim: rgba(255, 215, 0, 0.15);
-            --bg-deep: #050208;
+            --gold: #ffcb1f;
+            --gold-dim: rgba(255, 203, 31, 0.15);
+            --bg-deep: #060a1e;
             --bg-card: rgba(255,255,255,0.04);
             --text: #e8e8f0;
             --text-dim: rgba(255,255,255,0.45);
         }
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-deep); color: var(--text); overflow-x: hidden; }
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(5,2,8,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(6,10,30,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
         .nav-brand { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #fff; }
-        .nav-brand span { color: var(--gold); }
+        .nav-brand { display: flex; align-items: center; gap: 10px; }
+        .nav-brand svg { width: 28px; height: 28px; display: block; flex: none; }
         .nav-links { display: flex; gap: 28px; align-items: center; }
         .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
         .nav-links a:hover { color: #fff; }
         .nav-links .lang-btn { border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 12px; font-size: 12px; }
         .hero { position: relative; height: 100vh; min-height: 700px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(100,40,200,0.15) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 30% 60%, rgba(255,215,0,0.06) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 70% 30%, rgba(0,100,255,0.06) 0%, transparent 60%); }
-        .hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 60%); animation: pulse 4s ease-in-out infinite; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(40,64,170,0.20) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 30% 60%, rgba(255,203,31,0.06) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 70% 30%, rgba(0,100,255,0.06) 0%, transparent 60%); }
+        .hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,203,31,0.08) 0%, transparent 60%); animation: pulse 4s ease-in-out infinite; }
         @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
-        .hero-star { position: relative; z-index: 2; font-size: 72px; line-height: 1; color: var(--gold); filter: drop-shadow(0 0 40px rgba(255,215,0,0.4)); animation: float 3s ease-in-out infinite; margin-bottom: 32px; }
+        .hero-logo { position: relative; z-index: 2; width: 120px; height: 120px; filter: drop-shadow(0 0 40px rgba(255,203,31,0.3)); animation: float 3s ease-in-out infinite; margin-bottom: 28px; }
+        .hero-logo svg { width: 100%; height: 100%; display: block; }
+        .hero-new { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px; padding: 6px 16px 6px 6px; border: 1px solid rgba(255,203,31,0.35); border-radius: 50px; background: rgba(255,203,31,0.08); color: var(--gold); font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.3s; }
+        .hero-new:hover { background: rgba(255,203,31,0.16); }
+        .hero-new b { background: var(--gold); color: #0b163f; border-radius: 50px; padding: 3px 10px; font-size: 11px; letter-spacing: 1px; }
         @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .sparkle { position: absolute; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; animation: sparkle-float 3s ease-in-out infinite; }
         .sparkle:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; } .sparkle:nth-child(2) { top: 25%; right: 25%; animation-delay: 0.8s; } .sparkle:nth-child(3) { top: 60%; left: 15%; animation-delay: 1.5s; } .sparkle:nth-child(4) { top: 55%; right: 18%; animation-delay: 0.4s; } .sparkle:nth-child(5) { top: 40%; left: 35%; animation-delay: 2s; } .sparkle:nth-child(6) { top: 70%; right: 30%; animation-delay: 1.2s; }
@@ -44,7 +49,7 @@
         .hero h1 .accent { color: var(--gold); }
         .hero-sub { position: relative; z-index: 2; font-size: clamp(16px, 2.5vw, 22px); font-weight: 300; color: rgba(255,255,255,0.6); max-width: 560px; line-height: 1.6; margin-bottom: 48px; }
         .hero-cta { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 12px; background: #fff; color: #000; padding: 16px 36px; border-radius: 50px; font-size: 15px; font-weight: 600; text-decoration: none; letter-spacing: 0.5px; transition: transform 0.3s, box-shadow 0.3s; }
-        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,215,0,0.2); }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,203,31,0.2); }
         .hero-cta svg { width: 20px; height: 20px; }
         .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; animation: bob 2s ease-in-out infinite; }
         @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
@@ -52,17 +57,34 @@
         .statement-text { font-size: clamp(24px, 4vw, 44px); font-weight: 700; line-height: 1.4; max-width: 800px; margin: 0 auto; letter-spacing: -1px; }
         .statement-text .dim { color: rgba(255,255,255,0.25); }
         .highlight-section { padding: 100px 40px; text-align: center; position: relative; }
-        .highlight-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 70%); }
+        .highlight-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,203,31,0.04) 0%, transparent 70%); }
         .hl-badge { display: inline-block; background: var(--gold-dim); color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 8px 20px; border-radius: 50px; margin-bottom: 32px; position: relative; z-index: 2; }
         .highlight-section h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 20px; position: relative; z-index: 2; }
         .highlight-section .desc { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.5); max-width: 580px; margin: 0 auto; position: relative; z-index: 2; }
         .timestamp-demo { position: relative; z-index: 2; margin-top: 48px; display: inline-block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px 40px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 15px; text-align: left; color: rgba(255,255,255,0.7); line-height: 2; }
         .timestamp-demo .star { color: var(--gold); }
+        .wide { padding: 100px 40px; max-width: 1100px; margin: 0 auto; text-align: center; }
+        .wide h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
+        .wide .desc { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.55); max-width: 620px; margin: 0 auto; }
+        .wide-figure { max-width: 760px; margin: 48px auto 0; }
+        .wide-figure svg { width: 100%; height: auto; display: block; }
+        .wide-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin-top: 18px; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+        .wide-legend .key { display: inline-block; width: 24px; height: 15px; border-radius: 3px; vertical-align: -2px; margin-right: 8px; }
+        .wide-legend .key-in { border: 2px solid #fff; background: #1d2856; }
+        .wide-legend .key-out { border: 2px dashed rgba(255,255,255,0.55); background: #0d1433; }
+        .wide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 56px; text-align: left; }
+        .wide-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 36px 32px; }
+        .wide-card .name { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+        .wide-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+        .wide-card p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.55); }
+        .wide-card p + p { margin-top: 10px; }
+        .wide-note { margin: 32px auto 0; max-width: 680px; font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.5); }
+        .wide-note p + p { margin-top: 6px; }
         .features { padding: 80px 40px 120px; max-width: 1100px; margin: 0 auto; }
         .features-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 60px; text-align: center; }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .feature-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 40px 32px; transition: transform 0.3s, border-color 0.3s; }
-        .feature-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.2); }
+        .feature-card:hover { transform: translateY(-4px); border-color: rgba(255,203,31,0.2); }
         .feature-icon { font-size: 36px; margin-bottom: 20px; filter: grayscale(0.3); }
         .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
         .feature-card p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.5); }
@@ -74,7 +96,8 @@
         footer .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
         footer .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.3s; }
         footer .footer-links a:hover { color: #fff; }
-        @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links { gap: 16px; } .hero { min-height: 600px; padding: 0 24px; } .hero-glow { width: 300px; height: 300px; } .statement { padding: 80px 24px; } .features { padding: 60px 20px 80px; } .feature-grid { grid-template-columns: 1fr; } .highlight-section { padding: 80px 24px; } .timestamp-demo { padding: 20px 24px; font-size: 13px; } .final-cta { padding: 80px 24px; } footer { padding: 32px 20px; flex-direction: column; text-align: center; } }
+        @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links { gap: 16px; } .hero { min-height: 600px; padding: 0 24px; } .hero-glow { width: 300px; height: 300px; } .statement { padding: 80px 24px; } .features { padding: 60px 20px 80px; } .feature-grid { grid-template-columns: 1fr; } .highlight-section { padding: 80px 24px; } .timestamp-demo { padding: 20px 24px; font-size: 13px; } .final-cta { padding: 80px 24px; } footer { padding: 32px 20px; flex-direction: column; text-align: center; } .wide { padding: 80px 20px; } .wide-grid { grid-template-columns: 1fr; margin-top: 40px; } .wide-card { padding: 28px 24px; } .hero-logo { width: 96px; height: 96px; margin-bottom: 24px; } }
+        @media (max-width: 560px) { .nav-links .nav-opt { display: none; } .nav-brand { font-size: 16px; letter-spacing: 2px; } }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1LM1MCM9W5"></script>
@@ -87,12 +110,24 @@
 </head>
 <body>
 
+<!-- Logo: same shape as the app icon (values copied from StarClip/design/icon/make_icon.swift) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="sc-logo" viewBox="0 0 1024 1024">
+        <rect width="1024" height="1024" rx="228" fill="#0b163f"/>
+        <circle cx="512" cy="512" r="340" fill="#ffcb1f"/>
+        <circle cx="512" cy="512" r="250" fill="#1d2856"/>
+        <polygon points="452,336 481.6,407.2 558.5,413.4 499.9,463.6 517.8,538.6 452,498.4 386.2,538.6 404.1,463.6 345.5,413.4 422.4,407.2" fill="#fff" stroke="#fff" stroke-width="11.2" stroke-linejoin="round"/>
+        <circle cx="612" cy="616" r="36" fill="#fff"/>
+    </symbol>
+</svg>
+
 <nav>
-    <div class="nav-brand"><span>&#9733;</span> STARCLIP</div>
+    <div class="nav-brand"><svg aria-hidden="true"><use href="#sc-logo"/></svg>STARCLIP</div>
     <div class="nav-links">
-        <a href="#how">How It Works</a>
-        <a href="#features">Features</a>
-        <a href="/support/">Support</a>
+        <a href="#how" class="nav-opt">How It Works</a>
+        <a href="#wide">Wide Later</a>
+        <a href="#features" class="nav-opt">Features</a>
+        <a href="/support/" class="nav-opt">Support</a>
         <a href="/jp/" class="lang-btn">JP</a>
     </div>
 </nav>
@@ -101,7 +136,8 @@
     <div class="hero-glow"></div>
     <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
     <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
-    <div class="hero-star">&#9733;</div>
+    <div class="hero-logo"><svg role="img" aria-label="STARCLIP"><use href="#sc-logo"/></svg></div>
+    <a href="#wide" class="hero-new"><b>NEW</b>Wide Later Photo &amp; Video &rarr;</a>
     <h1>That roar. Starred.<br><span class="accent">Relive the goal, instantly.</span></h1>
     <p class="hero-sub">Tap the star on every goal while filming. Upload to YouTube — chapter timestamps are already in your clipboard. No more rewatching.</p>
     <a href="https://apps.apple.com/app/id6761373750" class="hero-cta">
@@ -135,6 +171,82 @@
     </div>
 </section>
 
+<section class="wide" id="wide">
+    <div class="hl-badge">New in 1.2</div>
+    <h2>Shoot close.<br>Widen it later.</h2>
+    <p class="desc">
+        Wide Later Photo and Wide Later Video shoot with the wide and ultra wide lenses at the same time.
+        If you later think “the play in front of the goal got cut off” or “I wanted the whole field in,” tap “Widen the shot” in the app.
+        You can widen the frame out to what the ultra wide lens saw.
+    </p>
+    <figure class="wide-figure">
+        <svg viewBox="0 0 800 450" role="img" aria-label="Diagram: the white frame is the photo as you took it. The darker area around it is the outside you can add later (what the ultra wide lens saw).">
+            <defs>
+                <clipPath id="wl-out"><rect x="20" y="20" width="760" height="410" rx="16"/></clipPath>
+                <marker id="wl-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                    <path d="M0 0 L10 5 L0 10 Z" fill="#ffcb1f"/>
+                </marker>
+            </defs>
+            <g clip-path="url(#wl-out)">
+                <rect x="20" y="20" width="760" height="410" fill="#1d2856"/>
+                <g fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3">
+                    <rect x="60" y="80" width="680" height="300"/>
+                    <line x1="400" y1="80" x2="400" y2="380"/>
+                    <circle cx="400" cy="230" r="48"/>
+                    <rect x="60" y="150" width="100" height="160"/>
+                    <rect x="60" y="195" width="36" height="70"/>
+                    <rect x="640" y="150" width="100" height="160"/>
+                    <rect x="704" y="195" width="36" height="70"/>
+                    <path d="M60 208 H44 V252 H60"/>
+                    <path d="M740 208 H756 V252 H740"/>
+                </g>
+                <g fill="#ffcb1f">
+                    <circle cx="138" cy="214" r="9"/><circle cx="182" cy="262" r="9"/>
+                    <circle cx="300" cy="186" r="9"/><circle cx="452" cy="290" r="9"/>
+                    <circle cx="560" cy="200" r="9"/>
+                </g>
+                <g fill="#7fb2ff">
+                    <circle cx="84" cy="230" r="9"/><circle cx="118" cy="262" r="9"/>
+                    <circle cx="240" cy="236" r="9"/><circle cx="360" cy="252" r="9"/>
+                    <circle cx="680" cy="230" r="9"/>
+                </g>
+                <circle cx="108" cy="238" r="6" fill="#fff"/>
+                <path fill="rgba(6,10,30,0.62)" fill-rule="evenodd" d="M20 20 H780 V430 H20 Z M200 112 V337 H600 V112 Z"/>
+            </g>
+            <rect x="20" y="20" width="760" height="410" rx="16" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-dasharray="12 10"/>
+            <rect x="200" y="112" width="400" height="225" fill="none" stroke="#fff" stroke-width="5"/>
+            <g stroke="#ffcb1f" stroke-width="4" marker-end="url(#wl-arrow)">
+                <line x1="188" y1="104" x2="60" y2="46"/>
+                <line x1="612" y1="104" x2="740" y2="46"/>
+                <line x1="188" y1="345" x2="60" y2="404"/>
+                <line x1="612" y1="345" x2="740" y2="404"/>
+            </g>
+        </svg>
+        <figcaption class="wide-legend">
+            <span><span class="key key-in"></span>White frame: the photo as you took it (your usual view)</span>
+            <span><span class="key key-out"></span>Dark area: the outside you can add later (ultra wide)</span>
+        </figcaption>
+    </figure>
+    <div class="wide-grid">
+        <div class="wide-card">
+            <div class="name">Wide Later Photo</div>
+            <h3>Keep your usual shot.<br>Remake the wide one anytime.</h3>
+            <p>Your camera roll gets one photo that looks just like a normal photo, at the zoom you shot it.</p>
+            <p>Later, tap “Widen the shot” in the app to remake it with the frame widened out to the ultra wide edges. The two original shots stay in the app with almost no loss in quality, so you can redo it as many times as you like.</p>
+        </div>
+        <div class="wide-card">
+            <div class="name">Wide Later Video</div>
+            <h3>Record with two lenses.<br>Widen and export later.</h3>
+            <p>Both lenses record at the same time. Later, use “Widen the shot” to export a video with a wider frame and save it to your camera roll.</p>
+            <p>The &#9733; works in Wide Later Video too.</p>
+        </div>
+    </div>
+    <div class="wide-note">
+        <p>The moment you shoot, you get a “click” you can feel: a vibration, a sound, and a quick dim of the screen (no sound in Silent mode).</p>
+        <p>* Wide Later Photo and Wide Later Video only work on iPhones that can shoot with two lenses at the same time.</p>
+    </div>
+</section>
+
 <section class="features" id="features">
     <p class="features-label">Built for the sideline</p>
     <div class="feature-grid">
@@ -152,6 +264,16 @@
             <div class="feature-icon">&#128269;</div>
             <h3>Precision Zoom</h3>
             <p>Long-press for a smooth zoom dial. Catch the action on the far side of the pitch without losing stability.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#9208;&#65039;</div>
+            <h3>Pause, Then Keep Going</h3>
+            <p>Pause without stopping, and pick up the same video later. Paused time isn't counted in the recording, so your &#9733; times still match the video length.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#129295;</div>
+            <h3>Zoom While You Watch</h3>
+            <p>On the playback screen, spread two fingers to zoom in and drag to look around. Double-tap to go back.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">&#128247;</div>
