@@ -8,33 +8,55 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="alternate" hreflang="en" href="/support/">
+    <link rel="alternate" hreflang="ja" href="/jp/support/">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', sans-serif;
-            background: #0d0520;
-            color: rgba(255,255,255,0.85);
-            min-height: 100vh;
-            line-height: 1.7;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold: #ffcb1f;
+            --gold-dim: rgba(255, 203, 31, 0.15);
+            --bg-deep: #060a1e;
+            --bg-card: rgba(255,255,255,0.04);
+            --text: #e8e8f0;
+            --text-dim: rgba(255,255,255,0.5);
         }
-        .container { max-width: 680px; margin: 0 auto; padding: 48px 24px; }
-        h1 { font-size: 28px; margin-bottom: 8px; color: #fff; }
-        .subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 36px; }
-        h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; color: #ffd700; }
-        p { margin-bottom: 16px; font-size: 15px; }
-        ul { margin: 0 0 16px 24px; font-size: 15px; }
-        li { margin-bottom: 8px; }
-        a { color: #ffd700; }
-        .contact-box {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 24px;
-        }
-        .contact-box p { margin-bottom: 8px; }
-        .back { display: inline-block; margin-top: 32px; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', sans-serif; background: var(--bg-deep); color: var(--text); min-height: 100vh; line-height: 1.7; overflow-x: hidden; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 520px; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(40,64,170,0.22) 0%, transparent 70%), radial-gradient(ellipse 30% 40% at 70% 10%, rgba(255,203,31,0.05) 0%, transparent 60%); }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(6,10,30,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #fff; text-decoration: none; }
+        .nav-brand svg { width: 28px; height: 28px; display: block; flex: none; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links .lang-btn { border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 12px; font-size: 12px; }
+        .container { max-width: 760px; margin: 0 auto; padding: 128px 24px 64px; }
+        .hl-badge { display: inline-block; background: var(--gold-dim); color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 8px 20px; border-radius: 50px; margin-bottom: 20px; }
+        h1 { font-size: clamp(32px, 6vw, 44px); font-weight: 800; letter-spacing: -1px; line-height: 1.2; margin-bottom: 8px; color: #fff; }
+        .subtitle { font-size: 15px; color: var(--text-dim); margin-bottom: 48px; }
+        .faq-label { font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        h2 { font-size: 22px; font-weight: 700; margin-top: 44px; margin-bottom: 16px; color: #fff; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+        h2 .ver { font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold); border: 1px solid rgba(255,203,31,0.35); border-radius: 50px; padding: 2px 10px; }
+        .qa { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 22px 24px; margin-bottom: 14px; }
+        .qa h3 { font-size: 16px; font-weight: 600; line-height: 1.5; color: #fff; margin-bottom: 8px; }
+        .qa h3::before { content: 'Q'; display: inline-block; color: var(--gold); font-weight: 700; margin-right: 10px; }
+        .qa p { font-size: 15px; color: rgba(255,255,255,0.72); }
+        .qa p + p { margin-top: 8px; }
+        .section-text { font-size: 15px; color: rgba(255,255,255,0.72); margin-bottom: 16px; }
+        a { color: var(--gold); }
+        .contact-box { background: var(--bg-card); border: 1px solid rgba(255,203,31,0.25); border-radius: 16px; padding: 24px; margin-top: 8px; overflow-wrap: anywhere; }
+        .contact-box p { margin-bottom: 8px; font-size: 15px; }
+        .contact-box .note { color: var(--text-dim); font-size: 13px; margin-top: 12px; margin-bottom: 0; }
+        .back { display: inline-block; margin-top: 40px; color: var(--text-dim); text-decoration: none; font-size: 14px; }
         .back:hover { color: #fff; }
+        footer { padding: 32px 24px 48px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; max-width: 760px; margin: 0 auto; }
+        footer .copy { font-size: 13px; color: var(--text-dim); }
+        footer .footer-links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+        footer .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+        footer .footer-links a:hover { color: #fff; }
+        @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links { gap: 16px; } .container { padding: 104px 20px 48px; } .qa { padding: 20px 18px; } footer { padding: 28px 20px 40px; flex-direction: column; text-align: center; } footer .footer-links { justify-content: center; } }
+        @media (max-width: 560px) { .nav-links .nav-opt { display: none; } .nav-brand { font-size: 16px; letter-spacing: 2px; } }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1LM1MCM9W5"></script>
@@ -46,29 +68,116 @@
 </script>
 </head>
 <body>
+
+<!-- Logo: same shape as the app icon (values copied from StarClip/design/icon/make_icon.swift) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="sc-logo" viewBox="0 0 1024 1024">
+        <rect width="1024" height="1024" rx="228" fill="#0b163f"/>
+        <circle cx="512" cy="512" r="340" fill="#ffcb1f"/>
+        <circle cx="512" cy="512" r="250" fill="#1d2856"/>
+        <polygon points="452,336 481.6,407.2 558.5,413.4 499.9,463.6 517.8,538.6 452,498.4 386.2,538.6 404.1,463.6 345.5,413.4 422.4,407.2" fill="#fff" stroke="#fff" stroke-width="11.2" stroke-linejoin="round"/>
+        <circle cx="612" cy="616" r="36" fill="#fff"/>
+    </symbol>
+</svg>
+
+<nav>
+    <a href="/" class="nav-brand"><svg aria-hidden="true"><use href="#sc-logo"/></svg>STARCLIP</a>
+    <div class="nav-links">
+        <a href="/#wide" class="nav-opt">Wide Later</a>
+        <a href="/#features" class="nav-opt">Features</a>
+        <a href="/privacy/" class="nav-opt">Privacy</a>
+        <a href="/jp/support/" class="lang-btn">JP</a>
+    </div>
+</nav>
+
     <div class="container">
+        <div class="hl-badge">&#9733; Support</div>
         <h1>Support</h1>
         <p class="subtitle">STARCLIP - Instant Camera & Highlight Marker</p>
 
-        <h2>Frequently Asked Questions</h2>
+        <p class="faq-label">Frequently Asked Questions</p>
 
-        <p><strong>Q: The camera preview is black.</strong><br>
-        A: Make sure you have granted camera permission in Settings > STARCLIP > Camera. If the issue persists, try restarting the app.</p>
+        <h2>Basics</h2>
 
-        <p><strong>Q: How do I use the highlight feature?</strong><br>
-        A: Switch to Video mode, start recording, then tap the star button whenever you want to mark a moment. When you stop recording, the timestamps are automatically copied to your clipboard in YouTube chapter format.</p>
+        <div class="qa">
+            <h3>The camera preview is black.</h3>
+            <p>Make sure you have granted camera permission in Settings > STARCLIP > Camera. If the issue persists, try restarting the app.</p>
+        </div>
 
-        <p><strong>Q: Where are my photos and videos saved?</strong><br>
-        A: All photos and videos are saved directly to your device's Photo Library. Make sure photo library permission is granted in Settings.</p>
+        <div class="qa">
+            <h3>How do I use the highlight feature?</h3>
+            <p>Switch to Video mode, start recording, then tap the star button whenever you want to mark a moment. When you stop recording, the timestamps are automatically copied to your clipboard in YouTube chapter format.</p>
+        </div>
 
-        <p><strong>Q: Does STARCLIP collect my data?</strong><br>
-        A: No. STARCLIP operates entirely on your device and does not collect, transmit, or store any personal data. See our <a href="/privacy/">Privacy Policy</a> for details.</p>
+        <div class="qa">
+            <h3>Where are my photos and videos saved?</h3>
+            <p>Your usual photos and videos are saved directly to your device's Photo Library (camera roll). Make sure photo library permission is granted in Settings.</p>
+            <p>Only for Wide Later Photo and Wide Later Video, the two original shots are also kept inside the app, so you can widen them later. See “Do the originals kept in the app use iPhone storage?” below.</p>
+        </div>
+
+        <h2>Recording &amp; Playback</h2>
+
+        <div class="qa">
+            <h3>Can I take a break without stopping the recording?</h3>
+            <p>Yes (from version 1.1.0). Pause without stopping, and pick up the same video later. Paused time isn't counted in the recording, so your &#9733; times still match the video length.</p>
+        </div>
+
+        <div class="qa">
+            <h3>Can I zoom in while watching a video?</h3>
+            <p>Yes. On the playback screen, spread two fingers to zoom in, and drag to look around. Double-tap to go back.</p>
+        </div>
+
+        <h2>Wide Later Photo &amp; Video <span class="ver">1.2.0+</span></h2>
+
+        <div class="qa">
+            <h3>What are Wide Later Photo and Wide Later Video?</h3>
+            <p>They shoot with the wide and ultra wide lenses at the same time. Later, tap “Widen the shot” in the app to widen the frame.</p>
+        </div>
+
+        <div class="qa">
+            <h3>What goes into my camera roll with Wide Later Photo?</h3>
+            <p>Your camera roll gets one photo at the zoom you shot it. The two original shots stay in the app with almost no loss in quality, so you can remake the wide one as many times as you like.</p>
+        </div>
+
+        <div class="qa">
+            <h3>How do I save a Wide Later Video?</h3>
+            <p>Both lenses record at the same time. Later, use “Widen the shot” to export a video with a wider frame and save it to your camera roll. The &#9733; works in Wide Later Video too.</p>
+        </div>
+
+        <div class="qa">
+            <h3>Where can I find the photos and videos I shot?</h3>
+            <p>Tap the small thumbnail at the bottom left of the camera screen to open the list of photos and videos you shot. Tap “Widen the shot” on a row to open it, or the trash button to delete it.</p>
+            <p>If you hold your iPhone sideways when you open the list, it lays out wide.</p>
+        </div>
+
+        <div class="qa">
+            <h3>Do the originals kept in the app use iPhone storage?</h3>
+            <p>Yes. The original photos and videos are kept inside the app, so they use your iPhone's storage. When you no longer need them, delete them with the trash button in the list. If you delete the app, they are deleted too.</p>
+        </div>
+
+        <div class="qa">
+            <h3>I can't find Wide Later in the mode switcher.</h3>
+            <p>Wide Later Photo and Wide Later Video only work on iPhones that can shoot with two lenses at the same time. On other iPhones, they don't appear in the mode switcher.</p>
+        </div>
+
+        <div class="qa">
+            <h3>My iPhone vibrates and the screen dims for a moment when I take a Wide Later Photo.</h3>
+            <p>That's the signal that the shot was taken. With Wide Later Photo, the moment you shoot, you get a vibration, a sound, and a quick dim of the screen (no sound in Silent mode).</p>
+        </div>
+
+        <h2>Privacy</h2>
+
+        <div class="qa">
+            <h3>Does STARCLIP collect my data?</h3>
+            <p>No. STARCLIP operates entirely on your device and does not collect, transmit, or store any personal data. See our <a href="/privacy/">Privacy Policy</a> for details.</p>
+        </div>
 
         <h2>Camera WiFi Reader for Mac</h2>
-        <p>For the independent Mac app that imports photos and videos from supported Olympus/OM System camera cards over Wi-Fi, see
+        <p class="section-text">For the independent Mac app that imports photos and videos from supported Olympus/OM System camera cards over Wi-Fi, see
         <a href="/camerawifireader/support/">Camera WiFi Reader support</a> and its
         <a href="/camerawifireader/privacy/">Privacy Policy</a>.
         Camera WiFi Readerのお問い合わせも、以下の共通窓口で受け付けます。</p>
+
         <h2>Contact / お問い合わせ</h2>
         <div class="contact-box">
             <p>For bug reports, feature requests, or questions:</p>
@@ -76,12 +185,22 @@
             <script>
             (function(){var u='starclipapp',d='gmail.com',e=u+'@'+d;var a=document.getElementById('contact-link');a.href='mai'+'lto:'+e;a.textContent=e;})();
             </script>
-            <p style="color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 12px;">
+            <p class="note">
                 バグ報告・機能リクエスト・ご質問はメールでお願いします。日本語でも対応しています。
             </p>
         </div>
 
         <a href="/" class="back">&larr; Back to STARCLIP</a>
     </div>
+
+<footer>
+    <div class="copy">&copy; 2026 Starclip.app</div>
+    <div class="footer-links">
+        <a href="/">STARCLIP</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/jp/support/">Japanese</a>
+    </div>
+</footer>
+
 </body>
 </html>

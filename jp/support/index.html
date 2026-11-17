@@ -8,31 +8,139 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="alternate" hreflang="ja" href="/jp/support/">
+    <link rel="alternate" hreflang="en" href="/support/">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Noto+Sans+JP:wght@300;400;600;700;900&display=swap');
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold: #ffcb1f;
+            --gold-dim: rgba(255, 203, 31, 0.15);
+            --bg-deep: #060a1e;
+            --bg-card: rgba(255,255,255,0.04);
+            --text: #e8e8f0;
+            --text-dim: rgba(255,255,255,0.5);
+        }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Hiragino Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0d0520;
-            color: rgba(255,255,255,0.85);
+            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text);
             min-height: 100vh;
-            line-height: 1.7;
+            line-height: 1.8;
+            overflow-x: hidden;
         }
-        .container { max-width: 680px; margin: 0 auto; padding: 48px 24px; }
-        h1 { font-size: 28px; margin-bottom: 8px; color: #fff; }
-        .subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 36px; }
-        h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; color: #ffd700; }
-        p { margin-bottom: 16px; font-size: 15px; }
-        a { color: #ffd700; }
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 520px;
+            z-index: -1; pointer-events: none;
+            background:
+                radial-gradient(ellipse 60% 70% at 50% 0%, rgba(40,64,170,0.22) 0%, transparent 70%),
+                radial-gradient(ellipse 30% 40% at 70% 10%, rgba(255,203,31,0.05) 0%, transparent 60%);
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(6,10,30,0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .nav-brand {
+            font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #fff;
+            text-decoration: none;
+        }
+        .nav-brand svg { width: 28px; height: 28px; display: block; flex: none; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none; font-size: 13px;
+            letter-spacing: 1px; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links .lang-btn {
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+            padding: 6px 12px; font-size: 12px;
+        }
+
+        /* ── 本文 ── */
+        .container { max-width: 760px; margin: 0 auto; padding: 128px 24px 64px; }
+        .hl-badge {
+            display: inline-block;
+            background: var(--gold-dim); color: var(--gold);
+            font-size: 12px; font-weight: 600; letter-spacing: 2px;
+            padding: 8px 20px; border-radius: 50px;
+            margin-bottom: 20px;
+        }
+        h1 { font-size: clamp(30px, 6vw, 42px); font-weight: 800; line-height: 1.3; margin-bottom: 8px; color: #fff; }
+        .subtitle { font-size: 15px; color: var(--text-dim); margin-bottom: 48px; }
+        .faq-label { font-size: 13px; font-weight: 600; letter-spacing: 3px; color: var(--gold); margin-bottom: 8px; }
+        h2 {
+            font-size: 21px; font-weight: 700; color: #fff;
+            margin-top: 44px; margin-bottom: 16px;
+            display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px;
+        }
+        h2 .ver {
+            font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--gold);
+            border: 1px solid rgba(255,203,31,0.35); border-radius: 50px; padding: 2px 10px;
+        }
+        .qa {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 22px 24px;
+            margin-bottom: 14px;
+        }
+        .qa h3 { font-size: 16px; font-weight: 700; line-height: 1.6; color: #fff; margin-bottom: 8px; }
+        .qa h3::before {
+            content: 'Q'; display: inline-block;
+            font-family: 'Inter', sans-serif; color: var(--gold); font-weight: 700;
+            margin-right: 10px;
+        }
+        .qa p { font-size: 15px; color: rgba(255,255,255,0.75); }
+        .qa p + p { margin-top: 8px; }
+        .section-text { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
+        a { color: var(--gold); }
         .contact-box {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,203,31,0.25);
+            border-radius: 16px;
             padding: 24px;
-            margin-top: 24px;
+            margin-top: 8px;
+            overflow-wrap: anywhere;
         }
-        .contact-box p { margin-bottom: 8px; }
-        .back { display: inline-block; margin-top: 32px; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; }
+        .contact-box p { margin-bottom: 8px; font-size: 15px; }
+        .back { display: inline-block; margin-top: 40px; color: var(--text-dim); text-decoration: none; font-size: 14px; }
         .back:hover { color: #fff; }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 32px 24px 48px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+            max-width: 760px; margin: 0 auto;
+        }
+        footer .copy { font-size: 13px; color: var(--text-dim); }
+        footer .footer-links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+        footer .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+        footer .footer-links a:hover { color: #fff; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav { padding: 16px 20px; }
+            .nav-links { gap: 16px; }
+            .container { padding: 104px 20px 48px; }
+            .qa { padding: 20px 18px; }
+            footer { padding: 28px 20px 40px; flex-direction: column; text-align: center; }
+            footer .footer-links { justify-content: center; }
+        }
+        @media (max-width: 560px) {
+            .nav-links .nav-opt { display: none; }
+            .nav-brand { font-size: 16px; letter-spacing: 2px; }
+        }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1LM1MCM9W5"></script>
@@ -44,28 +152,115 @@
 </script>
 </head>
 <body>
+
+<!-- ロゴ(アプリアイコンと同じ形。StarClip/design/icon/make_icon.swift の数値を写したもの) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="sc-logo" viewBox="0 0 1024 1024">
+        <rect width="1024" height="1024" rx="228" fill="#0b163f"/>
+        <circle cx="512" cy="512" r="340" fill="#ffcb1f"/>
+        <circle cx="512" cy="512" r="250" fill="#1d2856"/>
+        <polygon points="452,336 481.6,407.2 558.5,413.4 499.9,463.6 517.8,538.6 452,498.4 386.2,538.6 404.1,463.6 345.5,413.4 422.4,407.2" fill="#fff" stroke="#fff" stroke-width="11.2" stroke-linejoin="round"/>
+        <circle cx="612" cy="616" r="36" fill="#fff"/>
+    </symbol>
+</svg>
+
+<nav>
+    <a href="/jp/" class="nav-brand"><svg aria-hidden="true"><use href="#sc-logo"/></svg>STARCLIP</a>
+    <div class="nav-links">
+        <a href="/jp/#wide" class="nav-opt">後で広げる</a>
+        <a href="/jp/#features" class="nav-opt">機能</a>
+        <a href="/privacy/ja/" class="nav-opt">プライバシー</a>
+        <a href="/support/" class="lang-btn">EN</a>
+    </div>
+</nav>
+
     <div class="container">
+        <div class="hl-badge">&#9733; サポート</div>
         <h1>サポート</h1>
         <p class="subtitle">STARCLIP — あの歓声を、星で記録。</p>
 
-        <h2>よくある質問</h2>
+        <p class="faq-label">よくある質問</p>
 
-        <p><strong>Q: カメラのプレビューが真っ黒です。</strong><br>
-        A: 設定 > STARCLIP > カメラ でカメラの権限が許可されているか確認してください。改善しない場合はアプリを再起動してください。</p>
+        <h2>基本</h2>
 
-        <p><strong>Q: ハイライト機能の使い方は？</strong><br>
-        A: ビデオモードに切り替えて録画を開始し、記録したい瞬間に星ボタンをタップしてください。録画を停止すると、YouTubeチャプター形式のタイムスタンプが自動的にクリップボードにコピーされます。</p>
+        <div class="qa">
+            <h3>カメラのプレビューが真っ黒です。</h3>
+            <p>設定 > STARCLIP > カメラ でカメラの権限が許可されているか確認してください。改善しない場合はアプリを再起動してください。</p>
+        </div>
 
-        <p><strong>Q: 撮影した写真やビデオはどこに保存されますか？</strong><br>
-        A: すべての写真とビデオはデバイスの写真ライブラリに直接保存されます。設定で写真ライブラリへのアクセスが許可されていることを確認してください。</p>
+        <div class="qa">
+            <h3>ハイライト機能の使い方は？</h3>
+            <p>ビデオモードに切り替えて録画を開始し、記録したい瞬間に星ボタンをタップしてください。録画を停止すると、YouTubeチャプター形式のタイムスタンプが自動的にクリップボードにコピーされます。</p>
+        </div>
 
-        <p><strong>Q: STARCLIPは個人データを収集しますか？</strong><br>
-        A: いいえ。STARCLIPはすべてデバイス上で動作し、個人データの収集・送信・保存は一切行いません。詳しくは<a href="/privacy/ja/">プライバシーポリシー</a>をご覧ください。</p>
+        <div class="qa">
+            <h3>撮影した写真やビデオはどこに保存されますか？</h3>
+            <p>いつもの写真とビデオは、デバイスの写真ライブラリ(カメラロール)に直接保存されます。設定で写真ライブラリへのアクセスが許可されていることを確認してください。</p>
+            <p>「後で広げる写真」「後で広げる動画」だけは、あとで広げられるように、元の2枚・2本をアプリの中にも残しています。下の「アプリの中に残した元の写真・動画は、iPhone の容量を使いますか？」も見てください。</p>
+        </div>
+
+        <h2>録画と見返し</h2>
+
+        <div class="qa">
+            <h3>録画を止めずに、ひと休みできますか？</h3>
+            <p>はい(バージョン 1.1.0 から)。録画を止めずに一時停止して、あとで同じ動画の続きを撮れます。一時停止していた時間は録画時間に数えないので、&#9733; の時刻と動画の長さがずれません。</p>
+        </div>
+
+        <div class="qa">
+            <h3>見返すときに、大きくして見られますか？</h3>
+            <p>はい。再生画面で、2本の指を広げると大きくなり、指でずらすと見たいところへ動かせます。ダブルタップで元に戻ります。</p>
+        </div>
+
+        <h2>後で広げる写真・動画 <span class="ver">1.2.0〜</span></h2>
+
+        <div class="qa">
+            <h3>「後で広げる写真」「後で広げる動画」とは何ですか？</h3>
+            <p>広角と超広角の2つのレンズで同時に撮っておく撮り方です。あとでアプリの中の「外を足す」をタップすると、枠を広げられます。</p>
+        </div>
+
+        <div class="qa">
+            <h3>後で広げる写真は、カメラロールに何が入りますか？</h3>
+            <p>カメラロールには、撮ったときの倍率の1枚が入ります。元の2枚はアプリの中にほぼ劣化なしで残してあるので、広げた1枚を何度でも作り直せます。</p>
+        </div>
+
+        <div class="qa">
+            <h3>後で広げる動画は、どうやって保存しますか？</h3>
+            <p>2つのレンズで同時に録っておきます。あとで「外を足す」で枠を広げた動画を書き出して、カメラロールに保存できます。後で広げる動画でも、&#9733; はいつもどおり使えます。</p>
+        </div>
+
+        <div class="qa">
+            <h3>撮った写真や動画は、どこから見られますか？</h3>
+            <p>撮影画面の左下にある小さな絵をタップすると、撮った写真・動画の一覧が開きます。一覧の行の「外を足す」で開けて、ごみ箱で消せます。</p>
+            <p>iPhone を横に持って一覧を開くと、横長に並びます。</p>
+        </div>
+
+        <div class="qa">
+            <h3>アプリの中に残した元の写真・動画は、iPhone の容量を使いますか？</h3>
+            <p>はい。元の写真・動画はアプリの中に置いてあるので、iPhone の容量を使います。いらなくなったら、一覧のごみ箱で消してください。アプリを消すと、これも消えます。</p>
+        </div>
+
+        <div class="qa">
+            <h3>切り替えの並びに「後で広げる」が出てきません。</h3>
+            <p>後で広げる写真・動画は、2つのレンズで同時に撮れる iPhone でだけ使えます。使えない iPhone では、切り替えの並びに出てきません。</p>
+        </div>
+
+        <div class="qa">
+            <h3>後で広げる写真を撮ると、ブルッとして画面が一瞬暗くなります。</h3>
+            <p>撮れたことを知らせる合図です。後で広げる写真では、撮った瞬間に振動・音・画面が一瞬暗くなる合図があります(マナーモードのときは音は鳴りません)。</p>
+        </div>
+
+        <h2>プライバシー</h2>
+
+        <div class="qa">
+            <h3>STARCLIPは個人データを収集しますか？</h3>
+            <p>いいえ。STARCLIPはすべてデバイス上で動作し、個人データの収集・送信・保存は一切行いません。詳しくは<a href="/privacy/ja/">プライバシーポリシー</a>をご覧ください。</p>
+        </div>
 
         <h2>Camera WiFi Reader for Mac</h2>
-        <p>対応するOlympus／OM SystemカメラのSDカードから写真・動画をWi-FiでMacへ取り込むCamera WiFi Readerについては、
+        <p class="section-text">対応するOlympus／OM SystemカメラのSDカードから写真・動画をWi-FiでMacへ取り込むCamera WiFi Readerについては、
         <a href="/camerawifireader/support/">専用サポート</a>と
         <a href="/camerawifireader/privacy/">プライバシーポリシー</a>をご覧ください。お問い合わせは以下の共通窓口で受け付けます。</p>
+
         <h2>お問い合わせ</h2>
         <div class="contact-box">
             <p>バグ報告・機能リクエスト・ご質問はメールでお願いします。</p>
@@ -77,5 +272,15 @@
 
         <a href="/jp/" class="back">&larr; STARCLIPに戻る</a>
     </div>
+
+<footer>
+    <div class="copy">&copy; 2026 Starclip.app</div>
+    <div class="footer-links">
+        <a href="/jp/">STARCLIP</a>
+        <a href="/privacy/ja/">プライバシーポリシー</a>
+        <a href="/support/">English</a>
+    </div>
+</footer>
+
 </body>
 </html>
