@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STARCLIP — That roar. Starred. Relive the goal instantly.</title>
-    <meta name="description" content="Tap the star on every goal while filming. Upload to YouTube — chapters already done. No more rewatching. Built for parents on the sideline.">
+    <title>STARCLIP — “I missed it” becomes “I got it!” The camera that insures your missed shots</title>
+    <meta name="description" content="Shoot as usual and you’re insured against missed shots. Caught up in the game and the shot went off-screen? The ultra wide was recording too, so you can add it to your video later. Star every goal, and YouTube chapters are done. Built for parents on the sideline.">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -58,6 +58,23 @@
         .highlight-section .desc { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.5); max-width: 580px; margin: 0 auto; position: relative; z-index: 2; }
         .timestamp-demo { position: relative; z-index: 2; margin-top: 48px; display: inline-block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px 40px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 15px; text-align: left; color: rgba(255,255,255,0.7); line-height: 2; }
         .timestamp-demo .star { color: var(--gold); }
+        /* ── WIDE LATER ── */
+        .wide-section { padding: 100px 40px; text-align: center; max-width: 1100px; margin: 0 auto; }
+        .wide-section h2 { font-size: clamp(28px, 4.5vw, 44px); font-weight: 800; line-height: 1.4; margin-bottom: 20px; }
+        .wide-section .desc { font-size: 16px; line-height: 1.9; color: rgba(255,255,255,0.55); max-width: 640px; margin: 0 auto; }
+        .wide-demo { margin: 48px auto 0; max-width: 960px; }
+        .wide-demo video { width: 100%; height: auto; display: block; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); }
+        .wide-demo figcaption { margin-top: 14px; font-size: 14px; color: var(--text-dim); }
+        .wide-demo figcaption b { color: var(--gold); font-weight: 600; }
+        .wide-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 56px; text-align: left; }
+        .wide-step { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 28px; }
+        .wide-step .num { color: var(--gold); font-weight: 900; font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
+        .wide-step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .wide-step p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.5); }
+        .wide-note { margin-top: 28px; font-size: 13px; line-height: 1.8; color: var(--text-dim); }
+        @media (max-width: 768px) { .wide-section { padding: 80px 24px; } }
+        @media (max-width: 520px) { .nav-links a[href="#how"], .nav-links a[href="#features"] { display: none; } }
+
         .features { padding: 80px 40px 120px; max-width: 1100px; margin: 0 auto; }
         .features-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 60px; text-align: center; }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
@@ -90,6 +107,7 @@
 <nav>
     <div class="nav-brand"><span>&#9733;</span> STARCLIP</div>
     <div class="nav-links">
+        <a href="#wide">New</a>
         <a href="#how">How It Works</a>
         <a href="#features">Features</a>
         <a href="/support/">Support</a>
@@ -102,8 +120,8 @@
     <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
     <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
     <div class="hero-star">&#9733;</div>
-    <h1>That roar. Starred.<br><span class="accent">Relive the goal, instantly.</span></h1>
-    <p class="hero-sub">Tap the star on every goal while filming. Upload to YouTube — chapter timestamps are already in your clipboard. No more rewatching.</p>
+    <h1>“I missed it…”<br><span class="accent">becomes “I got it!”</span></h1>
+    <p class="hero-sub">The best moments are exactly when you get caught up in the game. With STARCLIP, just shoot as usual and you’re insured against missed shots. Even a shot that went off-screen can be added to your video later.</p>
     <a href="https://apps.apple.com/app/id6761373750" class="hero-cta">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         Download on the App Store
@@ -116,13 +134,29 @@
 
 <section class="statement">
     <p class="statement-text">
-        You film the whole game. <span class="dim">Then rewatch it all just to find the goals.</span><br>
-        What if that work <span class="dim">was already done?</span>
+        You look up, and the shot is already off-screen. <span class="dim">“I wish I’d gotten that…”</span><br>
+        What if <span class="dim">you never had to feel that again?</span>
     </p>
 </section>
 
+<section class="wide-section" id="wide">
+    <div class="hl-badge">&#9733; New: Wide Later Video</div>
+    <h2>Shoot as usual.<br>It’s recording outside the frame, too.</h2>
+    <p class="desc">With Wide Later Video, STARCLIP records with the wide and ultra wide lenses at the same time. You shoot exactly as you always do. After the game, tap “Widen the shot” in the app to expand the picture into what the ultra wide captured — and get the shot into your video.</p>
+    <figure class="wide-demo">
+        <video src="/img/wide-later.mp4" poster="/img/wide-later.jpg" autoplay muted loop playsinline aria-label="A shot that flew outside the normal frame, shown all the way to the goal after widening"></video>
+        <figcaption>The <b>gold frame</b> is your normal shot. Even a shot that flew outside it can be shown all the way to the goal.</figcaption>
+    </figure>
+    <div class="wide-steps">
+        <div class="wide-step"><div class="num">1</div><h3>Shoot as usual</h3><p>Pick Wide Later Video on the camera screen and record like always. The star for goals works as usual, too.</p></div>
+        <div class="wide-step"><div class="num">2</div><h3>Jump to the star</h3><p>After the game, watch full screen from the list and jump straight to each moment you starred.</p></div>
+        <div class="wide-step"><div class="num">3</div><h3>Widen the shot</h3><p>Tap “Widen the shot” and export. The video with the shot in it is saved to your camera roll.</p></div>
+    </div>
+    <p class="wide-note">* Works on iPhones that can record with two lenses at once. Areas the ultra wide didn’t capture can’t be added. Works for photos too (Wide Later Photo).</p>
+</section>
+
 <section class="highlight-section" id="how">
-    <div class="hl-badge">&#9733; How It Works</div>
+    <div class="hl-badge">&#9733; Star = Chapter</div>
     <h2>Tap the star.<br>That's it.</h2>
     <p class="desc">
         While recording, tap the star whenever something happens — a goal, a great save, a highlight play. When you stop, YouTube chapter timestamps are in your clipboard. Paste into the description. Done.
@@ -138,6 +172,11 @@
 <section class="features" id="features">
     <p class="features-label">Built for the sideline</p>
     <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">&#8596;</div>
+            <h3>Wide Later Photo &amp; Video</h3>
+            <p>It records wide and ultra wide at once, so even a shot that went off-screen can be added to your video later with “Widen the shot.”</p>
+        </div>
         <div class="feature-card">
             <div class="feature-icon">&#9889;</div>
             <h3>Instant Launch</h3>
@@ -163,7 +202,7 @@
 
 <section class="final-cta">
     <h2>For every parent<br>on the sideline.</h2>
-    <p>Film it. Star it. Share it. No editing required.</p>
+    <p>Stop worrying about the camera. Cheer for the game in front of you.</p>
     <a href="https://apps.apple.com/app/id6761373750" class="hero-cta">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         Download on the App Store
